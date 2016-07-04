@@ -21,67 +21,61 @@ namespace MIDI2FTM
         }
 
         //----------------------------------------------------------------------------------------------------
-        // テスト♪ うーん・・・どうしたらいいもんか
+        // 基本コンバート
         //----------------------------------------------------------------------------------------------------
         public void TestConvert(ref ListView _trackerList, int _inputTrackNum, int _outputChannel)
         {
-            /*
-            int currentMeasure = 1;
-            uint beforeMeasure = 0;
-            uint currentTick = 0;
-            int oneMeasureTick;
-
-            // 入力トラックをループ
-            foreach (EventData e in SMFData.Tracks[_inputTrackNum].Event)
-            {
-                // 前回の小節より大きければ小節の長さを取得する
-                if (e.Measure > beforeMeasure)
-                {
-                    oneMeasureTick = measureLength(currentMeasure);
-                }
-
-                // 現在の小節、現在のTickならば
-                if (e.Measure == currentMeasure && e.Tick == currentTick)
-                {
-
-                }
-            }
-            */
-
-            // 最大小節番号を取得
-            uint lastMeasure = SMFData.Tracks[_inputTrackNum].Event[SMFData.Tracks[_inputTrackNum].Event.Count - 1].Measure;
             // フレーム内の小節数
-            int frameInMeasure = 0;
-            // 最初の拍子の長さを取得
-            int oneMeasureTick = measureLength(1);
-            // 現在のフレーム番号
-            int currentFrameNum = 0;
-            if (BasicConfigState.DisablePatternZero)
-            {
-                currentFrameNum = 1;
-            }
+            int frameInMeasure = 1;
+            // 現在の小節
+            int currentMeasure = 1;
+            // 現在のTick
+            int currentTick = 0;
+            // 最初の小節の長さを取得
+            int oneMeasureTick = measureLength(currentMeasure);
+            // フレーム以降フラグ
+            bool nextFrame = false;
 
-            // 最大小節の数だけループする
-            for (int i = 1; i <= lastMeasure; i++)
+            foreach (ListViewItem lvi in _trackerList.Items)
             {
-                // 拍子の変化でフレームを移行するフラグが立っていて、直前の小節の長さ（拍子）と現在の小節の長さが違ったら
-                if (BasicConfigState.ChangedFrame && oneMeasureTick != measureLength(i))
+                // 小節を跨いだら
+                if (currentTick >= oneMeasureTick)
                 {
-                    frameInMeasure = 0;
+                    // 小節をすすめる
+                    currentMeasure++;
+                    // 小節の頭にする
+                    currentTick = 0;
+                    // 次の小節へ
+                    frameInMeasure++;
                 }
 
-                // フレーム内の小節が最初ならフレームを移行する
-                if (frameInMeasure == 0)
+                // フレームを以降する
+                if (frameInMeasure > BasicConfigState.OneFrameMeasureCount)
                 {
-                    
-
-                    // 1フレーム中の小節数を代入
-                    frameInMeasure = BasicConfigState.OneFrameMeasureCount;
+                    frameInMeasure = 1;
+                    nextFrame = true;
                 }
 
+                // データ行以外はなにもしない
+                if (lvi .Text.Contains("PATTERN") || lvi.Text == "")
+                {
+                    nextFrame = false;
+                    continue;
+                }
+                
+                // フレーム以降中はなにもしない
+                if (nextFrame)
+                {
+                    continue;
+                }
+                
+                // テスト
+                lvi.SubItems[_outputChannel].Text = currentMeasure + "小節 : " + currentTick + "Tick";
 
-                frameInMeasure--;
+                // 次の音価へ
+                currentTick += (int)BasicConfigState.MinTick;
             }
+            
         }
 
         //----------------------------------------------------------------------------------------------------

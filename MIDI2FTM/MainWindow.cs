@@ -58,7 +58,7 @@ namespace MIDI2FTM
         private void Button_Convert_Click(object sender, EventArgs e)
         {
             Convert c = new Convert();
-            //c.RefreshTrackerListRows(ref TrackerList, TrackList.SelectedIndex);
+            c.TestConvert(ref TrackerList, 1, 1);
         }
     }
 }
