@@ -65,7 +65,7 @@ namespace MIDI2FTM
                     nextFrame = true;
                 }
 
-                // データ行以外はなにもしない
+                // データ行以外はなにもしない PATTERN名行の次は必ずフレームの最初だからフラグを折る
                 if (lvi .Text.Contains("PATTERN") || lvi.Text == "")
                 {
                     nextFrame = false;
