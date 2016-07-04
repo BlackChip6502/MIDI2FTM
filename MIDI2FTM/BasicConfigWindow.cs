@@ -216,10 +216,10 @@ namespace MIDI2FTM
         //----------------------------------------------------------------------------------------------------
         private void refreshMinTick()
         {
-            Label_MinTick.Text = "最小Tick : " + BasicConfigState.MinTick;
+            Label_MinTick.Text = "最小Tick : " + BasicConfigState.TicksPerLine;
 
             // 最小Tickに小数点が含まれていた場合
-            if (Math.Floor(BasicConfigState.MinTick) != BasicConfigState.MinTick)
+            if (Math.Floor(BasicConfigState.TicksPerLine) != BasicConfigState.TicksPerLine)
             {
                 // ラベルで警告する
                 Label_TickWarning.Text = "最小Tickに小数点が含まれています";

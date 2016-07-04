@@ -53,6 +53,7 @@
     <Compile Include="BasicConfigWindow.Designer.cs">
       <DependentUpon>BasicConfigWindow.cs</DependentUpon>
     </Compile>
+    <Compile Include="ChannelConfigState.cs" />
     <Compile Include="Convert.cs" />
     <Compile Include="LoadMIDIFile.cs" />
     <Compile Include="MeasureAnalyzer.cs" />

@@ -23,11 +23,15 @@ namespace MIDI2FTM
         {
             get { return (int)Math.Pow(2, MinNoteIndex); }      
         }
-        public static float MinTick                             // 最小Tick
+        public static float TicksPerLine                         // 1ライン(Row)中のTick数
         {
             get { return SMFHeader.Data.Division / ((float)MinNote / 4); }
         }
         public static byte Speed = 6;                           // Speed
+        public static float MinTick                             // 1ライン(Row)をSpeedで割った値、エフェクトGで表現できる最小単位
+        {
+            get { return TicksPerLine / Speed; }
+        }
         public static byte OneFrameMeasureCount = 4;            // 1Frameの小節数
         public static int StartMeasure = 2;                     // 最初小節
         public static byte MaxTimeSignatureNumer = 4;           // 最大拍子 分子

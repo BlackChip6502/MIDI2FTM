@@ -18,9 +18,9 @@ namespace MIDI2FTM
         private string consoleWrite;        // コンソール出力用
 
         //----------------------------------------------------------------------------------------------------
-        // コンストラクタ♪
+        // 解析する♪
         //----------------------------------------------------------------------------------------------------
-        public SMFAnalyzer(ref byte[] _byteStream)
+        public bool AnalyzingSMF(ref byte[] _byteStream)
         {
             // トラックの配列を作成
             SMFData.Tracks = new List<Tracks>(20);
@@ -33,7 +33,7 @@ namespace MIDI2FTM
             {
                 Console.WriteLine("これはSMFではありません");
                 Console.WriteLine("========SMFの解析終了========");
-                return;
+                return false;
             }
 
             // MThdのヘッダチャンクを解析
@@ -53,7 +53,7 @@ namespace MIDI2FTM
                         "エラー",
                         MessageBoxButtons.OK,
                         MessageBoxIcon.Error);
-                    return;
+                    return false;
                 }
 
                 // 新しいトラックを配列に追加
@@ -67,6 +67,7 @@ namespace MIDI2FTM
             }
             
             Console.WriteLine("========SMFの解析終了========");
+            return true;
         }
 
         //----------------------------------------------------------------------------------------------------

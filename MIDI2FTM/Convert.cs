@@ -28,7 +28,7 @@ namespace MIDI2FTM
             // フレーム内の小節数
             int frameInMeasure = 1;
             // 現在の小節
-            int currentMeasure = 1;
+            int currentMeasure = BasicConfigState.StartMeasure;
             // 現在のTick
             int currentTick = 0;
             // 最初の小節の長さを取得
@@ -89,7 +89,7 @@ namespace MIDI2FTM
                 }
                 
                 // 次の音価へ
-                currentTick += (int)BasicConfigState.MinTick;
+                currentTick += (int)BasicConfigState.TicksPerLine;
             }
         }
 
@@ -186,7 +186,7 @@ namespace MIDI2FTM
         //----------------------------------------------------------------------------------------------------
         private string getNote(int _currentMeasure, int _currentTick, int _trackNum)
         {
-            List<int> notes = new List<int>(10);
+            List<byte> notes = new List<byte>(10);
 
             // 現在の小節数から次の小節の拍子の変化を探す
             foreach (EventData e in SMFData.Tracks[_trackNum].Event)
@@ -197,8 +197,7 @@ namespace MIDI2FTM
                     // ボリューム0じゃないノートオンを探す
                     if(e.EventID == 0x90 && e.Gate != 0)
                     {
-                        notes.Add((int)e.Value);
-                        //return NoteNumber.NumberToNoteName((byte)e.Value);
+                        notes.Add(e.Number);
                     }
                 }
                 // 次の小節に行ってしまったら終わり
@@ -210,7 +209,7 @@ namespace MIDI2FTM
                         // 昇順で並べ替え todo チャンネル設定を参照して処理を分ける
                         notes.Sort();
                         // 一番低いノートを返す
-                        return NoteNumber.NumberToNoteName((byte)notes[0]); 
+                        return NoteNumber.NumberToNoteName(notes[0]); 
                     }
                     break;
                 }

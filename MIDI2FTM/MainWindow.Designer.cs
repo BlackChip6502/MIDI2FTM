@@ -52,24 +52,26 @@
             this.DPCM = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.TrackList = new System.Windows.Forms.ComboBox();
             this.チャンネル設定 = new System.Windows.Forms.GroupBox();
+            this.Label_音色番号 = new System.Windows.Forms.Label();
+            this.NumericUpDown_InstrumentNum = new System.Windows.Forms.NumericUpDown();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
-            this.radioButton_ボリュームで表現する = new System.Windows.Forms.RadioButton();
-            this.radioButton_NoteCutで表現する = new System.Windows.Forms.RadioButton();
+            this.RadioButton_NoteOFFtoVolume = new System.Windows.Forms.RadioButton();
+            this.RadioButton_NoteOFFtoNoteCut = new System.Windows.Forms.RadioButton();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
-            this.radioButton_CCVolumeを適用 = new System.Windows.Forms.RadioButton();
-            this.radioButton_CCExpressionを適用 = new System.Windows.Forms.RadioButton();
+            this.RadioButton_CCVolumeToVolume = new System.Windows.Forms.RadioButton();
+            this.RadioButton_CCExpressionToVolume = new System.Windows.Forms.RadioButton();
             this.groupBox_同一Tickのノート優先度 = new System.Windows.Forms.GroupBox();
-            this.radioButton_一番低いノート = new System.Windows.Forms.RadioButton();
-            this.radioButton_一番高いノート = new System.Windows.Forms.RadioButton();
+            this.RadioButton_LowNotePriority = new System.Windows.Forms.RadioButton();
+            this.RadioButton_HighNotePriority = new System.Windows.Forms.RadioButton();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.radioButton_先のノート = new System.Windows.Forms.RadioButton();
-            this.radioButton_後のノート = new System.Windows.Forms.RadioButton();
-            this.checkBox_テンポチェンジをFxxで表現する = new System.Windows.Forms.CheckBox();
-            this.checkBox_CCModulationを4xx7xxで表現する = new System.Windows.Forms.CheckBox();
-            this.checkBox_PitchBendを1xx2xxで表現する = new System.Windows.Forms.CheckBox();
-            this.checkBox_ノート以外のボリュームを有効 = new System.Windows.Forms.CheckBox();
-            this.checkBox_ノートオフを有効 = new System.Windows.Forms.CheckBox();
-            this.checkBox_ノートオンのボリュームを有効 = new System.Windows.Forms.CheckBox();
+            this.RadioButton_LeadNotePriority = new System.Windows.Forms.RadioButton();
+            this.RadioButton_BehindNotePriority = new System.Windows.Forms.RadioButton();
+            this.CheckBox_EnableEffectF = new System.Windows.Forms.CheckBox();
+            this.CheckBox_EnableEffect4and7 = new System.Windows.Forms.CheckBox();
+            this.CheckBox_EnableEffect1and2 = new System.Windows.Forms.CheckBox();
+            this.CheckBox_EnableCCVolume = new System.Windows.Forms.CheckBox();
+            this.CheckBox_EnableNoteOFF = new System.Windows.Forms.CheckBox();
+            this.CheckBox_EnableNoteVolume = new System.Windows.Forms.CheckBox();
             this.EventsList = new System.Windows.Forms.ListView();
             this.Mea = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.Tick = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
@@ -84,6 +86,7 @@
             this.Button_Convert = new System.Windows.Forms.Button();
             this.menuBar.SuspendLayout();
             this.チャンネル設定.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.NumericUpDown_InstrumentNum)).BeginInit();
             this.groupBox3.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBox_同一Tickのノート優先度.SuspendLayout();
@@ -271,27 +274,47 @@
             // 
             // チャンネル設定
             // 
+            this.チャンネル設定.Controls.Add(this.Label_音色番号);
+            this.チャンネル設定.Controls.Add(this.NumericUpDown_InstrumentNum);
             this.チャンネル設定.Controls.Add(this.groupBox3);
             this.チャンネル設定.Controls.Add(this.groupBox2);
             this.チャンネル設定.Controls.Add(this.groupBox_同一Tickのノート優先度);
             this.チャンネル設定.Controls.Add(this.groupBox1);
-            this.チャンネル設定.Controls.Add(this.checkBox_テンポチェンジをFxxで表現する);
-            this.チャンネル設定.Controls.Add(this.checkBox_CCModulationを4xx7xxで表現する);
-            this.チャンネル設定.Controls.Add(this.checkBox_PitchBendを1xx2xxで表現する);
-            this.チャンネル設定.Controls.Add(this.checkBox_ノート以外のボリュームを有効);
-            this.チャンネル設定.Controls.Add(this.checkBox_ノートオフを有効);
-            this.チャンネル設定.Controls.Add(this.checkBox_ノートオンのボリュームを有効);
+            this.チャンネル設定.Controls.Add(this.CheckBox_EnableEffectF);
+            this.チャンネル設定.Controls.Add(this.CheckBox_EnableEffect4and7);
+            this.チャンネル設定.Controls.Add(this.CheckBox_EnableEffect1and2);
+            this.チャンネル設定.Controls.Add(this.CheckBox_EnableCCVolume);
+            this.チャンネル設定.Controls.Add(this.CheckBox_EnableNoteOFF);
+            this.チャンネル設定.Controls.Add(this.CheckBox_EnableNoteVolume);
             this.チャンネル設定.Location = new System.Drawing.Point(3, 33);
             this.チャンネル設定.Name = "チャンネル設定";
-            this.チャンネル設定.Size = new System.Drawing.Size(294, 655);
+            this.チャンネル設定.Size = new System.Drawing.Size(294, 687);
             this.チャンネル設定.TabIndex = 2;
             this.チャンネル設定.TabStop = false;
             this.チャンネル設定.Text = "チャンネル設定";
             // 
+            // Label_音色番号
+            // 
+            this.Label_音色番号.AutoSize = true;
+            this.Label_音色番号.Location = new System.Drawing.Point(9, 653);
+            this.Label_音色番号.Name = "Label_音色番号";
+            this.Label_音色番号.Size = new System.Drawing.Size(72, 16);
+            this.Label_音色番号.TabIndex = 21;
+            this.Label_音色番号.Text = "音色番号";
+            // 
+            // NumericUpDown_InstrumentNum
+            // 
+            this.NumericUpDown_InstrumentNum.Hexadecimal = true;
+            this.NumericUpDown_InstrumentNum.Location = new System.Drawing.Point(87, 651);
+            this.NumericUpDown_InstrumentNum.Name = "NumericUpDown_InstrumentNum";
+            this.NumericUpDown_InstrumentNum.Size = new System.Drawing.Size(68, 23);
+            this.NumericUpDown_InstrumentNum.TabIndex = 6;
+            this.NumericUpDown_InstrumentNum.ValueChanged += new System.EventHandler(this.NumericUpDown_InstrumentNum_ValueChanged);
+            // 
             // groupBox3
             // 
-            this.groupBox3.Controls.Add(this.radioButton_ボリュームで表現する);
-            this.groupBox3.Controls.Add(this.radioButton_NoteCutで表現する);
+            this.groupBox3.Controls.Add(this.RadioButton_NoteOFFtoVolume);
+            this.groupBox3.Controls.Add(this.RadioButton_NoteOFFtoNoteCut);
             this.groupBox3.Location = new System.Drawing.Point(6, 100);
             this.groupBox3.Name = "groupBox3";
             this.groupBox3.Size = new System.Drawing.Size(278, 80);
@@ -299,32 +322,36 @@
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "表現方法";
             // 
-            // radioButton_ボリュームで表現する
+            // RadioButton_NoteOFFtoVolume
             // 
-            this.radioButton_ボリュームで表現する.AutoSize = true;
-            this.radioButton_ボリュームで表現する.Location = new System.Drawing.Point(6, 22);
-            this.radioButton_ボリュームで表現する.Name = "radioButton_ボリュームで表現する";
-            this.radioButton_ボリュームで表現する.Size = new System.Drawing.Size(159, 20);
-            this.radioButton_ボリュームで表現する.TabIndex = 2;
-            this.radioButton_ボリュームで表現する.TabStop = true;
-            this.radioButton_ボリュームで表現する.Text = "ボリュームで表現する";
-            this.radioButton_ボリュームで表現する.UseVisualStyleBackColor = true;
+            this.RadioButton_NoteOFFtoVolume.AutoSize = true;
+            this.RadioButton_NoteOFFtoVolume.Enabled = false;
+            this.RadioButton_NoteOFFtoVolume.Location = new System.Drawing.Point(6, 22);
+            this.RadioButton_NoteOFFtoVolume.Name = "RadioButton_NoteOFFtoVolume";
+            this.RadioButton_NoteOFFtoVolume.Size = new System.Drawing.Size(159, 20);
+            this.RadioButton_NoteOFFtoVolume.TabIndex = 2;
+            this.RadioButton_NoteOFFtoVolume.TabStop = true;
+            this.RadioButton_NoteOFFtoVolume.Text = "ボリュームで表現する";
+            this.RadioButton_NoteOFFtoVolume.UseVisualStyleBackColor = true;
+            this.RadioButton_NoteOFFtoVolume.CheckedChanged += new System.EventHandler(this.RadioButton_NoteOFFtoVolume_CheckedChanged);
             // 
-            // radioButton_NoteCutで表現する
+            // RadioButton_NoteOFFtoNoteCut
             // 
-            this.radioButton_NoteCutで表現する.AutoSize = true;
-            this.radioButton_NoteCutで表現する.Location = new System.Drawing.Point(6, 48);
-            this.radioButton_NoteCutで表現する.Name = "radioButton_NoteCutで表現する";
-            this.radioButton_NoteCutで表現する.Size = new System.Drawing.Size(157, 20);
-            this.radioButton_NoteCutで表現する.TabIndex = 3;
-            this.radioButton_NoteCutで表現する.TabStop = true;
-            this.radioButton_NoteCutで表現する.Text = "NoteCutで表現する";
-            this.radioButton_NoteCutで表現する.UseVisualStyleBackColor = true;
+            this.RadioButton_NoteOFFtoNoteCut.AutoSize = true;
+            this.RadioButton_NoteOFFtoNoteCut.Enabled = false;
+            this.RadioButton_NoteOFFtoNoteCut.Location = new System.Drawing.Point(6, 48);
+            this.RadioButton_NoteOFFtoNoteCut.Name = "RadioButton_NoteOFFtoNoteCut";
+            this.RadioButton_NoteOFFtoNoteCut.Size = new System.Drawing.Size(157, 20);
+            this.RadioButton_NoteOFFtoNoteCut.TabIndex = 3;
+            this.RadioButton_NoteOFFtoNoteCut.TabStop = true;
+            this.RadioButton_NoteOFFtoNoteCut.Text = "NoteCutで表現する";
+            this.RadioButton_NoteOFFtoNoteCut.UseVisualStyleBackColor = true;
+            this.RadioButton_NoteOFFtoNoteCut.CheckedChanged += new System.EventHandler(this.RadioButton_NoteOFFtoNoteCut_CheckedChanged);
             // 
             // groupBox2
             // 
-            this.groupBox2.Controls.Add(this.radioButton_CCVolumeを適用);
-            this.groupBox2.Controls.Add(this.radioButton_CCExpressionを適用);
+            this.groupBox2.Controls.Add(this.RadioButton_CCVolumeToVolume);
+            this.groupBox2.Controls.Add(this.RadioButton_CCExpressionToVolume);
             this.groupBox2.Location = new System.Drawing.Point(6, 342);
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.Size = new System.Drawing.Size(278, 80);
@@ -332,32 +359,36 @@
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "適用するコントールチェンジ";
             // 
-            // radioButton_CCVolumeを適用
+            // RadioButton_CCVolumeToVolume
             // 
-            this.radioButton_CCVolumeを適用.AutoSize = true;
-            this.radioButton_CCVolumeを適用.Location = new System.Drawing.Point(6, 22);
-            this.radioButton_CCVolumeを適用.Name = "radioButton_CCVolumeを適用";
-            this.radioButton_CCVolumeを適用.Size = new System.Drawing.Size(144, 20);
-            this.radioButton_CCVolumeを適用.TabIndex = 6;
-            this.radioButton_CCVolumeを適用.TabStop = true;
-            this.radioButton_CCVolumeを適用.Text = "CCVolumeを適用";
-            this.radioButton_CCVolumeを適用.UseVisualStyleBackColor = true;
+            this.RadioButton_CCVolumeToVolume.AutoSize = true;
+            this.RadioButton_CCVolumeToVolume.Enabled = false;
+            this.RadioButton_CCVolumeToVolume.Location = new System.Drawing.Point(6, 22);
+            this.RadioButton_CCVolumeToVolume.Name = "RadioButton_CCVolumeToVolume";
+            this.RadioButton_CCVolumeToVolume.Size = new System.Drawing.Size(144, 20);
+            this.RadioButton_CCVolumeToVolume.TabIndex = 6;
+            this.RadioButton_CCVolumeToVolume.TabStop = true;
+            this.RadioButton_CCVolumeToVolume.Text = "CCVolumeを適用";
+            this.RadioButton_CCVolumeToVolume.UseVisualStyleBackColor = true;
+            this.RadioButton_CCVolumeToVolume.CheckedChanged += new System.EventHandler(this.RadioButton_CCVolumeToVolume_CheckedChanged);
             // 
-            // radioButton_CCExpressionを適用
+            // RadioButton_CCExpressionToVolume
             // 
-            this.radioButton_CCExpressionを適用.AutoSize = true;
-            this.radioButton_CCExpressionを適用.Location = new System.Drawing.Point(6, 48);
-            this.radioButton_CCExpressionを適用.Name = "radioButton_CCExpressionを適用";
-            this.radioButton_CCExpressionを適用.Size = new System.Drawing.Size(166, 20);
-            this.radioButton_CCExpressionを適用.TabIndex = 7;
-            this.radioButton_CCExpressionを適用.TabStop = true;
-            this.radioButton_CCExpressionを適用.Text = "CCExpressionを適用";
-            this.radioButton_CCExpressionを適用.UseVisualStyleBackColor = true;
+            this.RadioButton_CCExpressionToVolume.AutoSize = true;
+            this.RadioButton_CCExpressionToVolume.Enabled = false;
+            this.RadioButton_CCExpressionToVolume.Location = new System.Drawing.Point(6, 48);
+            this.RadioButton_CCExpressionToVolume.Name = "RadioButton_CCExpressionToVolume";
+            this.RadioButton_CCExpressionToVolume.Size = new System.Drawing.Size(166, 20);
+            this.RadioButton_CCExpressionToVolume.TabIndex = 7;
+            this.RadioButton_CCExpressionToVolume.TabStop = true;
+            this.RadioButton_CCExpressionToVolume.Text = "CCExpressionを適用";
+            this.RadioButton_CCExpressionToVolume.UseVisualStyleBackColor = true;
+            this.RadioButton_CCExpressionToVolume.CheckedChanged += new System.EventHandler(this.RadioButton_CCExpressionToVolume_CheckedChanged);
             // 
             // groupBox_同一Tickのノート優先度
             // 
-            this.groupBox_同一Tickのノート優先度.Controls.Add(this.radioButton_一番低いノート);
-            this.groupBox_同一Tickのノート優先度.Controls.Add(this.radioButton_一番高いノート);
+            this.groupBox_同一Tickのノート優先度.Controls.Add(this.RadioButton_LowNotePriority);
+            this.groupBox_同一Tickのノート優先度.Controls.Add(this.RadioButton_HighNotePriority);
             this.groupBox_同一Tickのノート優先度.Location = new System.Drawing.Point(3, 454);
             this.groupBox_同一Tickのノート優先度.Name = "groupBox_同一Tickのノート優先度";
             this.groupBox_同一Tickのノート優先度.Size = new System.Drawing.Size(281, 80);
@@ -365,32 +396,34 @@
             this.groupBox_同一Tickのノート優先度.TabStop = false;
             this.groupBox_同一Tickのノート優先度.Text = "同一Tickのノート優先度";
             // 
-            // radioButton_一番低いノート
+            // RadioButton_LowNotePriority
             // 
-            this.radioButton_一番低いノート.AutoSize = true;
-            this.radioButton_一番低いノート.Location = new System.Drawing.Point(6, 22);
-            this.radioButton_一番低いノート.Name = "radioButton_一番低いノート";
-            this.radioButton_一番低いノート.Size = new System.Drawing.Size(125, 20);
-            this.radioButton_一番低いノート.TabIndex = 15;
-            this.radioButton_一番低いノート.TabStop = true;
-            this.radioButton_一番低いノート.Text = "一番低いノート";
-            this.radioButton_一番低いノート.UseVisualStyleBackColor = true;
+            this.RadioButton_LowNotePriority.AutoSize = true;
+            this.RadioButton_LowNotePriority.Location = new System.Drawing.Point(9, 48);
+            this.RadioButton_LowNotePriority.Name = "RadioButton_LowNotePriority";
+            this.RadioButton_LowNotePriority.Size = new System.Drawing.Size(125, 20);
+            this.RadioButton_LowNotePriority.TabIndex = 15;
+            this.RadioButton_LowNotePriority.TabStop = true;
+            this.RadioButton_LowNotePriority.Text = "一番低いノート";
+            this.RadioButton_LowNotePriority.UseVisualStyleBackColor = true;
+            this.RadioButton_LowNotePriority.CheckedChanged += new System.EventHandler(this.RadioButton_LowNotePriority_CheckedChanged);
             // 
-            // radioButton_一番高いノート
+            // RadioButton_HighNotePriority
             // 
-            this.radioButton_一番高いノート.AutoSize = true;
-            this.radioButton_一番高いノート.Location = new System.Drawing.Point(6, 48);
-            this.radioButton_一番高いノート.Name = "radioButton_一番高いノート";
-            this.radioButton_一番高いノート.Size = new System.Drawing.Size(125, 20);
-            this.radioButton_一番高いノート.TabIndex = 16;
-            this.radioButton_一番高いノート.TabStop = true;
-            this.radioButton_一番高いノート.Text = "一番高いノート";
-            this.radioButton_一番高いノート.UseVisualStyleBackColor = true;
+            this.RadioButton_HighNotePriority.AutoSize = true;
+            this.RadioButton_HighNotePriority.Location = new System.Drawing.Point(9, 22);
+            this.RadioButton_HighNotePriority.Name = "RadioButton_HighNotePriority";
+            this.RadioButton_HighNotePriority.Size = new System.Drawing.Size(125, 20);
+            this.RadioButton_HighNotePriority.TabIndex = 16;
+            this.RadioButton_HighNotePriority.TabStop = true;
+            this.RadioButton_HighNotePriority.Text = "一番高いノート";
+            this.RadioButton_HighNotePriority.UseVisualStyleBackColor = true;
+            this.RadioButton_HighNotePriority.CheckedChanged += new System.EventHandler(this.RadioButton_HighNotePriority_CheckedChanged);
             // 
             // groupBox1
             // 
-            this.groupBox1.Controls.Add(this.radioButton_先のノート);
-            this.groupBox1.Controls.Add(this.radioButton_後のノート);
+            this.groupBox1.Controls.Add(this.RadioButton_LeadNotePriority);
+            this.groupBox1.Controls.Add(this.RadioButton_BehindNotePriority);
             this.groupBox1.Location = new System.Drawing.Point(3, 566);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(281, 80);
@@ -398,87 +431,95 @@
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "丸め込みによる同一Rowのノート優先度";
             // 
-            // radioButton_先のノート
+            // RadioButton_LeadNotePriority
             // 
-            this.radioButton_先のノート.AutoSize = true;
-            this.radioButton_先のノート.Location = new System.Drawing.Point(6, 22);
-            this.radioButton_先のノート.Name = "radioButton_先のノート";
-            this.radioButton_先のノート.Size = new System.Drawing.Size(93, 20);
-            this.radioButton_先のノート.TabIndex = 15;
-            this.radioButton_先のノート.TabStop = true;
-            this.radioButton_先のノート.Text = "先のノート";
-            this.radioButton_先のノート.UseVisualStyleBackColor = true;
+            this.RadioButton_LeadNotePriority.AutoSize = true;
+            this.RadioButton_LeadNotePriority.Location = new System.Drawing.Point(9, 22);
+            this.RadioButton_LeadNotePriority.Name = "RadioButton_LeadNotePriority";
+            this.RadioButton_LeadNotePriority.Size = new System.Drawing.Size(93, 20);
+            this.RadioButton_LeadNotePriority.TabIndex = 15;
+            this.RadioButton_LeadNotePriority.TabStop = true;
+            this.RadioButton_LeadNotePriority.Text = "先のノート";
+            this.RadioButton_LeadNotePriority.UseVisualStyleBackColor = true;
+            this.RadioButton_LeadNotePriority.CheckedChanged += new System.EventHandler(this.RadioButton_LeadNotePriority_CheckedChanged);
             // 
-            // radioButton_後のノート
+            // RadioButton_BehindNotePriority
             // 
-            this.radioButton_後のノート.AutoSize = true;
-            this.radioButton_後のノート.Location = new System.Drawing.Point(6, 48);
-            this.radioButton_後のノート.Name = "radioButton_後のノート";
-            this.radioButton_後のノート.Size = new System.Drawing.Size(93, 20);
-            this.radioButton_後のノート.TabIndex = 16;
-            this.radioButton_後のノート.TabStop = true;
-            this.radioButton_後のノート.Text = "後のノート";
-            this.radioButton_後のノート.UseVisualStyleBackColor = true;
+            this.RadioButton_BehindNotePriority.AutoSize = true;
+            this.RadioButton_BehindNotePriority.Location = new System.Drawing.Point(9, 48);
+            this.RadioButton_BehindNotePriority.Name = "RadioButton_BehindNotePriority";
+            this.RadioButton_BehindNotePriority.Size = new System.Drawing.Size(93, 20);
+            this.RadioButton_BehindNotePriority.TabIndex = 16;
+            this.RadioButton_BehindNotePriority.TabStop = true;
+            this.RadioButton_BehindNotePriority.Text = "後のノート";
+            this.RadioButton_BehindNotePriority.UseVisualStyleBackColor = true;
+            this.RadioButton_BehindNotePriority.CheckedChanged += new System.EventHandler(this.RadioButton_BehindNotePriority_CheckedChanged);
             // 
-            // checkBox_テンポチェンジをFxxで表現する
+            // CheckBox_EnableEffectF
             // 
-            this.checkBox_テンポチェンジをFxxで表現する.AutoSize = true;
-            this.checkBox_テンポチェンジをFxxで表現する.Location = new System.Drawing.Point(3, 264);
-            this.checkBox_テンポチェンジをFxxで表現する.Name = "checkBox_テンポチェンジをFxxで表現する";
-            this.checkBox_テンポチェンジをFxxで表現する.Size = new System.Drawing.Size(221, 20);
-            this.checkBox_テンポチェンジをFxxで表現する.TabIndex = 10;
-            this.checkBox_テンポチェンジをFxxで表現する.Text = "テンポチェンジをFxxで表現する";
-            this.checkBox_テンポチェンジをFxxで表現する.UseVisualStyleBackColor = true;
+            this.CheckBox_EnableEffectF.AutoSize = true;
+            this.CheckBox_EnableEffectF.Location = new System.Drawing.Point(3, 264);
+            this.CheckBox_EnableEffectF.Name = "CheckBox_EnableEffectF";
+            this.CheckBox_EnableEffectF.Size = new System.Drawing.Size(221, 20);
+            this.CheckBox_EnableEffectF.TabIndex = 10;
+            this.CheckBox_EnableEffectF.Text = "テンポチェンジをFxxで表現する";
+            this.CheckBox_EnableEffectF.UseVisualStyleBackColor = true;
+            this.CheckBox_EnableEffectF.CheckedChanged += new System.EventHandler(this.CheckBox_EnableEffectF_CheckedChanged);
             // 
-            // checkBox_CCModulationを4xx7xxで表現する
+            // CheckBox_EnableEffect4and7
             // 
-            this.checkBox_CCModulationを4xx7xxで表現する.AutoSize = true;
-            this.checkBox_CCModulationを4xx7xxで表現する.Location = new System.Drawing.Point(3, 238);
-            this.checkBox_CCModulationを4xx7xxで表現する.Name = "checkBox_CCModulationを4xx7xxで表現する";
-            this.checkBox_CCModulationを4xx7xxで表現する.Size = new System.Drawing.Size(256, 20);
-            this.checkBox_CCModulationを4xx7xxで表現する.TabIndex = 9;
-            this.checkBox_CCModulationを4xx7xxで表現する.Text = "CCModulationを4xx 7xxで表現する";
-            this.checkBox_CCModulationを4xx7xxで表現する.UseVisualStyleBackColor = true;
+            this.CheckBox_EnableEffect4and7.AutoSize = true;
+            this.CheckBox_EnableEffect4and7.Location = new System.Drawing.Point(3, 238);
+            this.CheckBox_EnableEffect4and7.Name = "CheckBox_EnableEffect4and7";
+            this.CheckBox_EnableEffect4and7.Size = new System.Drawing.Size(256, 20);
+            this.CheckBox_EnableEffect4and7.TabIndex = 9;
+            this.CheckBox_EnableEffect4and7.Text = "CCModulationを4xx 7xxで表現する";
+            this.CheckBox_EnableEffect4and7.UseVisualStyleBackColor = true;
+            this.CheckBox_EnableEffect4and7.CheckedChanged += new System.EventHandler(this.CheckBox_EnableEffect4and7_CheckedChanged);
             // 
-            // checkBox_PitchBendを1xx2xxで表現する
+            // CheckBox_EnableEffect1and2
             // 
-            this.checkBox_PitchBendを1xx2xxで表現する.AutoSize = true;
-            this.checkBox_PitchBendを1xx2xxで表現する.Location = new System.Drawing.Point(3, 212);
-            this.checkBox_PitchBendを1xx2xxで表現する.Name = "checkBox_PitchBendを1xx2xxで表現する";
-            this.checkBox_PitchBendを1xx2xxで表現する.Size = new System.Drawing.Size(231, 20);
-            this.checkBox_PitchBendを1xx2xxで表現する.TabIndex = 8;
-            this.checkBox_PitchBendを1xx2xxで表現する.Text = "PitchBendを1xx 2xxで表現する";
-            this.checkBox_PitchBendを1xx2xxで表現する.UseVisualStyleBackColor = true;
+            this.CheckBox_EnableEffect1and2.AutoSize = true;
+            this.CheckBox_EnableEffect1and2.Location = new System.Drawing.Point(3, 212);
+            this.CheckBox_EnableEffect1and2.Name = "CheckBox_EnableEffect1and2";
+            this.CheckBox_EnableEffect1and2.Size = new System.Drawing.Size(231, 20);
+            this.CheckBox_EnableEffect1and2.TabIndex = 8;
+            this.CheckBox_EnableEffect1and2.Text = "PitchBendを1xx 2xxで表現する";
+            this.CheckBox_EnableEffect1and2.UseVisualStyleBackColor = true;
+            this.CheckBox_EnableEffect1and2.CheckedChanged += new System.EventHandler(this.CheckBox_EnableEffect1and2_CheckedChanged);
             // 
-            // checkBox_ノート以外のボリュームを有効
+            // CheckBox_EnableCCVolume
             // 
-            this.checkBox_ノート以外のボリュームを有効.AutoSize = true;
-            this.checkBox_ノート以外のボリュームを有効.Location = new System.Drawing.Point(3, 316);
-            this.checkBox_ノート以外のボリュームを有効.Name = "checkBox_ノート以外のボリュームを有効";
-            this.checkBox_ノート以外のボリュームを有効.Size = new System.Drawing.Size(213, 20);
-            this.checkBox_ノート以外のボリュームを有効.TabIndex = 5;
-            this.checkBox_ノート以外のボリュームを有効.Text = "ノート以外のボリュームを有効";
-            this.checkBox_ノート以外のボリュームを有効.UseVisualStyleBackColor = true;
+            this.CheckBox_EnableCCVolume.AutoSize = true;
+            this.CheckBox_EnableCCVolume.Location = new System.Drawing.Point(3, 316);
+            this.CheckBox_EnableCCVolume.Name = "CheckBox_EnableCCVolume";
+            this.CheckBox_EnableCCVolume.Size = new System.Drawing.Size(213, 20);
+            this.CheckBox_EnableCCVolume.TabIndex = 5;
+            this.CheckBox_EnableCCVolume.Text = "ノート以外のボリュームを有効";
+            this.CheckBox_EnableCCVolume.UseVisualStyleBackColor = true;
+            this.CheckBox_EnableCCVolume.CheckedChanged += new System.EventHandler(this.CheckBox_EnableCCVolume_CheckedChanged);
             // 
-            // checkBox_ノートオフを有効
+            // CheckBox_EnableNoteOFF
             // 
-            this.checkBox_ノートオフを有効.AutoSize = true;
-            this.checkBox_ノートオフを有効.Location = new System.Drawing.Point(3, 74);
-            this.checkBox_ノートオフを有効.Name = "checkBox_ノートオフを有効";
-            this.checkBox_ノートオフを有効.Size = new System.Drawing.Size(132, 20);
-            this.checkBox_ノートオフを有効.TabIndex = 1;
-            this.checkBox_ノートオフを有効.Text = "ノートオフを有効";
-            this.checkBox_ノートオフを有効.UseVisualStyleBackColor = true;
+            this.CheckBox_EnableNoteOFF.AutoSize = true;
+            this.CheckBox_EnableNoteOFF.Location = new System.Drawing.Point(3, 74);
+            this.CheckBox_EnableNoteOFF.Name = "CheckBox_EnableNoteOFF";
+            this.CheckBox_EnableNoteOFF.Size = new System.Drawing.Size(132, 20);
+            this.CheckBox_EnableNoteOFF.TabIndex = 1;
+            this.CheckBox_EnableNoteOFF.Text = "ノートオフを有効";
+            this.CheckBox_EnableNoteOFF.UseVisualStyleBackColor = true;
+            this.CheckBox_EnableNoteOFF.CheckedChanged += new System.EventHandler(this.CheckBox_EnableNoteOFF_CheckedChanged);
             // 
-            // checkBox_ノートオンのボリュームを有効
+            // CheckBox_EnableNoteVolume
             // 
-            this.checkBox_ノートオンのボリュームを有効.AutoSize = true;
-            this.checkBox_ノートオンのボリュームを有効.Location = new System.Drawing.Point(3, 22);
-            this.checkBox_ノートオンのボリュームを有効.Name = "checkBox_ノートオンのボリュームを有効";
-            this.checkBox_ノートオンのボリュームを有効.Size = new System.Drawing.Size(205, 20);
-            this.checkBox_ノートオンのボリュームを有効.TabIndex = 0;
-            this.checkBox_ノートオンのボリュームを有効.Text = "ノートオンのボリュームを有効";
-            this.checkBox_ノートオンのボリュームを有効.UseVisualStyleBackColor = true;
+            this.CheckBox_EnableNoteVolume.AutoSize = true;
+            this.CheckBox_EnableNoteVolume.Location = new System.Drawing.Point(3, 22);
+            this.CheckBox_EnableNoteVolume.Name = "CheckBox_EnableNoteVolume";
+            this.CheckBox_EnableNoteVolume.Size = new System.Drawing.Size(205, 20);
+            this.CheckBox_EnableNoteVolume.TabIndex = 0;
+            this.CheckBox_EnableNoteVolume.Text = "ノートオンのボリュームを有効";
+            this.CheckBox_EnableNoteVolume.UseVisualStyleBackColor = true;
+            this.CheckBox_EnableNoteVolume.CheckedChanged += new System.EventHandler(this.CheckBox_EnableNoteVolume_CheckedChanged);
             // 
             // EventsList
             // 
@@ -558,7 +599,7 @@
             // 
             // button2
             // 
-            this.button2.Location = new System.Drawing.Point(3, 694);
+            this.button2.Location = new System.Drawing.Point(6, 749);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(103, 23);
             this.button2.TabIndex = 5;
@@ -576,7 +617,7 @@
             // 
             // Button_Convert
             // 
-            this.Button_Convert.Location = new System.Drawing.Point(194, 694);
+            this.Button_Convert.Location = new System.Drawing.Point(194, 749);
             this.Button_Convert.Name = "Button_Convert";
             this.Button_Convert.Size = new System.Drawing.Size(103, 23);
             this.Button_Convert.TabIndex = 3;
@@ -600,6 +641,7 @@
             this.menuBar.PerformLayout();
             this.チャンネル設定.ResumeLayout(false);
             this.チャンネル設定.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.NumericUpDown_InstrumentNum)).EndInit();
             this.groupBox3.ResumeLayout(false);
             this.groupBox3.PerformLayout();
             this.groupBox2.ResumeLayout(false);
@@ -641,7 +683,7 @@
         private System.Windows.Forms.ColumnHeader DPCM;
         private System.Windows.Forms.ComboBox TrackList;
         private System.Windows.Forms.GroupBox チャンネル設定;
-        private System.Windows.Forms.CheckBox checkBox_ノートオンのボリュームを有効;
+        private System.Windows.Forms.CheckBox CheckBox_EnableNoteVolume;
         private System.Windows.Forms.ListView EventsList;
         private System.Windows.Forms.ColumnHeader Mea;
         private System.Windows.Forms.ColumnHeader Tick;
@@ -651,28 +693,30 @@
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.Splitter splitter1;
         private System.Windows.Forms.Panel panel2;
-        private System.Windows.Forms.RadioButton radioButton_後のノート;
-        private System.Windows.Forms.RadioButton radioButton_先のノート;
-        private System.Windows.Forms.CheckBox checkBox_テンポチェンジをFxxで表現する;
-        private System.Windows.Forms.CheckBox checkBox_CCModulationを4xx7xxで表現する;
-        private System.Windows.Forms.CheckBox checkBox_PitchBendを1xx2xxで表現する;
-        private System.Windows.Forms.RadioButton radioButton_CCExpressionを適用;
-        private System.Windows.Forms.RadioButton radioButton_CCVolumeを適用;
-        private System.Windows.Forms.CheckBox checkBox_ノート以外のボリュームを有効;
-        private System.Windows.Forms.RadioButton radioButton_NoteCutで表現する;
-        private System.Windows.Forms.RadioButton radioButton_ボリュームで表現する;
-        private System.Windows.Forms.CheckBox checkBox_ノートオフを有効;
+        private System.Windows.Forms.RadioButton RadioButton_BehindNotePriority;
+        private System.Windows.Forms.RadioButton RadioButton_LeadNotePriority;
+        private System.Windows.Forms.CheckBox CheckBox_EnableEffectF;
+        private System.Windows.Forms.CheckBox CheckBox_EnableEffect4and7;
+        private System.Windows.Forms.CheckBox CheckBox_EnableEffect1and2;
+        private System.Windows.Forms.RadioButton RadioButton_CCExpressionToVolume;
+        private System.Windows.Forms.RadioButton RadioButton_CCVolumeToVolume;
+        private System.Windows.Forms.CheckBox CheckBox_EnableCCVolume;
+        private System.Windows.Forms.RadioButton RadioButton_NoteOFFtoNoteCut;
+        private System.Windows.Forms.RadioButton RadioButton_NoteOFFtoVolume;
+        private System.Windows.Forms.CheckBox CheckBox_EnableNoteOFF;
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.GroupBox groupBox3;
         private System.Windows.Forms.GroupBox groupBox2;
         private System.Windows.Forms.GroupBox groupBox_同一Tickのノート優先度;
-        private System.Windows.Forms.RadioButton radioButton_一番低いノート;
-        private System.Windows.Forms.RadioButton radioButton_一番高いノート;
+        private System.Windows.Forms.RadioButton RadioButton_LowNotePriority;
+        private System.Windows.Forms.RadioButton RadioButton_HighNotePriority;
         private System.Windows.Forms.ComboBox TrackerChannelList;
         private System.Windows.Forms.Button Button_Convert;
         private System.Windows.Forms.Button button2;
         private System.Windows.Forms.ColumnHeader Rows;
         private System.Windows.Forms.ColumnHeader Noise;
+        private System.Windows.Forms.Label Label_音色番号;
+        private System.Windows.Forms.NumericUpDown NumericUpDown_InstrumentNum;
     }
 }
 
