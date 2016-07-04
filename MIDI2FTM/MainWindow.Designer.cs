@@ -434,6 +434,7 @@
             // RadioButton_LeadNotePriority
             // 
             this.RadioButton_LeadNotePriority.AutoSize = true;
+            this.RadioButton_LeadNotePriority.Enabled = false;
             this.RadioButton_LeadNotePriority.Location = new System.Drawing.Point(9, 22);
             this.RadioButton_LeadNotePriority.Name = "RadioButton_LeadNotePriority";
             this.RadioButton_LeadNotePriority.Size = new System.Drawing.Size(93, 20);
@@ -446,6 +447,7 @@
             // RadioButton_BehindNotePriority
             // 
             this.RadioButton_BehindNotePriority.AutoSize = true;
+            this.RadioButton_BehindNotePriority.Enabled = false;
             this.RadioButton_BehindNotePriority.Location = new System.Drawing.Point(9, 48);
             this.RadioButton_BehindNotePriority.Name = "RadioButton_BehindNotePriority";
             this.RadioButton_BehindNotePriority.Size = new System.Drawing.Size(93, 20);
