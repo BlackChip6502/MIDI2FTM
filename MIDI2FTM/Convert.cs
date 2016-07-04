@@ -32,7 +32,7 @@ namespace MIDI2FTM
             // 現在のTick
             int currentTick = 0;
             // 最初の小節の長さを取得
-            int oneMeasureTick = measureLength(currentMeasure);
+            int oneMeasureTick = getMeasureLength(currentMeasure);
             // フレーム以降フラグ
             bool nextFrame = false;
 
@@ -47,6 +47,15 @@ namespace MIDI2FTM
                     currentTick = 0;
                     // 次の小節へ
                     frameInMeasure++;
+                    // 次の小節の長さを取得
+                    int tmp = getMeasureLength(currentMeasure);
+                    // 拍子の変化でフレームを以降する場合
+                    if (BasicConfigState.ChangedFrame && oneMeasureTick != tmp)
+                    {
+                        frameInMeasure = 1;
+                        nextFrame = true;
+                    }
+                    oneMeasureTick = tmp;
                 }
 
                 // フレームを以降する
@@ -68,14 +77,20 @@ namespace MIDI2FTM
                 {
                     continue;
                 }
-                
-                // テスト
-                lvi.SubItems[_outputChannel].Text = currentMeasure + "小節 : " + currentTick + "Tick";
 
+                // とりあえず
+                lvi.SubItems[_outputChannel].Text = "... .. . ...";
+
+                // ノートがあれば
+                string noteName = getNote(currentMeasure, currentTick, _inputTrackNum);
+                if (noteName != null)
+                {
+                    lvi.SubItems[_outputChannel].Text = noteName + " .. . ...";
+                }
+                
                 // 次の音価へ
                 currentTick += (int)BasicConfigState.MinTick;
             }
-            
         }
 
         //----------------------------------------------------------------------------------------------------
@@ -86,7 +101,7 @@ namespace MIDI2FTM
             // フレーム内の小節数
             int frameInMeasure = 0;
             // 最初の小節の長さを取得
-            int oneMeasureTick = measureLength(1);
+            int oneMeasureTick = getMeasureLength(1);
             // 現在のフレーム番号
             int currentFrameNum = 0;
             if (BasicConfigState.DisablePatternZero)
@@ -98,10 +113,10 @@ namespace MIDI2FTM
             for (int i = 1; i <= BasicConfigState.MaxMeasure; i++)
             {
                 // 拍子の変化でフレームを移行するフラグが立っていて、直前の小節の長さ（拍子）と現在の小節の長さが違ったら
-                if (BasicConfigState.ChangedFrame && oneMeasureTick != measureLength(i))
+                if (BasicConfigState.ChangedFrame && oneMeasureTick != getMeasureLength(i))
                 {
                     // 現在の小節の長さを取得
-                    oneMeasureTick = measureLength(i);
+                    oneMeasureTick = getMeasureLength(i);
                     // 次のフレームへ
                     frameInMeasure = 0;
                 }
@@ -167,9 +182,30 @@ namespace MIDI2FTM
         }
 
         //----------------------------------------------------------------------------------------------------
+        // 小節、Tickからノートを見つける
+        //----------------------------------------------------------------------------------------------------
+        private string getNote(int _currentMeasure, int _currentTick, int _trackNum)
+        {
+            // 現在の小節数から次の小節の拍子の変化を探す
+            foreach (EventData e in SMFData.Tracks[_trackNum].Event)
+            {
+                // 目的のタイミングのイベントを探す
+                if (e.Measure == _currentMeasure && e.Tick == _currentTick )
+                {
+                    // ボリューム0じゃないノートオンを探す
+                    if(e.EventID == 0x90 && e.Gate != 0)
+                    {
+                        return NoteNumber.NumberToNoteName((byte)e.Value);
+                    }
+                }
+            }
+                return null;
+        }
+
+        //----------------------------------------------------------------------------------------------------
         // 小節の拍子変化を見つけて現在の小節のTick数を返す
         //----------------------------------------------------------------------------------------------------
-        private int measureLength(int _currentMeasure)
+        private int getMeasureLength(int _currentMeasure)
         {
             // 4/4拍子で初期化
             int oneMeasureTick = SMFHeader.Data.Division * 4;
