@@ -68,6 +68,7 @@
     </Compile>
     <Compile Include="NoteNumber.cs" />
     <Compile Include="RefreshEventsList.cs" />
+    <Compile Include="RefreshTrackerList.cs" />
     <Compile Include="SMFAnalyzer.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

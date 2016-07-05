@@ -55,10 +55,7 @@ namespace MIDI2FTM
                     // Measure Tick を解析
                     MeasureAnalyzer ma = new MeasureAnalyzer();
                     ma.Analyzing();
-
-                    // 読み込み完了のお知らせ
-                    // MessageBox.Show("MIDIファイルの読み込みが完了しました。", "おしらせ", MessageBoxButtons.OK, MessageBoxIcon.Information);
-
+                    
                     // コンボボックスにトラックを追加
                     TrackList.DataSource = SMFData.Name;
 
@@ -77,39 +74,12 @@ namespace MIDI2FTM
                         }
                     }
 
-                    // 拡張音源の追加
-                    switch (BasicConfigState.ExpansionSoundIndex)
-                    {
-                        case BasicConfigState.ExpansionSound.NESchannelsOnly:
-                            break;
-                        case BasicConfigState.ExpansionSound.KonamiVRC6:
-                            TrackerList.Columns.Add("VRC6 Pulse 1");
-                            TrackerList.Columns.Add("VRC6 Pulse 2");
-                            TrackerList.Columns.Add("VRC6 Sawtooth");
-                            break;
-                        case BasicConfigState.ExpansionSound.KonamiVRC7:
-                            TrackerList.Columns.Add("VRC7 FM 1");
-                            TrackerList.Columns.Add("VRC7 FM 2");
-                            TrackerList.Columns.Add("VRC7 FM 3");
-                            TrackerList.Columns.Add("VRC7 FM 4");
-                            TrackerList.Columns.Add("VRC7 FM 5");
-                            TrackerList.Columns.Add("VRC7 FM 6");
-                            break;
-                        case BasicConfigState.ExpansionSound.NintendoFDSsound:
-                            TrackerList.Columns.Add("FDS");
-                            break;
-                        case BasicConfigState.ExpansionSound.NintendoMMC5:
-                            TrackerList.Columns.Add("MMC5 Pulse 1");
-                            TrackerList.Columns.Add("MMC5 Pulse 2");
-                            break;
-                        case BasicConfigState.ExpansionSound.Namco163:
-                            for (int i = 1; i <= BasicConfigState.Namco163channelCount; i++)
-                            {
-                                TrackerList.Columns.Add("Namco " + i);
-                            }
-                            break;
-                    }
-
+                    RefreshTrackerList rtl = new RefreshTrackerList();
+                    // トラッカーリストを初期化
+                    rtl.InitializedList(ref TrackerList);
+                    // 拡張音源列を追加
+                    rtl.AddExpansionSoundColumns(ref TrackerList);
+                    
                     // コンボボックスにトラッカーのチャンネル名の配列を作る
                     for (int i = 1; TrackerList.Columns.Count > i; i++)
                     {
