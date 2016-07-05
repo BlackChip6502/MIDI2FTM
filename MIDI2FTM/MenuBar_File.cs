@@ -13,31 +13,31 @@ using System.Windows.Forms;
 
 namespace MIDI2FTM
 {
+    /// <summary>
+    /// メインウィンドウのメニューバー関連のパーシャルクラス
+    /// </summary>----------------------------------------------------------------------------------------------------
     public partial class MainWindow : Form
     {
-        //----------------------------------------------------------------------------------------------------
-        // メニューバー"ファイル"のドロップダウンメニュー群
-        //----------------------------------------------------------------------------------------------------
         private void ファイル_新規作成_Click(object sender, EventArgs e)
         {
 
         }
-
         private void ファイル_開く_Click(object sender, EventArgs e)
         {
 
         }
-
         private void ファイル_上書き保存_Click(object sender, EventArgs e)
         {
 
         }
-
         private void ファイル_名前を付けて保存_Click(object sender, EventArgs e)
         {
 
         }
 
+        /// <summary>
+        /// メニューバー"ファイル"のドロップダウンメニューのMIDIインポートをクリックしたとき
+        /// </summary>----------------------------------------------------------------------------------------------------
         private void ファイル_MIDIインポート_Click(object sender, EventArgs e)
         {
             // ダイアログを開いてファイルをロードする
@@ -142,6 +142,9 @@ namespace MIDI2FTM
 
         }
 
+        /// <summary>
+        /// メニューバー"ファイル"のドロップダウンメニューの終了をクリックしたとき
+        /// </summary>----------------------------------------------------------------------------------------------------
         private void ファイル_終了_Click(object sender, EventArgs e)
         {
             // FormClosingイベントを発生させる

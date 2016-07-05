@@ -11,7 +11,7 @@ namespace MIDI2FTM
 {
     /// <summary>
     /// 基本設定の状態 
-    /// </summary>
+    /// </summary>----------------------------------------------------------------------------------------------------
     public static class BasicConfigState
     {
         /// <summary>

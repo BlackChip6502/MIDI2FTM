@@ -134,14 +134,23 @@ namespace MIDI2FTM
         {
             ChannelConfigState.EnableEffect1and2 = CheckBox_EnableEffect1and2.Checked;
         }
+        /// <summary>
+        /// CCModulationを4xx,7xxで表現する チェックボックスに変更があったとき 
+        /// </summary>----------------------------------------------------------------------------------------------------
         private void CheckBox_EnableEffect4and7_CheckedChanged(object sender, EventArgs e)
         {
             ChannelConfigState.EnableEffect4and7 = CheckBox_EnableEffect4and7.Checked;
         }
+        /// <summary>
+        /// テンポチェンジをFxxで表現する チェックボックスに変更があったとき 
+        /// </summary>----------------------------------------------------------------------------------------------------
         private void CheckBox_EnableEffectF_CheckedChanged(object sender, EventArgs e)
         {
             ChannelConfigState.EnableEffectF = CheckBox_EnableEffectF.Checked;
         }
+        /// <summary>
+        /// ノート以外のボリュームを有効 チェックボックスに変更があったとき 
+        /// </summary>----------------------------------------------------------------------------------------------------
         private void CheckBox_EnableCCVolume_CheckedChanged(object sender, EventArgs e)
         {
             ChannelConfigState.EnableCCVolume = CheckBox_EnableCCVolume.Checked;
@@ -157,34 +166,52 @@ namespace MIDI2FTM
                 RadioButton_CCExpressionToVolume.Enabled = false;
             }
         }
+        /// <summary>
+        /// ノート以外のボリュームを有効 → CCVolumeを適用 ラジオボタンに変更があったとき 
+        /// </summary>----------------------------------------------------------------------------------------------------
         private void RadioButton_CCVolumeToVolume_CheckedChanged(object sender, EventArgs e)
         {
             ChannelConfigState.CCVolumeToVolume = RadioButton_CCVolumeToVolume.Checked;
         }
+        /// <summary>
+        /// ノート以外のボリュームを有効 → CCExpressionを適用 ラジオボタンに変更があったとき 
+        /// </summary>----------------------------------------------------------------------------------------------------
         private void RadioButton_CCExpressionToVolume_CheckedChanged(object sender, EventArgs e)
         {
             ChannelConfigState.CCExpressionToVolume = RadioButton_CCExpressionToVolume.Checked;
         }
+        /// <summary>
+        /// 一番高い音を優先 ラジオボタンに変更があったとき 
+        /// </summary>----------------------------------------------------------------------------------------------------
         private void RadioButton_HighNotePriority_CheckedChanged(object sender, EventArgs e)
         {
             ChannelConfigState.HighNotePriority = RadioButton_HighNotePriority.Checked;
         }
+        /// <summary>
+        /// 一番低い音を優先 ラジオボタンに変更があったとき 
+        /// </summary>----------------------------------------------------------------------------------------------------
         private void RadioButton_LowNotePriority_CheckedChanged(object sender, EventArgs e)
         {
             ChannelConfigState.LowNotePriority = RadioButton_LowNotePriority.Checked;
         }
+        /// <summary>
+        /// 同一Rowで先のノートを優先 ラジオボタンに変更があったとき 
+        /// </summary>----------------------------------------------------------------------------------------------------
         private void RadioButton_LeadNotePriority_CheckedChanged(object sender, EventArgs e)
         {
             ChannelConfigState.LeadNotePriority = RadioButton_LeadNotePriority.Checked;
         }
+        /// <summary>
+        /// 同一Rowで後のノートを優先 ラジオボタンに変更があったとき 
+        /// </summary>----------------------------------------------------------------------------------------------------
         private void RadioButton_BehindNotePriority_CheckedChanged(object sender, EventArgs e)
         {
             ChannelConfigState.BehindNotePriority = RadioButton_BehindNotePriority.Checked;
         }
-
-        //----------------------------------------------------------------------------------------------------
-        // ナンバリックアップダウンの値が変わった
-        //----------------------------------------------------------------------------------------------------
+        
+        /// <summary>
+        /// 音色番号 ナンバリックアップダウンの値が変わった
+        /// </summary>----------------------------------------------------------------------------------------------------
         private void NumericUpDown_InstrumentNum_ValueChanged(object sender, EventArgs e)
         {
             if (NumericUpDown_InstrumentNum.Value < 0)

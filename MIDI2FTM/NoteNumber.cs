@@ -6,8 +6,16 @@ using System.Threading.Tasks;
 
 namespace MIDI2FTM
 {
+    /// <summary>
+    /// ノートの番号から音階名を変換するクラス
+    /// </summary>----------------------------------------------------------------------------------------------------
     public static class NoteNumber
     {
+        /// <summary>
+        /// ノートの番号から音階名を変換する
+        /// </summary>----------------------------------------------------------------------------------------------------
+        /// <param name="_value">ノート番号</param>
+        /// <returns>音階名</returns>
         public static string NumberToNoteName(byte _value)
         {
             string[] values = 

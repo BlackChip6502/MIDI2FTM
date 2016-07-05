@@ -11,7 +11,7 @@ namespace MIDI2FTM
 {
     /// <summary>
     /// チャンネル設定の状態 
-    /// </summary>
+    /// </summary>----------------------------------------------------------------------------------------------------
     public static class ChannelConfigState
     {
         /// <summary>
