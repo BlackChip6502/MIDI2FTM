@@ -1,7 +1,4 @@
-﻿/*****************************************************************************************************
- 基本設定のウィンドウ
-*****************************************************************************************************/
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -19,6 +16,11 @@ namespace MIDI2FTM
     public partial class BasicConfigWindow : Form
     {
         /// <summary>
+        /// キャンセルボタンを押したか
+        /// </summary>
+        public bool IsCancel = false;
+
+        /// <summary>
         /// コンストラクタ♪
         /// </summary>----------------------------------------------------------------------------------------------------
         public BasicConfigWindow()
@@ -26,6 +28,7 @@ namespace MIDI2FTM
             InitializeComponent();
 
             // 初期化
+            InitializedSettings();
             CheckBox_ChangedFrame.Checked = BasicConfigState.ChangedFrame;
             CheckBox_EnableEffectG.Checked = BasicConfigState.EnableEffectG;
             CheckBox_DisablePatternZero.Checked = BasicConfigState.DisablePatternZero;
@@ -62,7 +65,28 @@ namespace MIDI2FTM
             // 最小Tickの更新
             refreshMinTick();
         }
-        
+
+        /// <summary>
+        /// 設定を初期化する
+        /// </summary>
+        private void InitializedSettings()
+        {
+            BasicConfigState.ChangedFrame = true;
+            BasicConfigState.EnableEffectG = true;
+            BasicConfigState.DisablePatternZero = true;
+            BasicConfigState.UnusedChannelOrderZeroFill = true;
+            BasicConfigState.MinNoteIndex = 4;
+            BasicConfigState.Speed = 6;
+            BasicConfigState.OneFrameMeasureCount = 4;
+            BasicConfigState.StartMeasure = 2;
+            BasicConfigState.MaxTimeSignatureNumer = 4;
+            BasicConfigState.MaxTimeSignatureDenom = 4;
+            BasicConfigState.MaxRows = 64;
+            BasicConfigState.MaxMeasure = 0;
+            BasicConfigState.ExpansionSoundIndex = BasicConfigState.ExpansionSound.NESchannelsOnly;
+            BasicConfigState.Namco163channelCount = 1;
+        }
+
         /// <summary>
         /// 拍子の変化でFrameを移行する チェックボックスの状態が変わった
         /// </summary>----------------------------------------------------------------------------------------------------
@@ -203,10 +227,9 @@ namespace MIDI2FTM
         /// </summary>----------------------------------------------------------------------------------------------------
         private void Button_Cancel_Click(object sender, EventArgs e)
         {
+            IsCancel = true;
             // 閉じる
             Close();
-
-            // イベントリストをリセット todo 読み込み完了状態をどこかで保持する必要がある？
         }
 
         /// <summary>

@@ -48,9 +48,9 @@
             this.NumericUpDown_StartMeasure = new System.Windows.Forms.NumericUpDown();
             this.Label_最初の小節 = new System.Windows.Forms.Label();
             this.GroupBox_拡張音源 = new System.Windows.Forms.GroupBox();
-            this.ComboBox_ExpansionSoundList = new System.Windows.Forms.ComboBox();
-            this.Label_チャンネル数 = new System.Windows.Forms.Label();
             this.NumericUpDown_ChannelCount = new System.Windows.Forms.NumericUpDown();
+            this.Label_チャンネル数 = new System.Windows.Forms.Label();
+            this.ComboBox_ExpansionSoundList = new System.Windows.Forms.ComboBox();
             ((System.ComponentModel.ISupportInitialize)(this.NumericUpDown_Speed)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.NumericUpDown_OneFrameMeasureCount)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.NumericUpDown_StartMeasure)).BeginInit();
@@ -281,6 +281,29 @@
             this.GroupBox_拡張音源.TabStop = false;
             this.GroupBox_拡張音源.Text = "拡張音源";
             // 
+            // NumericUpDown_ChannelCount
+            // 
+            this.NumericUpDown_ChannelCount.Enabled = false;
+            this.NumericUpDown_ChannelCount.Location = new System.Drawing.Point(192, 52);
+            this.NumericUpDown_ChannelCount.Name = "NumericUpDown_ChannelCount";
+            this.NumericUpDown_ChannelCount.Size = new System.Drawing.Size(62, 23);
+            this.NumericUpDown_ChannelCount.TabIndex = 22;
+            this.NumericUpDown_ChannelCount.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.NumericUpDown_ChannelCount.ValueChanged += new System.EventHandler(this.NumericUpDown_ChannelCount_ValueChanged);
+            // 
+            // Label_チャンネル数
+            // 
+            this.Label_チャンネル数.AutoSize = true;
+            this.Label_チャンネル数.Location = new System.Drawing.Point(100, 54);
+            this.Label_チャンネル数.Name = "Label_チャンネル数";
+            this.Label_チャンネル数.Size = new System.Drawing.Size(86, 16);
+            this.Label_チャンネル数.TabIndex = 22;
+            this.Label_チャンネル数.Text = "チャンネル数";
+            // 
             // ComboBox_ExpansionSoundList
             // 
             this.ComboBox_ExpansionSoundList.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
@@ -298,34 +321,12 @@
             this.ComboBox_ExpansionSoundList.TabIndex = 22;
             this.ComboBox_ExpansionSoundList.SelectedIndexChanged += new System.EventHandler(this.ComboBox_ExpansionSoundList_SelectedIndexChanged);
             // 
-            // Label_チャンネル数
-            // 
-            this.Label_チャンネル数.AutoSize = true;
-            this.Label_チャンネル数.Location = new System.Drawing.Point(100, 54);
-            this.Label_チャンネル数.Name = "Label_チャンネル数";
-            this.Label_チャンネル数.Size = new System.Drawing.Size(86, 16);
-            this.Label_チャンネル数.TabIndex = 22;
-            this.Label_チャンネル数.Text = "チャンネル数";
-            // 
-            // NumericUpDown_ChannelCount
-            // 
-            this.NumericUpDown_ChannelCount.Enabled = false;
-            this.NumericUpDown_ChannelCount.Location = new System.Drawing.Point(192, 52);
-            this.NumericUpDown_ChannelCount.Name = "NumericUpDown_ChannelCount";
-            this.NumericUpDown_ChannelCount.Size = new System.Drawing.Size(62, 23);
-            this.NumericUpDown_ChannelCount.TabIndex = 22;
-            this.NumericUpDown_ChannelCount.Value = new decimal(new int[] {
-            1,
-            0,
-            0,
-            0});
-            this.NumericUpDown_ChannelCount.ValueChanged += new System.EventHandler(this.NumericUpDown_ChannelCount_ValueChanged);
-            // 
             // BasicConfigWindow
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(303, 524);
+            this.ControlBox = false;
             this.Controls.Add(this.GroupBox_拡張音源);
             this.Controls.Add(this.NumericUpDown_StartMeasure);
             this.Controls.Add(this.Label_最初の小節);

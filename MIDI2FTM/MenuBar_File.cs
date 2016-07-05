@@ -1,7 +1,4 @@
-﻿/*****************************************************************************************************
- メインウィンドウのメニューバー関連のパーシャルクラス
-*****************************************************************************************************/
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -56,13 +53,19 @@ namespace MIDI2FTM
                     MeasureAnalyzer ma = new MeasureAnalyzer();
                     ma.Analyzing();
                     
-                    // コンボボックスにトラックを追加
-                    TrackList.DataSource = SMFData.Name;
-
                     // 基本設定ウィンドウをモーダルで開く
                     BasicConfigWindow bcw = new BasicConfigWindow();
                     bcw.ShowDialog(this);
                     bcw.Dispose();
+
+                    // キャンセルボタンを押したなら何もしない
+                    if (bcw.IsCancel)
+                    {
+                        return;
+                    }
+
+                    // コンボボックスにトラックを追加
+                    TrackList.DataSource = SMFData.Name;
 
                     // 最大小節番号を取得
                     foreach (Tracks t in SMFData.Tracks)
@@ -76,7 +79,7 @@ namespace MIDI2FTM
 
                     RefreshTrackerList rtl = new RefreshTrackerList();
                     // トラッカーリストを初期化
-                    rtl.InitializedList(ref TrackerList);
+                    rtl.InitializeList(ref TrackerList);
                     // 拡張音源列を追加
                     rtl.AddExpansionSoundColumns(ref TrackerList);
                     

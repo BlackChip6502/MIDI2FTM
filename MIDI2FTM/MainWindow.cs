@@ -1,7 +1,4 @@
-﻿/*****************************************************************************************************
- メインウィンドウ
-*****************************************************************************************************/
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -13,6 +10,9 @@ using System.Windows.Forms;
 
 namespace MIDI2FTM
 {
+    /// <summary>
+    /// メインウィンドウ
+    /// </summary>----------------------------------------------------------------------------------------------------
     public partial class MainWindow : Form
     {
         /// <summary>
@@ -85,9 +85,19 @@ namespace MIDI2FTM
         private void Button_Convert_Click(object sender, EventArgs e)
         {
             Convert c = new Convert();
+            // 選択されているMIDIトラックを選択されているトラッカーチャンネルにコンバートする
             c.TestConvert(ref TrackerList, TrackList.SelectedIndex, TrackerChannelList.SelectedIndex + 1);
         }
-        
+
+        /// <summary>
+        /// リセットボタンをクリックしたとき
+        /// </summary>----------------------------------------------------------------------------------------------------
+        private void Button_Reset_Click(object sender, EventArgs e)
+        {
+            // 選択されているチャンネルをリセットする
+            ChannelReset cr = new ChannelReset(ref TrackerList, TrackerChannelList.SelectedIndex + 1);
+        }
+
         /// <summary>
         /// ノートオンのボリューム有効 チェックボックスに変更があったとき 
         /// </summary>----------------------------------------------------------------------------------------------------

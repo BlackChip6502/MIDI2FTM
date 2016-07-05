@@ -81,7 +81,7 @@
             this.panel1 = new System.Windows.Forms.Panel();
             this.splitter1 = new System.Windows.Forms.Splitter();
             this.panel2 = new System.Windows.Forms.Panel();
-            this.button2 = new System.Windows.Forms.Button();
+            this.Button_Reset = new System.Windows.Forms.Button();
             this.TrackerChannelList = new System.Windows.Forms.ComboBox();
             this.Button_Convert = new System.Windows.Forms.Button();
             this.menuBar.SuspendLayout();
@@ -588,7 +588,7 @@
             // 
             // panel2
             // 
-            this.panel2.Controls.Add(this.button2);
+            this.panel2.Controls.Add(this.Button_Reset);
             this.panel2.Controls.Add(this.TrackerChannelList);
             this.panel2.Controls.Add(this.Button_Convert);
             this.panel2.Controls.Add(this.チャンネル設定);
@@ -599,14 +599,15 @@
             this.panel2.Size = new System.Drawing.Size(698, 787);
             this.panel2.TabIndex = 7;
             // 
-            // button2
+            // Button_Reset
             // 
-            this.button2.Location = new System.Drawing.Point(6, 749);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(103, 23);
-            this.button2.TabIndex = 5;
-            this.button2.Text = "リセット";
-            this.button2.UseVisualStyleBackColor = true;
+            this.Button_Reset.Location = new System.Drawing.Point(6, 749);
+            this.Button_Reset.Name = "Button_Reset";
+            this.Button_Reset.Size = new System.Drawing.Size(103, 23);
+            this.Button_Reset.TabIndex = 5;
+            this.Button_Reset.Text = "リセット";
+            this.Button_Reset.UseVisualStyleBackColor = true;
+            this.Button_Reset.Click += new System.EventHandler(this.Button_Reset_Click);
             // 
             // TrackerChannelList
             // 
@@ -714,7 +715,7 @@
         private System.Windows.Forms.RadioButton RadioButton_HighNotePriority;
         private System.Windows.Forms.ComboBox TrackerChannelList;
         private System.Windows.Forms.Button Button_Convert;
-        private System.Windows.Forms.Button button2;
+        private System.Windows.Forms.Button Button_Reset;
         private System.Windows.Forms.ColumnHeader Rows;
         private System.Windows.Forms.ColumnHeader Noise;
         private System.Windows.Forms.Label Label_音色番号;

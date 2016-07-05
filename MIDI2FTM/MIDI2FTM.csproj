@@ -54,6 +54,7 @@
       <DependentUpon>BasicConfigWindow.cs</DependentUpon>
     </Compile>
     <Compile Include="ChannelConfigState.cs" />
+    <Compile Include="ChannelReset .cs" />
     <Compile Include="Convert.cs" />
     <Compile Include="LoadMIDIFile.cs" />
     <Compile Include="MeasureAnalyzer.cs" />
