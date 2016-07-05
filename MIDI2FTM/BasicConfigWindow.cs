@@ -13,11 +13,14 @@ using System.Windows.Forms;
 
 namespace MIDI2FTM
 {
+    /// <summary>
+    /// 基本設定のウィンドウ
+    /// </summary>----------------------------------------------------------------------------------------------------
     public partial class BasicConfigWindow : Form
     {
-        //----------------------------------------------------------------------------------------------------
-        // コンストラクタ♪
-        //----------------------------------------------------------------------------------------------------
+        /// <summary>
+        /// コンストラクタ♪
+        /// </summary>----------------------------------------------------------------------------------------------------
         public BasicConfigWindow()
         {
             InitializeComponent();
@@ -59,34 +62,43 @@ namespace MIDI2FTM
             // 最小Tickの更新
             refreshMinTick();
         }
-
-        //----------------------------------------------------------------------------------------------------
-        // チェックボックスの状態が変わった
-        //----------------------------------------------------------------------------------------------------
+        
+        /// <summary>
+        /// 拍子の変化でFrameを移行する チェックボックスの状態が変わった
+        /// </summary>----------------------------------------------------------------------------------------------------
         private void CheckBox_ChangedFrame_CheckedChanged(object sender, EventArgs e)
         {
             // 拍子の変化でFrameを移行する 
             BasicConfigState.ChangedFrame = CheckBox_ChangedFrame.Checked;
         }
+        /// <summary>
+        /// 連符をGxxで表現する チェックボックスの状態が変わった
+        /// </summary>----------------------------------------------------------------------------------------------------
         private void CheckBox_EnableEffectG_CheckedChanged(object sender, EventArgs e)
         {
             // 連符をGxxで表現する
             BasicConfigState.EnableEffectG = CheckBox_EnableEffectG.Checked;
         }
+        /// <summary>
+        /// PATTERN00を使用しない チェックボックスの状態が変わった
+        /// </summary>----------------------------------------------------------------------------------------------------
         private void CheckBox_DisablePatternZero_CheckedChanged(object sender, EventArgs e)
         {
             // PATTERN00を使用しない
             BasicConfigState.DisablePatternZero = CheckBox_DisablePatternZero.Checked;
         }
+        /// <summary>
+        /// 未使用ChのOrderを00で埋める チェックボックスの状態が変わった
+        /// </summary>----------------------------------------------------------------------------------------------------
         private void CheckBox_UnusedChannelOrderZeroFill_CheckedChanged(object sender, EventArgs e)
         {
             // 未使用ChのOrderを00で埋める
             BasicConfigState.UnusedChannelOrderZeroFill = CheckBox_UnusedChannelOrderZeroFill.Checked;
         }
-
-        //----------------------------------------------------------------------------------------------------
-        // コンボボックスのインデックスが変わった
-        //----------------------------------------------------------------------------------------------------
+        
+        /// <summary>
+        /// 最小音価 コンボボックスのインデックスが変わった
+        /// </summary>----------------------------------------------------------------------------------------------------
         private void comboBox_MinNote_SelectedIndexChanged(object sender, EventArgs e)
         {
             // 最小音価
@@ -96,6 +108,9 @@ namespace MIDI2FTM
             // 最小Tickの更新
             refreshMinTick();   
         }
+        /// <summary>
+        /// 拡張音源 コンボボックスのインデックスが変わった
+        /// </summary>----------------------------------------------------------------------------------------------------
         private void ComboBox_ExpansionSoundList_SelectedIndexChanged(object sender, EventArgs e)
         {
             // 拡張音源の選択状態を保存
@@ -111,10 +126,10 @@ namespace MIDI2FTM
                 NumericUpDown_ChannelCount.Enabled = false;
             }
         }
-
-        //----------------------------------------------------------------------------------------------------
-        // ナンバリックアップダウンの値が変わった
-        //----------------------------------------------------------------------------------------------------
+        
+        /// <summary>
+        /// Speed ナンバリックアップダウンの値が変わった
+        /// </summary>----------------------------------------------------------------------------------------------------
         private void NumericUpDown_Speed_ValueChanged(object sender, EventArgs e)
         {
             // Speed 1 ～ 31 になるようにする
@@ -129,6 +144,9 @@ namespace MIDI2FTM
             // Speedの値を保存
             BasicConfigState.Speed = (byte)NumericUpDown_Speed.Value;
         }
+        /// <summary>
+        /// 最大Rows ナンバリックアップダウンの値が変わった
+        /// </summary>----------------------------------------------------------------------------------------------------
         private void NumericUpDown_OneFrameMeasureCount_ValueChanged(object sender, EventArgs e)
         {
             // 0にはしない
@@ -141,6 +159,9 @@ namespace MIDI2FTM
             // 最大Rowsの更新
             refreshMaxRows();
         }
+        /// <summary>
+        /// 最初の小節番号 ナンバリックアップダウンの値が変わった
+        /// </summary>----------------------------------------------------------------------------------------------------
         private void NumericUpDown_StartMeasure_ValueChanged(object sender, EventArgs e)
         {
             // 0にはしない
@@ -151,6 +172,9 @@ namespace MIDI2FTM
             // 最初の小節番号を保存
             BasicConfigState.StartMeasure = (int)NumericUpDown_StartMeasure.Value;
         }
+        /// <summary>
+        /// Namco163のチャンネル数 ナンバリックアップダウンの値が変わった
+        /// </summary>----------------------------------------------------------------------------------------------------
         private void NumericUpDown_ChannelCount_ValueChanged(object sender, EventArgs e)
         {
             // 1 ～ 8 になるようにする
@@ -166,15 +190,17 @@ namespace MIDI2FTM
             BasicConfigState.Namco163channelCount = (byte)NumericUpDown_ChannelCount.Value;
         }
 
-        //----------------------------------------------------------------------------------------------------
-        // ボタンを押した
-        //----------------------------------------------------------------------------------------------------
+        /// <summary>
+        /// 決定ボタンを押した
+        /// </summary>----------------------------------------------------------------------------------------------------
         private void DoneConfig_Click(object sender, EventArgs e)
         {
             // 閉じる
             Close();
         }
-
+        /// <summary>
+        /// キャンセルボタンを押した
+        /// </summary>----------------------------------------------------------------------------------------------------
         private void Button_Cancel_Click(object sender, EventArgs e)
         {
             // 閉じる
@@ -183,9 +209,9 @@ namespace MIDI2FTM
             // イベントリストをリセット todo 読み込み完了状態をどこかで保持する必要がある？
         }
 
-        //----------------------------------------------------------------------------------------------------
-        // 最大Rowsのラベルを更新、基本設定の最大Rowsの更新
-        //----------------------------------------------------------------------------------------------------
+        /// <summary>
+        /// 最大Rowsのラベルを更新、基本設定の最大Rowsの更新
+        /// </summary>----------------------------------------------------------------------------------------------------
         private void refreshMaxRows()
         {
             // 最小音価 / 分母 （このキャストは必要だ）
@@ -210,10 +236,10 @@ namespace MIDI2FTM
                 Button_DoneConfig.Enabled = true;
             }
         }
-
-        //----------------------------------------------------------------------------------------------------
-        // 最小Tickのラベルを更新
-        //----------------------------------------------------------------------------------------------------
+        
+        /// <summary>
+        /// 最小Tickのラベルを更新 
+        /// </summary>----------------------------------------------------------------------------------------------------
         private void refreshMinTick()
         {
             Label_MinTick.Text = "最小Tick : " + BasicConfigState.TicksPerLine;

@@ -9,37 +9,83 @@ using System.Threading.Tasks;
 
 namespace MIDI2FTM
 {
-    //----------------------------------------------------------------------------------------------------
-    // 基本設定の状態
-    //----------------------------------------------------------------------------------------------------
+    /// <summary>
+    /// 基本設定の状態 
+    /// </summary>
     public static class BasicConfigState
     {
-        public static bool ChangedFrame = true;                 // 拍子の変化でFrameを移行する
-        public static bool EnableEffectG = true;                // 連符をGxxで表現する
-        public static bool DisablePatternZero = true;           // PATTERN00を使用しない
-        public static bool UnusedChannelOrderZeroFill = true;   // 未使用ChのOrderを00で埋める
-        public static int MinNoteIndex = 4;                     // 最小音価のコンボボックス上でのインデックス
-        public static int MinNote                               // 最小音価
+        /// <summary>
+        /// 拍子の変化でFrameを移行する
+        /// </summary>
+        public static bool ChangedFrame = true;
+        /// <summary>
+        /// 連符をGxxで表現する
+        /// </summary>
+        public static bool EnableEffectG = true;
+        /// <summary>
+        /// PATTERN00を使用しない
+        /// </summary>
+        public static bool DisablePatternZero = true;
+        /// <summary>
+        /// 未使用ChのOrderを00で埋める
+        /// </summary>
+        public static bool UnusedChannelOrderZeroFill = true;
+        /// <summary>
+        /// 最小音価のコンボボックス上でのインデックス
+        /// </summary>
+        public static int MinNoteIndex = 4;
+        /// <summary>
+        /// 最小音価
+        /// </summary>
+        public static int MinNote
         {
             get { return (int)Math.Pow(2, MinNoteIndex); }      
         }
-        public static float TicksPerLine                         // 1ライン(Row)中のTick数
+        /// <summary>
+        /// 1ライン(Row)中のTick数
+        /// </summary>
+        public static float TicksPerLine
         {
             get { return SMFHeader.Data.Division / ((float)MinNote / 4); }
         }
-        public static byte Speed = 6;                           // Speed
-        public static float MinTick                             // 1ライン(Row)をSpeedで割った値、エフェクトGで表現できる最小単位
+        /// <summary>
+        /// Tracker上でのSpeed
+        /// </summary>
+        public static byte Speed = 6;
+        /// <summary>
+        /// 1ライン(Row)をSpeedで割った値、エフェクトGで表現できる最小単位
+        /// </summary>
+        public static float MinTick
         {
             get { return TicksPerLine / Speed; }
         }
-        public static byte OneFrameMeasureCount = 4;            // 1Frameの小節数
-        public static int StartMeasure = 2;                     // 最初小節
-        public static byte MaxTimeSignatureNumer = 4;           // 最大拍子 分子
-        public static byte MaxTimeSignatureDenom = 4;           // 最大拍子 分母
-        public static short MaxRows = 64;                       // 最大Rows
-        public static uint MaxMeasure = 0;                      // 最後の小節番号
-        
-        // 拡張音源
+        /// <summary>
+        /// 1Frameの小節数
+        /// </summary>
+        public static byte OneFrameMeasureCount = 4;
+        /// <summary>
+        /// 最初小節
+        /// </summary>
+        public static int StartMeasure = 2;
+        /// <summary>
+        /// 最大拍子 分子
+        /// </summary>
+        public static byte MaxTimeSignatureNumer = 4;
+        /// <summary>
+        /// 最大拍子 分母
+        /// </summary>
+        public static byte MaxTimeSignatureDenom = 4;
+        /// <summary>
+        /// 最大Rows
+        /// </summary>
+        public static short MaxRows = 64;
+        /// <summary>
+        /// 最後の小節番号
+        /// </summary>
+        public static uint MaxMeasure = 0;
+        /// <summary>
+        /// 拡張音源 
+        /// </summary>
         public enum ExpansionSound
         {
             NESchannelsOnly,
@@ -50,6 +96,9 @@ namespace MIDI2FTM
             Namco163,
         }
         public static ExpansionSound ExpansionSoundIndex = ExpansionSound.NESchannelsOnly;
+        /// <summary>
+        /// Namco163のチャンネル数
+        /// </summary>
         public static byte Namco163channelCount = 1;
     }
 }

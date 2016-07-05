@@ -15,9 +15,9 @@ namespace MIDI2FTM
 {
     public partial class MainWindow : Form
     {
-        //----------------------------------------------------------------------------------------------------
-        // コンストラクタ♪
-        //----------------------------------------------------------------------------------------------------
+        /// <summary>
+        /// コンストラクタ♪ 
+        /// </summary>----------------------------------------------------------------------------------------------------
         public MainWindow()
         {
             InitializeComponent();
@@ -55,10 +55,10 @@ namespace MIDI2FTM
                 ch.Width = -2;
             }
         }
-
-        //----------------------------------------------------------------------------------------------------
-        // 閉じるボタンの処理
-        //----------------------------------------------------------------------------------------------------
+        
+        /// <summary>
+        /// 閉じるボタンの処理 
+        /// </summary>----------------------------------------------------------------------------------------------------
         private void MainWindow_FormClosing(object sender, FormClosingEventArgs e)
         {
             /*
@@ -69,32 +69,35 @@ namespace MIDI2FTM
             }
             */
         }
-
-        //----------------------------------------------------------------------------------------------------
-        // コンボボックスを選択したとき
-        //----------------------------------------------------------------------------------------------------
+        
+        /// <summary>
+        /// SMFデータのトラックリストのコンボボックスを選択したとき 
+        /// </summary>----------------------------------------------------------------------------------------------------
         private void TrackList_SelectedIndexChanged(object sender, EventArgs e)
         {
             // イベントリストを更新
             RefreshEventsList rel = new RefreshEventsList(ref EventsList, TrackList.SelectedIndex);
         }
-
-        //----------------------------------------------------------------------------------------------------
-        // コンバートボタンをクリックしたとき
-        //----------------------------------------------------------------------------------------------------
+        
+        /// <summary>
+        /// コンバートボタンをクリックしたとき 
+        /// </summary>----------------------------------------------------------------------------------------------------
         private void Button_Convert_Click(object sender, EventArgs e)
         {
             Convert c = new Convert();
             c.TestConvert(ref TrackerList, TrackList.SelectedIndex, TrackerChannelList.SelectedIndex + 1);
         }
-
-        //----------------------------------------------------------------------------------------------------
-        // チェックボックス、ラジオボタンに変更があったとき
-        //----------------------------------------------------------------------------------------------------
+        
+        /// <summary>
+        /// ノートオンのボリューム有効 チェックボックスに変更があったとき 
+        /// </summary>----------------------------------------------------------------------------------------------------
         private void CheckBox_EnableNoteVolume_CheckedChanged(object sender, EventArgs e)
         {
             ChannelConfigState.EnableNoteVolume = CheckBox_EnableNoteVolume.Checked;
         }
+        /// <summary>
+        /// ノートオフを有効 チェックボックスに変更があったとき 
+        /// </summary>----------------------------------------------------------------------------------------------------
         private void CheckBox_EnableNoteOFF_CheckedChanged(object sender, EventArgs e)
         {
             ChannelConfigState.EnableNoteOFF = CheckBox_EnableNoteOFF.Checked;
@@ -110,14 +113,23 @@ namespace MIDI2FTM
                 RadioButton_NoteOFFtoNoteCut.Enabled = false;
             }
         }
+        /// <summary>
+        /// ノートオフを有効 → ボリュームで表現する ラジオボタンに変更があったとき 
+        /// </summary>----------------------------------------------------------------------------------------------------
         private void RadioButton_NoteOFFtoVolume_CheckedChanged(object sender, EventArgs e)
         {
             ChannelConfigState.NoteOFFtoVolume = RadioButton_NoteOFFtoVolume.Checked;
         }
+        /// <summary>
+        /// ノートオフを有効 → NoteCutで表現する ラジオボタンに変更があったとき 
+        /// </summary>----------------------------------------------------------------------------------------------------
         private void RadioButton_NoteOFFtoNoteCut_CheckedChanged(object sender, EventArgs e)
         {
             ChannelConfigState.NoteOFFtoNoteCut = RadioButton_NoteOFFtoNoteCut.Checked;
         }
+        /// <summary>
+        /// PitchBendを1xx,2xxxで表現する ラジオボタンに変更があったとき 
+        /// </summary>----------------------------------------------------------------------------------------------------
         private void CheckBox_EnableEffect1and2_CheckedChanged(object sender, EventArgs e)
         {
             ChannelConfigState.EnableEffect1and2 = CheckBox_EnableEffect1and2.Checked;

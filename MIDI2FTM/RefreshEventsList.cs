@@ -20,7 +20,8 @@ namespace MIDI2FTM
             _eventsList.Items.Clear();
             string[] data = new string[5];
 
-
+            // 処理中は描画しない
+            _eventsList.BeginUpdate();
             foreach (EventData e in SMFData.Tracks[_trackNum].Event)
             {
                 data[0] = e.Measure.ToString();
@@ -96,6 +97,9 @@ namespace MIDI2FTM
                 // 追加する
                 _eventsList.Items.Add(new ListViewItem(data));
             }
+
+            // 再描画
+            _eventsList.EndUpdate();
         }
     }
 }
