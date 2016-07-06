@@ -45,10 +45,13 @@ namespace MIDI2FTM
 
             NumericUpDown_InstrumentNum.Value = ChannelConfigState.InstrumentNum;
 
-            // コンバートボタンを無効
+            // コンバート、リセットボタンを無効
             Button_Convert.Enabled = false;
+            Button_Reset.Enabled = false;
 
-
+            // ステータスバーの中身を片づける
+            cleanUpStatusBar();
+            
             // カラムヘッダの自動調整
             foreach (ColumnHeader ch in TrackerList.Columns)
             {
@@ -75,8 +78,14 @@ namespace MIDI2FTM
         /// </summary>----------------------------------------------------------------------------------------------------
         private void TrackList_SelectedIndexChanged(object sender, EventArgs e)
         {
+            // ステータスバーを初期化
+            initializeStatusBar("イベントリストを更新しています。");
+
             // イベントリストを更新
-            RefreshEventsList rel = new RefreshEventsList(ref EventsList, TrackList.SelectedIndex);
+            RefreshEventsList rel = new RefreshEventsList(ref EventsList, TrackList.SelectedIndex, ref ToolStripProgressBar);
+            
+            // ステータスバーの中身を片づける
+            cleanUpStatusBar("イベントリストの更新が完了しました。");
         }
         
         /// <summary>
@@ -84,9 +93,15 @@ namespace MIDI2FTM
         /// </summary>----------------------------------------------------------------------------------------------------
         private void Button_Convert_Click(object sender, EventArgs e)
         {
+            // ステータスバーを初期化
+            initializeStatusBar("イベントリストから" + TrackerChannelList.SelectedItem + "チャンネルにコンバートしています。");
+
             Convert c = new Convert();
             // 選択されているMIDIトラックを選択されているトラッカーチャンネルにコンバートする
-            c.TestConvert(ref TrackerList, TrackList.SelectedIndex, TrackerChannelList.SelectedIndex + 1);
+            c.TestConvert(ref TrackerList, TrackList.SelectedIndex, TrackerChannelList.SelectedIndex + 1, ref ToolStripProgressBar);
+
+            // ステータスバーの中身を片づける
+            cleanUpStatusBar(TrackerChannelList.SelectedItem + "チャンネルへのコンバートが完了しました。");
         }
 
         /// <summary>
@@ -94,8 +109,14 @@ namespace MIDI2FTM
         /// </summary>----------------------------------------------------------------------------------------------------
         private void Button_Reset_Click(object sender, EventArgs e)
         {
+            // ステータスバーを初期化
+            initializeStatusBar(TrackerChannelList.SelectedItem + "チャンネルをリセットしています。");
+
             // 選択されているチャンネルをリセットする
             ChannelReset cr = new ChannelReset(ref TrackerList, TrackerChannelList.SelectedIndex + 1);
+
+            // ステータスバーの中身を片づける
+            cleanUpStatusBar(TrackerChannelList.SelectedItem + "チャンネルのリセットが完了しました。");
         }
 
         /// <summary>
@@ -232,6 +253,31 @@ namespace MIDI2FTM
             {
                 NumericUpDown_InstrumentNum.Value = 0x3F;
             }
+        }
+
+        /// <summary>
+        /// ステータスバーのプログレスバーを初期化する、テキストを消すか引数があれば表示する
+        /// </summary>----------------------------------------------------------------------------------------------------
+        /// <param name="_startMessage">表示したいテキスト</param>
+        private void initializeStatusBar(string _startMessage = "")
+        {
+            ToolStripStatusLabel.Text = _startMessage;
+            ToolStripProgressBar.Visible = true;
+            ToolStripProgressBar.Value = 0;
+            StatusStrip.Refresh();
+        }
+
+        /// <summary>
+        /// ステータスバーのプログレスバーを片づける、テキストを消すか引数があれば表示して数秒後に消える
+        /// </summary>----------------------------------------------------------------------------------------------------
+        /// <param name="_endMessage">捨て台詞</param>
+        private async void cleanUpStatusBar(string _endMessage = "")
+        {
+            ToolStripStatusLabel.Text = _endMessage;
+            await Task.Delay(1 * 1000);
+            ToolStripProgressBar.Visible = false;
+            ToolStripProgressBar.Value = 0;
+            ToolStripStatusLabel.Text = "";
         }
     }
 }

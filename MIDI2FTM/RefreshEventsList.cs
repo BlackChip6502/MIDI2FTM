@@ -17,18 +17,26 @@ namespace MIDI2FTM
         /// </summary>----------------------------------------------------------------------------------------------------
         /// <param name="_eventsList">SMFのイベントリスト</param>
         /// <param name="_trackNum">トラック番号</param>
-        public RefreshEventsList(ref ListView _eventsList, int _trackNum)
+        /// <param name="_progressBar">ステータスバーのプログレスバー</param>
+        public RefreshEventsList(ref ListView _eventsList, int _trackNum, ref ToolStripProgressBar _progressBar)
         {
             _eventsList.Items.Clear();
             string[] data = new string[5];
+
+            // プログレスバーを初期化
+            _progressBar.Maximum = SMFData.Tracks[_trackNum].Event.Count;
+            _progressBar.Value = 0;
 
             // 処理中は描画しない
             _eventsList.BeginUpdate();
             foreach (EventData e in SMFData.Tracks[_trackNum].Event)
             {
+                // プログレスバーにインクリメントする
+                _progressBar.PerformStep();
+
                 data[0] = e.Measure.ToString();
                 data[1] = e.Tick.ToString();
-
+                
                 // ノートオンでもボリュームが0の場合はノートオフ扱い
                 if (e.EventID == 0x90 && e.Value == 0)
                 {

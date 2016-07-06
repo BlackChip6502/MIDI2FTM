@@ -44,15 +44,22 @@ namespace MIDI2FTM
             // ファイルを開いたか
             if (lmf.IsOpen)
             {
+                // ステータスバーのテキスト更新
+                ToolStripStatusLabel.Text = "MIDIファイルを解析しています。";
+
                 // 開いたファイルを解析
                 SMFAnalyzer sa = new SMFAnalyzer();
+
                 // 解析が成功したら
                 if (sa.AnalyzingSMF(ref lmf.ByteStream))
                 {
                     // Measure Tick を解析
                     MeasureAnalyzer ma = new MeasureAnalyzer();
                     ma.Analyzing();
-                    
+
+                    // ステータスバーのテキスト更新
+                    ToolStripStatusLabel.Text = "MIDIファイルを解析しました。";
+
                     // 基本設定ウィンドウをモーダルで開く
                     BasicConfigWindow bcw = new BasicConfigWindow();
                     bcw.ShowDialog(this);
@@ -61,6 +68,8 @@ namespace MIDI2FTM
                     // キャンセルボタンを押したなら何もしない
                     if (bcw.IsCancel)
                     {
+                        // ステータスバーのテキスト更新
+                        ToolStripStatusLabel.Text = "キャンセルしました。";
                         return;
                     }
 
@@ -90,12 +99,19 @@ namespace MIDI2FTM
                     }
                     TrackerChannelList.SelectedIndex = 0;
 
+                    // ステータスバーを初期化
+                    initializeStatusBar("トラッカーを初期化しています。");
+
                     // トラッカーのリストを初期化
                     Convert c = new Convert();
-                    c.InitializationTrackerList(ref TrackerList);
+                    c.InitializationTrackerList(ref TrackerList, ref ToolStripProgressBar);
+
+                    // ステータスバーの中身を片づける
+                    cleanUpStatusBar("トラッカーの初期化が完了しました。");
 
                     // チャンネル設定の有効、無効
                     Button_Convert.Enabled = true;
+                    Button_Reset.Enabled = true;
                     if (BasicConfigState.EnableEffectG)
                     {
                         RadioButton_LeadNotePriority.Enabled = true;
@@ -107,7 +123,20 @@ namespace MIDI2FTM
                         RadioButton_BehindNotePriority.Enabled = false;
                     }
                 }
+                // SMF解析に失敗した
+                else
+                {
+                    ToolStripStatusLabel.Text = "MIDIファイルの解析に失敗しました。";
+                }
             }
+            // ファイルを開かなかった
+            else
+            {
+                ToolStripStatusLabel.Text = "ファイルを開きませんでした。";
+            }
+
+            // ステータスバーの中身を片づける
+            cleanUpStatusBar();
         }
 
         private void ファイル_FTMエクスポート_Click(object sender, EventArgs e)

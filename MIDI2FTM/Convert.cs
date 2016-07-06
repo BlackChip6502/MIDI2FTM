@@ -17,7 +17,7 @@ namespace MIDI2FTM
         /// </summary>----------------------------------------------------------------------------------------------------
         public Convert()
         {
-
+            
         }
 
         /// <summary>
@@ -26,7 +26,8 @@ namespace MIDI2FTM
         /// <param name="_trackerList">リストビューのトラッカーリスト</param>
         /// <param name="_inputTrackNum">入力元のSMFデータのトラック番号</param>
         /// <param name="_outputChannel">出力先のトラッカーのチャンネル</param>
-        public void TestConvert(ref ListView _trackerList, int _inputTrackNum, int _outputChannel)
+        /// <param name="_progressBar">ステータスバーのプログレスバー</param>
+        public void TestConvert(ref ListView _trackerList, int _inputTrackNum, int _outputChannel, ref ToolStripProgressBar _progressBar)
         {
             // フレーム内の小節数
             int frameInMeasure = 1;
@@ -39,10 +40,17 @@ namespace MIDI2FTM
             // フレーム以降フラグ
             bool nextFrame = false;
 
+            // プログレスバーを初期化
+            _progressBar.Maximum = (int)BasicConfigState.MaxMeasure;
+            _progressBar.Value = 0;
+
             // 処理中は描画しない
             _trackerList.BeginUpdate();
             foreach (ListViewItem lvi in _trackerList.Items)
             {
+                // プログレスバーにインクリメントする
+                _progressBar.PerformStep();
+
                 // 小節を跨いだら
                 if (currentTick >= oneMeasureTick)
                 {
@@ -105,7 +113,8 @@ namespace MIDI2FTM
         /// トラッカーリストを初期化
         /// </summary>----------------------------------------------------------------------------------------------------
         /// <param name="_trackerList">リストビューのトラッカーリスト</param>
-        public void InitializationTrackerList(ref ListView _trackerList)
+        /// <param name="_progressBar">ステータスバーのプログレスバー</param>
+        public void InitializationTrackerList(ref ListView _trackerList, ref ToolStripProgressBar _progressBar)
         {
             // 初期化
             _trackerList.Items.Clear();
@@ -120,11 +129,18 @@ namespace MIDI2FTM
                 currentFrameNum = 1;
             }
 
+            // プログレスバーを初期化
+            _progressBar.Maximum = (int)BasicConfigState.MaxMeasure;
+            _progressBar.Value = 0;
+
             // 処理中は描画しない
             _trackerList.BeginUpdate();
             // 最大小節の数だけループする
             for (int i = 1; i <= BasicConfigState.MaxMeasure; i++)
             {
+                // プログレスバーにインクリメントする
+                _progressBar.PerformStep();
+
                 // 拍子の変化でフレームを移行するフラグが立っていて、直前の小節の長さ（拍子）と現在の小節の長さが違ったら
                 if (BasicConfigState.ChangedFrame && oneMeasureTick != getMeasureLength(i))
                 {
