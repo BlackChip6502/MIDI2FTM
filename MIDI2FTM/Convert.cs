@@ -91,16 +91,56 @@ namespace MIDI2FTM
                     continue;
                 }
 
-                // とりあえず
-                lvi.SubItems[_outputChannel].Text = "... .. . ...";
+                // 行に書き出し用変数を用意
+                string outputRowText = null;
 
-                // ノートがあれば
-                string noteName = getNote(currentMeasure, currentTick, _inputTrackNum);
-                if (noteName != null)
+                // 現在の行の対象のノートオンイベントを取得
+                EventData e = getNote(currentMeasure, currentTick, _inputTrackNum);
+
+                // ノートオン情報
+                if (e.EventID != 0)
                 {
-                    lvi.SubItems[_outputChannel].Text = noteName + " .. . ...";
+                    outputRowText = NoteNumber.NumberToNoteName(e.Number) + " ";
                 }
-                
+                else
+                {
+                    outputRowText = "... ";
+                }
+
+                // 音色番号情報
+                if (e.EventID != 0)
+                {
+                    outputRowText += ChannelConfigState.InstrumentNum.ToString("X2") + " ";
+                }
+                else
+                {
+                    outputRowText += ".. ";
+                }
+
+                // ノートオンのボリューム情報
+                if (e.EventID != 0 && ChannelConfigState.EnableNoteVolume)
+                {
+                    byte volume = (byte)Math.Round(e.Value / (127f / 15f));
+                    outputRowText += volume.ToString("X1") + " ";
+                }
+                else
+                {
+                    outputRowText += ". ";
+                }
+
+                // エフェクト情報
+                if (false)
+                {
+
+                }
+                else
+                {
+                    outputRowText += "...";
+                }
+
+                // 行に書き出し
+                lvi.SubItems[_outputChannel].Text = outputRowText;
+
                 // 次の音価へ
                 currentTick += (int)BasicConfigState.TicksPerLine;
             }
@@ -164,8 +204,8 @@ namespace MIDI2FTM
                     }
                     // 追加
                     _trackerList.Items.Add(new ListViewItem(data));
-                    // 文字を白色にする
-                    _trackerList.Items[_trackerList.Items.Count - 1].ForeColor = System.Drawing.Color.White;
+                    // 文字に色を付ける
+                    _trackerList.Items[_trackerList.Items.Count - 1].ForeColor = System.Drawing.Color.FromArgb(200, 200, 255);
 
                     // 空のデータを入れる
                     for (int j = 0; j < BasicConfigState.MaxRows; j++)
@@ -178,11 +218,18 @@ namespace MIDI2FTM
                         // 追加
                         _trackerList.Items.Add(new ListViewItem(data));
 
-                        // 4の倍数なら
-                        if (j % 4 == 0)
+                        // 分母の拍子ごとに色を付ける (Row Highlight)
+                        if (j % (BasicConfigState.MinNote / BasicConfigState.MaxTimeSignatureDenom) == 0)
+                        {
+                            // 文字を薄い黄色にする
+                            _trackerList.Items[_trackerList.Items.Count - 1].ForeColor = System.Drawing.Color.FromArgb(200, 200, 0);
+                        }
+
+                        // 1小節単位で色を付ける (2nd Highlight)
+                        if (j % ((BasicConfigState.MinNote / BasicConfigState.MaxTimeSignatureDenom) * BasicConfigState.MaxTimeSignatureNumer) == 0)
                         {
                             // 文字を黄色にする
-                            _trackerList.Items[_trackerList.Items.Count - 1].ForeColor = System.Drawing.Color.Yellow;
+                            _trackerList.Items[_trackerList.Items.Count - 1].ForeColor = System.Drawing.Color.FromArgb(255, 255, 0);
                         }
                     }
 
@@ -220,10 +267,11 @@ namespace MIDI2FTM
         /// <param name="_currentTick">現在のTick数</param>
         /// <param name="_trackNum">入力元のトラック番号</param>
         /// <returns></returns>
-        private string getNote(int _currentMeasure, int _currentTick, int _trackNum)
+        private EventData getNote(int _currentMeasure, int _currentTick, int _trackNum)
         {
-            List<byte> notes = new List<byte>(10);
-
+            //List<byte> notes = new List<byte>(10);
+            List<EventData> notes = new List<EventData>(10);
+            
             // 現在の小節数から次の小節の拍子の変化を探す
             foreach (EventData e in SMFData.Tracks[_trackNum].Event)
             {
@@ -231,9 +279,9 @@ namespace MIDI2FTM
                 if (e.Measure == _currentMeasure && e.Tick == _currentTick )
                 {
                     // ボリューム0じゃないノートオンを探す
-                    if(e.EventID == 0x90 && e.Gate != 0)
+                    if(e.EventID == 0x90 && e.Gate != 0 && e.Value != 0)
                     {
-                        notes.Add(e.Number);
+                        notes.Add(e);
                     }
                 }
                 // 次の小節に行ってしまったら終わり
@@ -242,15 +290,23 @@ namespace MIDI2FTM
                     // ノートが見つかっていたら
                     if(notes.Count > 0)
                     {
-                        // 昇順で並べ替え todo チャンネル設定を参照して処理を分ける
                         notes.Sort();
-                        // 一番低いノートを返す
-                        return NoteNumber.NumberToNoteName(notes[0]); 
+                        if (ChannelConfigState.HighNotePriority)
+                        {
+                            // 一番高いノートを返す
+                            return (notes[notes.Count - 1]);
+                        }
+                        else
+                        {
+                            // 一番低いノートを返す
+                            return (notes[0]);
+                        }
                     }
                     break;
                 }
             }
-                return null;
+            EventData returnNote = new EventData();
+            return returnNote;
         }
 
         /// <summary>

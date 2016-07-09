@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 namespace MIDI2FTM
 {
@@ -54,7 +55,7 @@ namespace MIDI2FTM
     /// <summary>
     /// SMFイベントデータ構造体
     /// </summary>
-    public struct EventData
+    public struct EventData : IComparable<EventData>
     {
         /// <summary>
         /// イベントID
@@ -110,5 +111,14 @@ namespace MIDI2FTM
         /// メタイベントでのテキスト等
         /// </summary>
         public string Text;
-    }
+        /// <summary>
+        /// ソートするために必要なやつ
+        /// </summary>
+        /// <param name="e">よくわかってないやつ</param>
+        /// <returns>よくわかってないやつ</returns>
+        public int CompareTo(EventData e)
+        {
+            return Number - e.Number;
+        }
+}
 }

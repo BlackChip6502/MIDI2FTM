@@ -325,7 +325,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(303, 524);
+            this.ClientSize = new System.Drawing.Size(433, 681);
             this.ControlBox = false;
             this.Controls.Add(this.GroupBox_拡張音源);
             this.Controls.Add(this.NumericUpDown_StartMeasure);

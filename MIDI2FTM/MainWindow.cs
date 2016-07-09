@@ -253,6 +253,8 @@ namespace MIDI2FTM
             {
                 NumericUpDown_InstrumentNum.Value = 0x3F;
             }
+
+            ChannelConfigState.InstrumentNum = (byte)NumericUpDown_InstrumentNum.Value;
         }
 
         /// <summary>
