@@ -120,5 +120,5 @@ namespace MIDI2FTM
         {
             return Number - e.Number;
         }
-}
+    }
 }

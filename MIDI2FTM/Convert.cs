@@ -37,7 +37,7 @@ namespace MIDI2FTM
             int currentTick = 0;
             // 最初の小節の長さを取得
             int oneMeasureTick = getMeasureLength(currentMeasure);
-            // フレーム以降フラグ
+            // フレーム移行フラグ
             bool nextFrame = false;
 
             // プログレスバーを初期化
@@ -62,7 +62,7 @@ namespace MIDI2FTM
                     frameInMeasure++;
                     // 次の小節の長さを取得
                     int tmp = getMeasureLength(currentMeasure);
-                    // 拍子の変化でフレームを以降する場合
+                    // 拍子の変化でフレームを移行する場合
                     if (BasicConfigState.ChangedFrame && oneMeasureTick != tmp)
                     {
                         frameInMeasure = 1;
@@ -71,7 +71,7 @@ namespace MIDI2FTM
                     oneMeasureTick = tmp;
                 }
 
-                // フレームを以降する
+                // フレームを移行する
                 if (frameInMeasure > BasicConfigState.OneFrameMeasureCount)
                 {
                     frameInMeasure = 1;
@@ -85,7 +85,7 @@ namespace MIDI2FTM
                     continue;
                 }
                 
-                // フレーム以降中はなにもしない
+                // フレーム移行中はなにもしない
                 if (nextFrame)
                 {
                     continue;
@@ -176,7 +176,7 @@ namespace MIDI2FTM
             // 処理中は描画しない
             _trackerList.BeginUpdate();
             // 最大小節の数だけループする
-            for (int i = 1; i <= BasicConfigState.MaxMeasure; i++)
+            for (int i = 1; i < BasicConfigState.MaxMeasure; i++)
             {
                 // プログレスバーにインクリメントする
                 _progressBar.PerformStep();
@@ -284,8 +284,8 @@ namespace MIDI2FTM
                         notes.Add(e);
                     }
                 }
-                // 次の小節に行ってしまったら終わり
-                else if(e.Measure > _currentMeasure)
+                // 次の小節に行ってしまったり、End Of Trackなら終わり
+                else if(e.Measure > _currentMeasure || (e.EventID == 0xFF && e.Number == 0x2F))
                 {
                     // ノートが見つかっていたら
                     if(notes.Count > 0)

@@ -80,9 +80,9 @@ namespace MIDI2FTM
                     foreach (Tracks t in SMFData.Tracks)
                     {
                         // 最大小節番号の更新があれば
-                        if (BasicConfigState.MaxMeasure < t.Event[t.Event.Count - 1].Measure)
+                        if (BasicConfigState.MaxMeasure < t.Event[t.Event.Count - 2].Measure)
                         {
-                            BasicConfigState.MaxMeasure = t.Event[t.Event.Count - 1].Measure;
+                            BasicConfigState.MaxMeasure = t.Event[t.Event.Count - 2].Measure;
                         }
                     }
 
@@ -91,8 +91,9 @@ namespace MIDI2FTM
                     rtl.InitializeList(ref TrackerList);
                     // 拡張音源列を追加
                     rtl.AddExpansionSoundColumns(ref TrackerList);
-                    
+
                     // コンボボックスにトラッカーのチャンネル名の配列を作る
+                    TrackerChannelList.Items.Clear();
                     for (int i = 1; TrackerList.Columns.Count > i; i++)
                     {
                         TrackerChannelList.Items.Add(TrackerList.Columns[i].Text);

@@ -395,10 +395,10 @@ namespace MIDI2FTM
             byteCounter += (int)dataLength;
             _dataLength -= dataLength;
         }
-        
+
         /// <summary>
         /// メタ・イベント 0xFF
-        /// </summary>
+        /// </summary>----------------------------------------------------------------------------------------------------
         /// <param name="_byteStream">バイナリデータ配列</param>
         /// <param name="_dataLength">データ長</param>
         private void metaEvents(ref byte[] _byteStream, ref long _dataLength)
