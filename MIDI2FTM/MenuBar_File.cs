@@ -113,16 +113,6 @@ namespace MIDI2FTM
                     // チャンネル設定の有効、無効
                     Button_Convert.Enabled = true;
                     Button_Reset.Enabled = true;
-                    if (BasicConfigState.EnableEffectG)
-                    {
-                        RadioButton_LeadNotePriority.Enabled = true;
-                        RadioButton_BehindNotePriority.Enabled = true;
-                    }
-                    else
-                    {
-                        RadioButton_LeadNotePriority.Enabled = false;
-                        RadioButton_BehindNotePriority.Enabled = false;
-                    }
                 }
                 // SMF解析に失敗した
                 else

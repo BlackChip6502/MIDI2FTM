@@ -30,7 +30,6 @@ namespace MIDI2FTM
             // 初期化
             InitializedSettings();
             CheckBox_ChangedFrame.Checked = BasicConfigState.ChangedFrame;
-            CheckBox_EnableEffectG.Checked = BasicConfigState.EnableEffectG;
             CheckBox_DisablePatternZero.Checked = BasicConfigState.DisablePatternZero;
             CheckBox_UnusedChannelOrderZeroFill.Checked = BasicConfigState.UnusedChannelOrderZeroFill;
             ComboBox_MinNote.SelectedIndex = BasicConfigState.MinNoteIndex;
@@ -72,7 +71,6 @@ namespace MIDI2FTM
         private void InitializedSettings()
         {
             BasicConfigState.ChangedFrame = true;
-            BasicConfigState.EnableEffectG = true;
             BasicConfigState.DisablePatternZero = true;
             BasicConfigState.UnusedChannelOrderZeroFill = true;
             BasicConfigState.MinNoteIndex = 4;
@@ -94,14 +92,6 @@ namespace MIDI2FTM
         {
             // 拍子の変化でFrameを移行する 
             BasicConfigState.ChangedFrame = CheckBox_ChangedFrame.Checked;
-        }
-        /// <summary>
-        /// 連符をGxxで表現する チェックボックスの状態が変わった
-        /// </summary>----------------------------------------------------------------------------------------------------
-        private void CheckBox_EnableEffectG_CheckedChanged(object sender, EventArgs e)
-        {
-            // 連符をGxxで表現する
-            BasicConfigState.EnableEffectG = CheckBox_EnableEffectG.Checked;
         }
         /// <summary>
         /// PATTERN00を使用しない チェックボックスの状態が変わった

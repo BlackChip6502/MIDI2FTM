@@ -54,6 +54,7 @@
             this.DPCM = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.TrackList = new System.Windows.Forms.ComboBox();
             this.チャンネル設定 = new System.Windows.Forms.GroupBox();
+            this.CheckBox_EnableEffectG = new System.Windows.Forms.CheckBox();
             this.Label_音色番号 = new System.Windows.Forms.Label();
             this.NumericUpDown_InstrumentNum = new System.Windows.Forms.NumericUpDown();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
@@ -108,7 +109,7 @@
             this.menuBarヘルプ});
             this.menuBar.Location = new System.Drawing.Point(0, 0);
             this.menuBar.Name = "menuBar";
-            this.menuBar.Size = new System.Drawing.Size(1029, 26);
+            this.menuBar.Size = new System.Drawing.Size(1089, 29);
             this.menuBar.TabIndex = 0;
             this.menuBar.Text = "menuStrip2";
             // 
@@ -125,84 +126,84 @@
             this.separatorB,
             this.ファイル_終了});
             this.menuBarファイル.Name = "menuBarファイル";
-            this.menuBarファイル.Size = new System.Drawing.Size(85, 22);
+            this.menuBarファイル.Size = new System.Drawing.Size(84, 25);
             this.menuBarファイル.Text = "ファイル(&F)";
             // 
             // ファイル_新規作成
             // 
             this.ファイル_新規作成.Name = "ファイル_新規作成";
-            this.ファイル_新規作成.Size = new System.Drawing.Size(202, 22);
+            this.ファイル_新規作成.Size = new System.Drawing.Size(235, 28);
             this.ファイル_新規作成.Text = "新規作成(&N)";
             this.ファイル_新規作成.Click += new System.EventHandler(this.ファイル_新規作成_Click);
             // 
             // ファイル_開く
             // 
             this.ファイル_開く.Name = "ファイル_開く";
-            this.ファイル_開く.Size = new System.Drawing.Size(202, 22);
+            this.ファイル_開く.Size = new System.Drawing.Size(235, 28);
             this.ファイル_開く.Text = "開く(&O)...";
             this.ファイル_開く.Click += new System.EventHandler(this.ファイル_開く_Click);
             // 
             // ファイル_上書き保存
             // 
             this.ファイル_上書き保存.Name = "ファイル_上書き保存";
-            this.ファイル_上書き保存.Size = new System.Drawing.Size(202, 22);
+            this.ファイル_上書き保存.Size = new System.Drawing.Size(235, 28);
             this.ファイル_上書き保存.Text = "上書き保存(&S)";
             this.ファイル_上書き保存.Click += new System.EventHandler(this.ファイル_上書き保存_Click);
             // 
             // ファイル_名前を付けて保存
             // 
             this.ファイル_名前を付けて保存.Name = "ファイル_名前を付けて保存";
-            this.ファイル_名前を付けて保存.Size = new System.Drawing.Size(202, 22);
+            this.ファイル_名前を付けて保存.Size = new System.Drawing.Size(235, 28);
             this.ファイル_名前を付けて保存.Text = "名前を付けて保存(&A)...";
             this.ファイル_名前を付けて保存.Click += new System.EventHandler(this.ファイル_名前を付けて保存_Click);
             // 
             // separatorA
             // 
             this.separatorA.Name = "separatorA";
-            this.separatorA.Size = new System.Drawing.Size(199, 6);
+            this.separatorA.Size = new System.Drawing.Size(232, 6);
             // 
             // ファイル_MIDIインポート
             // 
             this.ファイル_MIDIインポート.Name = "ファイル_MIDIインポート";
-            this.ファイル_MIDIインポート.Size = new System.Drawing.Size(202, 22);
+            this.ファイル_MIDIインポート.Size = new System.Drawing.Size(235, 28);
             this.ファイル_MIDIインポート.Text = "MIDIインポート(&M)...";
             this.ファイル_MIDIインポート.Click += new System.EventHandler(this.ファイル_MIDIインポート_Click);
             // 
             // ファイル_FTMエクスポート
             // 
             this.ファイル_FTMエクスポート.Name = "ファイル_FTMエクスポート";
-            this.ファイル_FTMエクスポート.Size = new System.Drawing.Size(202, 22);
+            this.ファイル_FTMエクスポート.Size = new System.Drawing.Size(235, 28);
             this.ファイル_FTMエクスポート.Text = "FTMエクスポート(&F)";
             this.ファイル_FTMエクスポート.Click += new System.EventHandler(this.ファイル_FTMエクスポート_Click);
             // 
             // separatorB
             // 
             this.separatorB.Name = "separatorB";
-            this.separatorB.Size = new System.Drawing.Size(199, 6);
+            this.separatorB.Size = new System.Drawing.Size(232, 6);
             // 
             // ファイル_終了
             // 
             this.ファイル_終了.Name = "ファイル_終了";
-            this.ファイル_終了.Size = new System.Drawing.Size(202, 22);
+            this.ファイル_終了.Size = new System.Drawing.Size(235, 28);
             this.ファイル_終了.Text = "終了(&X)";
             this.ファイル_終了.Click += new System.EventHandler(this.ファイル_終了_Click);
             // 
             // menuBar編集
             // 
             this.menuBar編集.Name = "menuBar編集";
-            this.menuBar編集.Size = new System.Drawing.Size(61, 22);
+            this.menuBar編集.Size = new System.Drawing.Size(72, 25);
             this.menuBar編集.Text = "編集(&E)";
             // 
             // menuBar表示
             // 
             this.menuBar表示.Name = "menuBar表示";
-            this.menuBar表示.Size = new System.Drawing.Size(62, 22);
+            this.menuBar表示.Size = new System.Drawing.Size(74, 25);
             this.menuBar表示.Text = "表示(&V)";
             // 
             // menuBarヘルプ
             // 
             this.menuBarヘルプ.Name = "menuBarヘルプ";
-            this.menuBarヘルプ.Size = new System.Drawing.Size(75, 22);
+            this.menuBarヘルプ.Size = new System.Drawing.Size(81, 25);
             this.menuBarヘルプ.Text = "ヘルプ(&H)";
             // 
             // StatusStrip
@@ -211,9 +212,9 @@
             this.StatusStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.ToolStripStatusLabel,
             this.ToolStripProgressBar});
-            this.StatusStrip.Location = new System.Drawing.Point(0, 815);
+            this.StatusStrip.Location = new System.Drawing.Point(0, 892);
             this.StatusStrip.Name = "StatusStrip";
-            this.StatusStrip.Size = new System.Drawing.Size(1029, 23);
+            this.StatusStrip.Size = new System.Drawing.Size(1089, 23);
             this.StatusStrip.TabIndex = 4;
             this.StatusStrip.Text = "statusStrip1";
             // 
@@ -252,7 +253,7 @@
             this.TrackerList.Location = new System.Drawing.Point(303, 3);
             this.TrackerList.MultiSelect = false;
             this.TrackerList.Name = "TrackerList";
-            this.TrackerList.Size = new System.Drawing.Size(392, 783);
+            this.TrackerList.Size = new System.Drawing.Size(452, 857);
             this.TrackerList.TabIndex = 0;
             this.TrackerList.UseCompatibleStateImageBehavior = false;
             this.TrackerList.View = System.Windows.Forms.View.Details;
@@ -290,12 +291,13 @@
             this.TrackList.FormattingEnabled = true;
             this.TrackList.Location = new System.Drawing.Point(3, 3);
             this.TrackList.Name = "TrackList";
-            this.TrackList.Size = new System.Drawing.Size(325, 20);
+            this.TrackList.Size = new System.Drawing.Size(325, 24);
             this.TrackList.TabIndex = 1;
             this.TrackList.SelectedIndexChanged += new System.EventHandler(this.TrackList_SelectedIndexChanged);
             // 
             // チャンネル設定
             // 
+            this.チャンネル設定.Controls.Add(this.CheckBox_EnableEffectG);
             this.チャンネル設定.Controls.Add(this.Label_音色番号);
             this.チャンネル設定.Controls.Add(this.NumericUpDown_InstrumentNum);
             this.チャンネル設定.Controls.Add(this.groupBox3);
@@ -310,26 +312,37 @@
             this.チャンネル設定.Controls.Add(this.CheckBox_EnableNoteVolume);
             this.チャンネル設定.Location = new System.Drawing.Point(3, 33);
             this.チャンネル設定.Name = "チャンネル設定";
-            this.チャンネル設定.Size = new System.Drawing.Size(294, 687);
+            this.チャンネル設定.Size = new System.Drawing.Size(294, 733);
             this.チャンネル設定.TabIndex = 2;
             this.チャンネル設定.TabStop = false;
             this.チャンネル設定.Text = "チャンネル設定";
             // 
+            // CheckBox_EnableEffectG
+            // 
+            this.CheckBox_EnableEffectG.AutoSize = true;
+            this.CheckBox_EnableEffectG.Location = new System.Drawing.Point(6, 566);
+            this.CheckBox_EnableEffectG.Name = "CheckBox_EnableEffectG";
+            this.CheckBox_EnableEffectG.Size = new System.Drawing.Size(170, 20);
+            this.CheckBox_EnableEffectG.TabIndex = 22;
+            this.CheckBox_EnableEffectG.Text = "連符をGxxで表現する";
+            this.CheckBox_EnableEffectG.UseVisualStyleBackColor = true;
+            this.CheckBox_EnableEffectG.CheckedChanged += new System.EventHandler(this.CheckBox_EnableEffectG_CheckedChanged);
+            // 
             // Label_音色番号
             // 
             this.Label_音色番号.AutoSize = true;
-            this.Label_音色番号.Location = new System.Drawing.Point(9, 653);
+            this.Label_音色番号.Location = new System.Drawing.Point(9, 692);
             this.Label_音色番号.Name = "Label_音色番号";
-            this.Label_音色番号.Size = new System.Drawing.Size(53, 12);
+            this.Label_音色番号.Size = new System.Drawing.Size(72, 16);
             this.Label_音色番号.TabIndex = 21;
             this.Label_音色番号.Text = "音色番号";
             // 
             // NumericUpDown_InstrumentNum
             // 
             this.NumericUpDown_InstrumentNum.Hexadecimal = true;
-            this.NumericUpDown_InstrumentNum.Location = new System.Drawing.Point(87, 651);
+            this.NumericUpDown_InstrumentNum.Location = new System.Drawing.Point(88, 690);
             this.NumericUpDown_InstrumentNum.Name = "NumericUpDown_InstrumentNum";
-            this.NumericUpDown_InstrumentNum.Size = new System.Drawing.Size(68, 19);
+            this.NumericUpDown_InstrumentNum.Size = new System.Drawing.Size(68, 23);
             this.NumericUpDown_InstrumentNum.TabIndex = 6;
             this.NumericUpDown_InstrumentNum.ValueChanged += new System.EventHandler(this.NumericUpDown_InstrumentNum_ValueChanged);
             // 
@@ -350,7 +363,7 @@
             this.RadioButton_NoteOFFtoVolume.Enabled = false;
             this.RadioButton_NoteOFFtoVolume.Location = new System.Drawing.Point(6, 22);
             this.RadioButton_NoteOFFtoVolume.Name = "RadioButton_NoteOFFtoVolume";
-            this.RadioButton_NoteOFFtoVolume.Size = new System.Drawing.Size(121, 16);
+            this.RadioButton_NoteOFFtoVolume.Size = new System.Drawing.Size(159, 20);
             this.RadioButton_NoteOFFtoVolume.TabIndex = 2;
             this.RadioButton_NoteOFFtoVolume.TabStop = true;
             this.RadioButton_NoteOFFtoVolume.Text = "ボリュームで表現する";
@@ -363,7 +376,7 @@
             this.RadioButton_NoteOFFtoNoteCut.Enabled = false;
             this.RadioButton_NoteOFFtoNoteCut.Location = new System.Drawing.Point(6, 48);
             this.RadioButton_NoteOFFtoNoteCut.Name = "RadioButton_NoteOFFtoNoteCut";
-            this.RadioButton_NoteOFFtoNoteCut.Size = new System.Drawing.Size(118, 16);
+            this.RadioButton_NoteOFFtoNoteCut.Size = new System.Drawing.Size(157, 20);
             this.RadioButton_NoteOFFtoNoteCut.TabIndex = 3;
             this.RadioButton_NoteOFFtoNoteCut.TabStop = true;
             this.RadioButton_NoteOFFtoNoteCut.Text = "NoteCutで表現する";
@@ -387,7 +400,7 @@
             this.RadioButton_CCVolumeToVolume.Enabled = false;
             this.RadioButton_CCVolumeToVolume.Location = new System.Drawing.Point(6, 22);
             this.RadioButton_CCVolumeToVolume.Name = "RadioButton_CCVolumeToVolume";
-            this.RadioButton_CCVolumeToVolume.Size = new System.Drawing.Size(110, 16);
+            this.RadioButton_CCVolumeToVolume.Size = new System.Drawing.Size(144, 20);
             this.RadioButton_CCVolumeToVolume.TabIndex = 6;
             this.RadioButton_CCVolumeToVolume.TabStop = true;
             this.RadioButton_CCVolumeToVolume.Text = "CCVolumeを適用";
@@ -400,7 +413,7 @@
             this.RadioButton_CCExpressionToVolume.Enabled = false;
             this.RadioButton_CCExpressionToVolume.Location = new System.Drawing.Point(6, 48);
             this.RadioButton_CCExpressionToVolume.Name = "RadioButton_CCExpressionToVolume";
-            this.RadioButton_CCExpressionToVolume.Size = new System.Drawing.Size(128, 16);
+            this.RadioButton_CCExpressionToVolume.Size = new System.Drawing.Size(166, 20);
             this.RadioButton_CCExpressionToVolume.TabIndex = 7;
             this.RadioButton_CCExpressionToVolume.TabStop = true;
             this.RadioButton_CCExpressionToVolume.Text = "CCExpressionを適用";
@@ -411,7 +424,7 @@
             // 
             this.groupBox_同一Tickのノート優先度.Controls.Add(this.RadioButton_LowNotePriority);
             this.groupBox_同一Tickのノート優先度.Controls.Add(this.RadioButton_HighNotePriority);
-            this.groupBox_同一Tickのノート優先度.Location = new System.Drawing.Point(3, 454);
+            this.groupBox_同一Tickのノート優先度.Location = new System.Drawing.Point(6, 444);
             this.groupBox_同一Tickのノート優先度.Name = "groupBox_同一Tickのノート優先度";
             this.groupBox_同一Tickのノート優先度.Size = new System.Drawing.Size(281, 80);
             this.groupBox_同一Tickのノート優先度.TabIndex = 18;
@@ -421,9 +434,9 @@
             // RadioButton_LowNotePriority
             // 
             this.RadioButton_LowNotePriority.AutoSize = true;
-            this.RadioButton_LowNotePriority.Location = new System.Drawing.Point(9, 48);
+            this.RadioButton_LowNotePriority.Location = new System.Drawing.Point(6, 48);
             this.RadioButton_LowNotePriority.Name = "RadioButton_LowNotePriority";
-            this.RadioButton_LowNotePriority.Size = new System.Drawing.Size(95, 16);
+            this.RadioButton_LowNotePriority.Size = new System.Drawing.Size(125, 20);
             this.RadioButton_LowNotePriority.TabIndex = 15;
             this.RadioButton_LowNotePriority.TabStop = true;
             this.RadioButton_LowNotePriority.Text = "一番低いノート";
@@ -433,9 +446,9 @@
             // RadioButton_HighNotePriority
             // 
             this.RadioButton_HighNotePriority.AutoSize = true;
-            this.RadioButton_HighNotePriority.Location = new System.Drawing.Point(9, 22);
+            this.RadioButton_HighNotePriority.Location = new System.Drawing.Point(6, 22);
             this.RadioButton_HighNotePriority.Name = "RadioButton_HighNotePriority";
-            this.RadioButton_HighNotePriority.Size = new System.Drawing.Size(95, 16);
+            this.RadioButton_HighNotePriority.Size = new System.Drawing.Size(125, 20);
             this.RadioButton_HighNotePriority.TabIndex = 16;
             this.RadioButton_HighNotePriority.TabStop = true;
             this.RadioButton_HighNotePriority.Text = "一番高いノート";
@@ -446,7 +459,7 @@
             // 
             this.groupBox1.Controls.Add(this.RadioButton_LeadNotePriority);
             this.groupBox1.Controls.Add(this.RadioButton_BehindNotePriority);
-            this.groupBox1.Location = new System.Drawing.Point(3, 566);
+            this.groupBox1.Location = new System.Drawing.Point(6, 592);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(281, 80);
             this.groupBox1.TabIndex = 17;
@@ -457,9 +470,9 @@
             // 
             this.RadioButton_LeadNotePriority.AutoSize = true;
             this.RadioButton_LeadNotePriority.Enabled = false;
-            this.RadioButton_LeadNotePriority.Location = new System.Drawing.Point(9, 22);
+            this.RadioButton_LeadNotePriority.Location = new System.Drawing.Point(6, 22);
             this.RadioButton_LeadNotePriority.Name = "RadioButton_LeadNotePriority";
-            this.RadioButton_LeadNotePriority.Size = new System.Drawing.Size(71, 16);
+            this.RadioButton_LeadNotePriority.Size = new System.Drawing.Size(93, 20);
             this.RadioButton_LeadNotePriority.TabIndex = 15;
             this.RadioButton_LeadNotePriority.TabStop = true;
             this.RadioButton_LeadNotePriority.Text = "先のノート";
@@ -470,9 +483,9 @@
             // 
             this.RadioButton_BehindNotePriority.AutoSize = true;
             this.RadioButton_BehindNotePriority.Enabled = false;
-            this.RadioButton_BehindNotePriority.Location = new System.Drawing.Point(9, 48);
+            this.RadioButton_BehindNotePriority.Location = new System.Drawing.Point(6, 48);
             this.RadioButton_BehindNotePriority.Name = "RadioButton_BehindNotePriority";
-            this.RadioButton_BehindNotePriority.Size = new System.Drawing.Size(71, 16);
+            this.RadioButton_BehindNotePriority.Size = new System.Drawing.Size(93, 20);
             this.RadioButton_BehindNotePriority.TabIndex = 16;
             this.RadioButton_BehindNotePriority.TabStop = true;
             this.RadioButton_BehindNotePriority.Text = "後のノート";
@@ -482,9 +495,9 @@
             // CheckBox_EnableEffectF
             // 
             this.CheckBox_EnableEffectF.AutoSize = true;
-            this.CheckBox_EnableEffectF.Location = new System.Drawing.Point(3, 264);
+            this.CheckBox_EnableEffectF.Location = new System.Drawing.Point(6, 264);
             this.CheckBox_EnableEffectF.Name = "CheckBox_EnableEffectF";
-            this.CheckBox_EnableEffectF.Size = new System.Drawing.Size(168, 16);
+            this.CheckBox_EnableEffectF.Size = new System.Drawing.Size(221, 20);
             this.CheckBox_EnableEffectF.TabIndex = 10;
             this.CheckBox_EnableEffectF.Text = "テンポチェンジをFxxで表現する";
             this.CheckBox_EnableEffectF.UseVisualStyleBackColor = true;
@@ -493,9 +506,9 @@
             // CheckBox_EnableEffect4and7
             // 
             this.CheckBox_EnableEffect4and7.AutoSize = true;
-            this.CheckBox_EnableEffect4and7.Location = new System.Drawing.Point(3, 238);
+            this.CheckBox_EnableEffect4and7.Location = new System.Drawing.Point(6, 238);
             this.CheckBox_EnableEffect4and7.Name = "CheckBox_EnableEffect4and7";
-            this.CheckBox_EnableEffect4and7.Size = new System.Drawing.Size(197, 16);
+            this.CheckBox_EnableEffect4and7.Size = new System.Drawing.Size(256, 20);
             this.CheckBox_EnableEffect4and7.TabIndex = 9;
             this.CheckBox_EnableEffect4and7.Text = "CCModulationを4xx 7xxで表現する";
             this.CheckBox_EnableEffect4and7.UseVisualStyleBackColor = true;
@@ -504,9 +517,9 @@
             // CheckBox_EnableEffect1and2
             // 
             this.CheckBox_EnableEffect1and2.AutoSize = true;
-            this.CheckBox_EnableEffect1and2.Location = new System.Drawing.Point(3, 212);
+            this.CheckBox_EnableEffect1and2.Location = new System.Drawing.Point(6, 212);
             this.CheckBox_EnableEffect1and2.Name = "CheckBox_EnableEffect1and2";
-            this.CheckBox_EnableEffect1and2.Size = new System.Drawing.Size(178, 16);
+            this.CheckBox_EnableEffect1and2.Size = new System.Drawing.Size(231, 20);
             this.CheckBox_EnableEffect1and2.TabIndex = 8;
             this.CheckBox_EnableEffect1and2.Text = "PitchBendを1xx 2xxで表現する";
             this.CheckBox_EnableEffect1and2.UseVisualStyleBackColor = true;
@@ -515,9 +528,9 @@
             // CheckBox_EnableCCVolume
             // 
             this.CheckBox_EnableCCVolume.AutoSize = true;
-            this.CheckBox_EnableCCVolume.Location = new System.Drawing.Point(3, 316);
+            this.CheckBox_EnableCCVolume.Location = new System.Drawing.Point(6, 316);
             this.CheckBox_EnableCCVolume.Name = "CheckBox_EnableCCVolume";
-            this.CheckBox_EnableCCVolume.Size = new System.Drawing.Size(162, 16);
+            this.CheckBox_EnableCCVolume.Size = new System.Drawing.Size(213, 20);
             this.CheckBox_EnableCCVolume.TabIndex = 5;
             this.CheckBox_EnableCCVolume.Text = "ノート以外のボリュームを有効";
             this.CheckBox_EnableCCVolume.UseVisualStyleBackColor = true;
@@ -526,9 +539,9 @@
             // CheckBox_EnableNoteOFF
             // 
             this.CheckBox_EnableNoteOFF.AutoSize = true;
-            this.CheckBox_EnableNoteOFF.Location = new System.Drawing.Point(3, 74);
+            this.CheckBox_EnableNoteOFF.Location = new System.Drawing.Point(6, 74);
             this.CheckBox_EnableNoteOFF.Name = "CheckBox_EnableNoteOFF";
-            this.CheckBox_EnableNoteOFF.Size = new System.Drawing.Size(100, 16);
+            this.CheckBox_EnableNoteOFF.Size = new System.Drawing.Size(132, 20);
             this.CheckBox_EnableNoteOFF.TabIndex = 1;
             this.CheckBox_EnableNoteOFF.Text = "ノートオフを有効";
             this.CheckBox_EnableNoteOFF.UseVisualStyleBackColor = true;
@@ -537,9 +550,9 @@
             // CheckBox_EnableNoteVolume
             // 
             this.CheckBox_EnableNoteVolume.AutoSize = true;
-            this.CheckBox_EnableNoteVolume.Location = new System.Drawing.Point(3, 22);
+            this.CheckBox_EnableNoteVolume.Location = new System.Drawing.Point(6, 22);
             this.CheckBox_EnableNoteVolume.Name = "CheckBox_EnableNoteVolume";
-            this.CheckBox_EnableNoteVolume.Size = new System.Drawing.Size(156, 16);
+            this.CheckBox_EnableNoteVolume.Size = new System.Drawing.Size(205, 20);
             this.CheckBox_EnableNoteVolume.TabIndex = 0;
             this.CheckBox_EnableNoteVolume.Text = "ノートオンのボリュームを有効";
             this.CheckBox_EnableNoteVolume.UseVisualStyleBackColor = true;
@@ -561,7 +574,7 @@
             this.EventsList.Location = new System.Drawing.Point(3, 30);
             this.EventsList.MultiSelect = false;
             this.EventsList.Name = "EventsList";
-            this.EventsList.Size = new System.Drawing.Size(325, 756);
+            this.EventsList.Size = new System.Drawing.Size(325, 830);
             this.EventsList.TabIndex = 3;
             this.EventsList.UseCompatibleStateImageBehavior = false;
             this.EventsList.View = System.Windows.Forms.View.Details;
@@ -595,16 +608,16 @@
             this.panel1.Controls.Add(this.TrackList);
             this.panel1.Controls.Add(this.EventsList);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Left;
-            this.panel1.Location = new System.Drawing.Point(0, 26);
+            this.panel1.Location = new System.Drawing.Point(0, 29);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(328, 789);
+            this.panel1.Size = new System.Drawing.Size(328, 863);
             this.panel1.TabIndex = 5;
             // 
             // splitter1
             // 
-            this.splitter1.Location = new System.Drawing.Point(328, 26);
+            this.splitter1.Location = new System.Drawing.Point(328, 29);
             this.splitter1.Name = "splitter1";
-            this.splitter1.Size = new System.Drawing.Size(3, 789);
+            this.splitter1.Size = new System.Drawing.Size(3, 863);
             this.splitter1.TabIndex = 6;
             this.splitter1.TabStop = false;
             // 
@@ -616,15 +629,15 @@
             this.panel2.Controls.Add(this.チャンネル設定);
             this.panel2.Controls.Add(this.TrackerList);
             this.panel2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel2.Location = new System.Drawing.Point(331, 26);
+            this.panel2.Location = new System.Drawing.Point(331, 29);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(698, 789);
+            this.panel2.Size = new System.Drawing.Size(758, 863);
             this.panel2.TabIndex = 7;
             // 
             // Button_Reset
             // 
             this.Button_Reset.Enabled = false;
-            this.Button_Reset.Location = new System.Drawing.Point(6, 749);
+            this.Button_Reset.Location = new System.Drawing.Point(6, 798);
             this.Button_Reset.Name = "Button_Reset";
             this.Button_Reset.Size = new System.Drawing.Size(103, 23);
             this.Button_Reset.TabIndex = 5;
@@ -638,13 +651,13 @@
             this.TrackerChannelList.FormattingEnabled = true;
             this.TrackerChannelList.Location = new System.Drawing.Point(0, 3);
             this.TrackerChannelList.Name = "TrackerChannelList";
-            this.TrackerChannelList.Size = new System.Drawing.Size(297, 20);
+            this.TrackerChannelList.Size = new System.Drawing.Size(297, 24);
             this.TrackerChannelList.TabIndex = 4;
             // 
             // Button_Convert
             // 
             this.Button_Convert.Enabled = false;
-            this.Button_Convert.Location = new System.Drawing.Point(194, 749);
+            this.Button_Convert.Location = new System.Drawing.Point(194, 798);
             this.Button_Convert.Name = "Button_Convert";
             this.Button_Convert.Size = new System.Drawing.Size(103, 23);
             this.Button_Convert.TabIndex = 3;
@@ -654,7 +667,7 @@
             // 
             // MainWindow
             // 
-            this.ClientSize = new System.Drawing.Size(1029, 838);
+            this.ClientSize = new System.Drawing.Size(1089, 915);
             this.Controls.Add(this.panel2);
             this.Controls.Add(this.splitter1);
             this.Controls.Add(this.panel1);
@@ -748,6 +761,7 @@
         private System.Windows.Forms.NumericUpDown NumericUpDown_InstrumentNum;
         private System.Windows.Forms.ToolStripStatusLabel ToolStripStatusLabel;
         private System.Windows.Forms.ToolStripProgressBar ToolStripProgressBar;
+        private System.Windows.Forms.CheckBox CheckBox_EnableEffectG;
     }
 }
 

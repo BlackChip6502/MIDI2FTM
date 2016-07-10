@@ -60,6 +60,10 @@ namespace MIDI2FTM
         /// </summary>
         public static bool LowNotePriority = false;
         /// <summary>
+        /// 連符をGxxで表現する
+        /// </summary>
+        public static bool EnableEffectG = false;
+        /// <summary>
         /// 同一Rowで先のノートを優先
         /// </summary>
         public static bool LeadNotePriority = true;

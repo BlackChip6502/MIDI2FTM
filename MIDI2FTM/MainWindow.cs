@@ -225,6 +225,25 @@ namespace MIDI2FTM
         {
             ChannelConfigState.LowNotePriority = RadioButton_LowNotePriority.Checked;
         }
+
+        /// <summary>
+        /// 連符をGxxで表現する チェックボックスに変更があったとき 
+        /// </summary>----------------------------------------------------------------------------------------------------
+        private void CheckBox_EnableEffectG_CheckedChanged(object sender, EventArgs e)
+        {
+            ChannelConfigState.EnableEffectG = CheckBox_EnableEffectG.Checked;
+            // ラジオボタン有効、無効
+            if (ChannelConfigState.EnableEffectG)
+            {
+                RadioButton_LeadNotePriority.Enabled = true;
+                RadioButton_BehindNotePriority.Enabled = true;
+            }
+            else
+            {
+                RadioButton_LeadNotePriority.Enabled = false;
+                RadioButton_BehindNotePriority.Enabled = false;
+            }
+        }
         /// <summary>
         /// 同一Rowで先のノートを優先 ラジオボタンに変更があったとき 
         /// </summary>----------------------------------------------------------------------------------------------------

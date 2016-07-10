@@ -16,10 +16,6 @@ namespace MIDI2FTM
         /// </summary>
         public static bool ChangedFrame = true;
         /// <summary>
-        /// 連符をGxxで表現する
-        /// </summary>
-        public static bool EnableEffectG = true;
-        /// <summary>
         /// PATTERN00を使用しない
         /// </summary>
         public static bool DisablePatternZero = true;

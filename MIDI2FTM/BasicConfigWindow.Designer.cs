@@ -32,7 +32,6 @@
             this.Label_MaxTimeSignature = new System.Windows.Forms.Label();
             this.CheckBox_UnusedChannelOrderZeroFill = new System.Windows.Forms.CheckBox();
             this.CheckBox_DisablePatternZero = new System.Windows.Forms.CheckBox();
-            this.CheckBox_EnableEffectG = new System.Windows.Forms.CheckBox();
             this.NumericUpDown_Speed = new System.Windows.Forms.NumericUpDown();
             this.NumericUpDown_OneFrameMeasureCount = new System.Windows.Forms.NumericUpDown();
             this.Label_1Frameの小節数 = new System.Windows.Forms.Label();
@@ -97,17 +96,6 @@
             this.CheckBox_DisablePatternZero.Text = "PATTERN00を使用しない";
             this.CheckBox_DisablePatternZero.UseVisualStyleBackColor = true;
             this.CheckBox_DisablePatternZero.CheckedChanged += new System.EventHandler(this.CheckBox_DisablePatternZero_CheckedChanged);
-            // 
-            // CheckBox_EnableEffectG
-            // 
-            this.CheckBox_EnableEffectG.AutoSize = true;
-            this.CheckBox_EnableEffectG.Location = new System.Drawing.Point(12, 37);
-            this.CheckBox_EnableEffectG.Name = "CheckBox_EnableEffectG";
-            this.CheckBox_EnableEffectG.Size = new System.Drawing.Size(170, 20);
-            this.CheckBox_EnableEffectG.TabIndex = 8;
-            this.CheckBox_EnableEffectG.Text = "連符をGxxで表現する";
-            this.CheckBox_EnableEffectG.UseVisualStyleBackColor = true;
-            this.CheckBox_EnableEffectG.CheckedChanged += new System.EventHandler(this.CheckBox_EnableEffectG_CheckedChanged);
             // 
             // NumericUpDown_Speed
             // 
@@ -341,7 +329,6 @@
             this.Controls.Add(this.CheckBox_ChangedFrame);
             this.Controls.Add(this.CheckBox_DisablePatternZero);
             this.Controls.Add(this.Label_Speed);
-            this.Controls.Add(this.CheckBox_EnableEffectG);
             this.Controls.Add(this.ComboBox_MinNote);
             this.Controls.Add(this.NumericUpDown_Speed);
             this.Controls.Add(this.Label_最小音価);
@@ -365,7 +352,6 @@
         private System.Windows.Forms.Label Label_MaxTimeSignature;
         private System.Windows.Forms.CheckBox CheckBox_UnusedChannelOrderZeroFill;
         private System.Windows.Forms.CheckBox CheckBox_DisablePatternZero;
-        private System.Windows.Forms.CheckBox CheckBox_EnableEffectG;
         private System.Windows.Forms.NumericUpDown NumericUpDown_Speed;
         private System.Windows.Forms.NumericUpDown NumericUpDown_OneFrameMeasureCount;
         private System.Windows.Forms.Label Label_1Frameの小節数;
