@@ -56,6 +56,8 @@
     <Compile Include="ChannelConfigState.cs" />
     <Compile Include="ChannelReset .cs" />
     <Compile Include="Convert.cs" />
+    <Compile Include="ConvertCommon.cs" />
+    <Compile Include="InitializationTrackerList.cs" />
     <Compile Include="LoadMIDIFile.cs" />
     <Compile Include="MeasureAnalyzer.cs" />
     <Compile Include="MenuBar_File.cs">

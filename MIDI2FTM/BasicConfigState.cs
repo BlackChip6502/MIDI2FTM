@@ -11,74 +11,44 @@ namespace MIDI2FTM
     /// </summary>----------------------------------------------------------------------------------------------------
     public static class BasicConfigState
     {
-        /// <summary>
-        /// 拍子の変化でFrameを移行する
-        /// </summary>
+        /// <summary>拍子の変化でFrameを移行する</summary>
         public static bool ChangedFrame = true;
-        /// <summary>
-        /// PATTERN00を使用しない
-        /// </summary>
+        /// <summary>PATTERN00を使用しない</summary>
         public static bool DisablePatternZero = true;
-        /// <summary>
-        /// 未使用ChのOrderを00で埋める
-        /// </summary>
+        /// <summary>未使用ChのOrderを00で埋める</summary>
         public static bool UnusedChannelOrderZeroFill = true;
-        /// <summary>
-        /// 最小音価のコンボボックス上でのインデックス
-        /// </summary>
+        /// <summary>最小音価のコンボボックス上でのインデックス</summary>
         public static int MinNoteIndex = 4;
-        /// <summary>
-        /// 最小音価
-        /// </summary>
+        /// <summary>最小音価</summary>
         public static int MinNote
         {
             get { return (int)Math.Pow(2, MinNoteIndex); }      
         }
-        /// <summary>
-        /// 1ライン(Row)中のTick数
-        /// </summary>
+        /// <summary>1ライン(Row)中のTick数</summary>
         public static float TicksPerLine
         {
             get { return SMFHeader.Data.Division / ((float)MinNote / 4); }
         }
-        /// <summary>
-        /// Tracker上でのSpeed
-        /// </summary>
+        /// <summary>Tracker上でのSpeed</summary>
         public static byte Speed = 6;
-        /// <summary>
-        /// 1ライン(Row)をSpeedで割った値、エフェクトGで表現できる最小単位
-        /// </summary>
+        /// <summary>1ライン(Row)をSpeedで割った値、エフェクトGで表現できる最小単位</summary>
         public static float MinTick
         {
             get { return TicksPerLine / Speed; }
         }
-        /// <summary>
-        /// 1Frameの小節数
-        /// </summary>
+        /// <summary>1Frameの小節数</summary>
         public static byte OneFrameMeasureCount = 4;
-        /// <summary>
-        /// 最初小節
-        /// </summary>
+        /// <summary>最初小節</summary>
         public static int StartMeasure = 2;
-        /// <summary>
-        /// 最大拍子 分子
-        /// </summary>
+        /// <summary>最大拍子 分子</summary>
         public static byte MaxTimeSignatureNumer = 4;
-        /// <summary>
-        /// 最大拍子 分母
-        /// </summary>
+        /// <summary>最大拍子 分母</summary>
         public static byte MaxTimeSignatureDenom = 4;
-        /// <summary>
-        /// 最大Rows
-        /// </summary>
+        /// <summary>最大Rows</summary>
         public static short MaxRows = 64;
-        /// <summary>
-        /// 最後の小節番号
-        /// </summary>
+        /// <summary>最後の小節番号</summary>
         public static uint MaxMeasure = 0;
-        /// <summary>
-        /// 拡張音源 
-        /// </summary>
+        /// <summary>拡張音源 </summary>
         public enum ExpansionSound
         {
             NESchannelsOnly,
@@ -88,10 +58,9 @@ namespace MIDI2FTM
             NintendoMMC5,
             Namco163,
         }
+        /// <summary>拡張音源のインデックス</summary>
         public static ExpansionSound ExpansionSoundIndex = ExpansionSound.NESchannelsOnly;
-        /// <summary>
-        /// Namco163のチャンネル数
-        /// </summary>
+        /// <summary>Namco163のチャンネル数</summary>
         public static byte Namco163channelCount = 1;
     }
 }

@@ -104,8 +104,7 @@ namespace MIDI2FTM
                     initializeStatusBar("トラッカーを初期化しています。");
 
                     // トラッカーのリストを初期化
-                    Convert c = new Convert();
-                    c.InitializationTrackerList(ref TrackerList, ref ToolStripProgressBar);
+                    InitializationTrackerList itl = new InitializationTrackerList(ref TrackerList, ref ToolStripProgressBar);
 
                     // ステータスバーの中身を片づける
                     cleanUpStatusBar("トラッカーの初期化が完了しました。");

@@ -96,9 +96,9 @@ namespace MIDI2FTM
             // ステータスバーを初期化
             initializeStatusBar("イベントリストから" + TrackerChannelList.SelectedItem + "チャンネルにコンバートしています。");
 
-            Convert c = new Convert();
+            Convert c = new Convert(TrackList.SelectedIndex, TrackerChannelList.SelectedIndex + 1);
             // 選択されているMIDIトラックを選択されているトラッカーチャンネルにコンバートする
-            c.TestConvert(ref TrackerList, TrackList.SelectedIndex, TrackerChannelList.SelectedIndex + 1, ref ToolStripProgressBar);
+            c.StartConvert(ref TrackerList, ref ToolStripProgressBar);
 
             // ステータスバーの中身を片づける
             cleanUpStatusBar(TrackerChannelList.SelectedItem + "チャンネルへのコンバートが完了しました。");
