@@ -132,8 +132,16 @@ namespace MIDI2FTM
             // 行に書き出し用変数を用意
             string outputRowText = null;
 
+            EventData noteOnEvent = new EventData();
             // 現在の行の対象のノートオンイベントを取得
-            EventData noteOnEvent = getCurrentNote(currentMeasure, currentTick);
+            if (ChannelConfigState.EnableEffectG)
+            {
+                noteOnEvent = getCurrentRangeNote(currentMeasure, currentTick);
+            }
+            else
+            {
+                noteOnEvent = getCurrentNote(currentMeasure, currentTick);
+            }
             // 有効にする音量情報を取得する
             EventData ccVolumeEvent = getCurrentCCVolume(currentMeasure, currentTick);
 

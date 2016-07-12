@@ -25,9 +25,9 @@ namespace MIDI2FTM
             // 諸々初期化
             CheckBox_EnableNoteVolume.Checked = ChannelConfigState.EnableNoteVolume;
 
-            CheckBox_EnableNoteOFF.Checked = ChannelConfigState.EnableNoteOFF;
-            RadioButton_NoteOFFtoVolume.Checked = ChannelConfigState.NoteOFFtoVolume;
-            RadioButton_NoteOFFtoNoteCut.Checked = ChannelConfigState.NoteOFFtoNoteCut;
+            //CheckBox_EnableNoteOFF.Checked = ChannelConfigState.EnableNoteOFF;
+            //RadioButton_NoteOFFtoVolume.Checked = ChannelConfigState.NoteOFFtoVolume;
+            //RadioButton_NoteOFFtoNoteCut.Checked = ChannelConfigState.NoteOFFtoNoteCut;
 
             CheckBox_EnableEffect1and2.Checked = ChannelConfigState.EnableEffect1and2;
             CheckBox_EnableEffect4and7.Checked = ChannelConfigState.EnableEffect4and7;
@@ -127,38 +127,6 @@ namespace MIDI2FTM
             ChannelConfigState.EnableNoteVolume = CheckBox_EnableNoteVolume.Checked;
         }
         /// <summary>
-        /// ノートオフを有効 チェックボックスに変更があったとき 
-        /// </summary>----------------------------------------------------------------------------------------------------
-        private void CheckBox_EnableNoteOFF_CheckedChanged(object sender, EventArgs e)
-        {
-            ChannelConfigState.EnableNoteOFF = CheckBox_EnableNoteOFF.Checked;
-            // ラジオボタン有効、無効
-            if (ChannelConfigState.EnableNoteOFF)
-            {
-                RadioButton_NoteOFFtoVolume.Enabled = true;
-                RadioButton_NoteOFFtoNoteCut.Enabled = true;
-            }
-            else
-            {
-                RadioButton_NoteOFFtoVolume.Enabled = false;
-                RadioButton_NoteOFFtoNoteCut.Enabled = false;
-            }
-        }
-        /// <summary>
-        /// ノートオフを有効 → ボリュームで表現する ラジオボタンに変更があったとき 
-        /// </summary>----------------------------------------------------------------------------------------------------
-        private void RadioButton_NoteOFFtoVolume_CheckedChanged(object sender, EventArgs e)
-        {
-            ChannelConfigState.NoteOFFtoVolume = RadioButton_NoteOFFtoVolume.Checked;
-        }
-        /// <summary>
-        /// ノートオフを有効 → NoteCutで表現する ラジオボタンに変更があったとき 
-        /// </summary>----------------------------------------------------------------------------------------------------
-        private void RadioButton_NoteOFFtoNoteCut_CheckedChanged(object sender, EventArgs e)
-        {
-            ChannelConfigState.NoteOFFtoNoteCut = RadioButton_NoteOFFtoNoteCut.Checked;
-        }
-        /// <summary>
         /// PitchBendを1xx,2xxxで表現する ラジオボタンに変更があったとき 
         /// </summary>----------------------------------------------------------------------------------------------------
         private void CheckBox_EnableEffect1and2_CheckedChanged(object sender, EventArgs e)
@@ -232,17 +200,6 @@ namespace MIDI2FTM
         private void CheckBox_EnableEffectG_CheckedChanged(object sender, EventArgs e)
         {
             ChannelConfigState.EnableEffectG = CheckBox_EnableEffectG.Checked;
-            // ラジオボタン有効、無効
-            if (ChannelConfigState.EnableEffectG)
-            {
-                RadioButton_LeadNotePriority.Enabled = true;
-                RadioButton_BehindNotePriority.Enabled = true;
-            }
-            else
-            {
-                RadioButton_LeadNotePriority.Enabled = false;
-                RadioButton_BehindNotePriority.Enabled = false;
-            }
         }
         /// <summary>
         /// 同一Rowで先のノートを優先 ラジオボタンに変更があったとき 

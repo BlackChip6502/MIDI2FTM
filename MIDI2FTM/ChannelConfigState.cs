@@ -13,12 +13,6 @@ namespace MIDI2FTM
     {
         /// <summary>ノートオンのボリュームを有効</summary>
         public static bool EnableNoteVolume = false;
-        /// <summary>ノートオフを有効</summary>
-        public static bool EnableNoteOFF = false;
-        /// <summary>ノートオフを有効 → ボリュームで表現する</summary>
-        public static bool NoteOFFtoVolume = true;
-        /// <summary>ノートオフを有効 → NoteCutで表現する</summary>
-        public static bool NoteOFFtoNoteCut = false;
         /// <summary>PitchBendを1xx,2xxxで表現する</summary>
         public static bool EnableEffect1and2 = false;
         /// <summary>CCModulationを4xx,7xxで表現する</summary>

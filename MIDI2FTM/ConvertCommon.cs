@@ -21,6 +21,8 @@ namespace MIDI2FTM
         protected byte noteVolume;
         /// <summary>コントロールチェンジの音量</summary>
         protected byte ccVolume;
+        /// <summary>エフェクトGのTick数</summary>
+        protected int EffectGTick;
 
         /// <summary>
         /// ボリュームを取得する。ノートオン、コントロールチェンジの有効無効を判定して文字列を返す
@@ -68,13 +70,13 @@ namespace MIDI2FTM
             if (ChannelConfigState.EnableCCVolume && ChannelConfigState.CCVolumeToVolume)
             {
                 // コントロールチェンジを取得
-                return getControlChange(_currentMeasure, _currentTick, 7);
+                return getCurrentRangeControlChange(_currentMeasure, _currentTick, 7);
             }
             // ノートオン以外のボリュームを有効にするなら CCExpression
             else if (ChannelConfigState.EnableCCVolume && ChannelConfigState.CCExpressionToVolume)
             {
                 // コントロールチェンジを取得
-                return getControlChange(_currentMeasure, _currentTick, 11);
+                return getCurrentRangeControlChange(_currentMeasure, _currentTick, 11);
             }
 
             EventData emptyData = new EventData();
@@ -125,13 +127,13 @@ namespace MIDI2FTM
         }
 
         /// <summary>
-        /// 小節、Tickからコントロールチェンジを探す
+        /// 現在の小節、現在Tickから次の音価未満のTickのコントロールチェンジを探す 
         /// </summary>----------------------------------------------------------------------------------------------------
         /// <param name="_currentMeasure">現在の小節</param>
         /// <param name="_currentTick">現在のTick</param>
         /// <param name="_number">検索対象のコントロールナンバー</param>
         /// <returns>見つかったコントロールチェンジのイベントデータ</returns>
-        protected EventData getControlChange(int _currentMeasure, int _currentTick, byte _number)
+        protected EventData getCurrentRangeControlChange(int _currentMeasure, int _currentTick, byte _number)
         {
             List<EventData> cc = new List<EventData>(10);
 
@@ -139,7 +141,7 @@ namespace MIDI2FTM
             foreach (EventData e in SMFData.Tracks[inputTrackNum].Event)
             {
                 // 目的のタイミングのイベントを探す
-                if (e.Measure == _currentMeasure && e.Tick >= _currentTick && e.Tick < (_currentTick + BasicConfigState.MinTick))
+                if (e.Measure == _currentMeasure && e.Tick >= _currentTick && e.Tick < (_currentTick + BasicConfigState.TicksPerLine))
                 {
                     // コントロールチェンジの検索対象のコントロールナンバー
                     if (e.EventID == 0xB0 && e.Number != _number)
@@ -191,7 +193,81 @@ namespace MIDI2FTM
         }
 
         /// <summary>
-        /// 小節、Tickからノートを見つける 
+        /// 現在小節、現在Tickから次の音価未満のTickのノートを見つける 
+        /// </summary>----------------------------------------------------------------------------------------------------
+        /// <param name="_currentMeasure">現在の小節番号</param>
+        /// <param name="_currentTick">現在のTick数</param>
+        /// <returns>見つかったノートのイベントデータ</returns>
+        protected EventData getCurrentRangeNote(int _currentMeasure, int _currentTick)
+        {
+            List<EventData> notes = new List<EventData>(10);
+
+            EffectGTick = 0;
+
+            // 現在の小節数から次の小節の拍子の変化を探す
+            foreach (EventData e in SMFData.Tracks[inputTrackNum].Event)
+            {
+                // 目的のタイミングのイベントを探す
+                if (e.Measure == _currentMeasure && e.Tick >= _currentTick && e.Tick < (_currentTick + BasicConfigState.TicksPerLine))
+                {
+                    // ボリューム0じゃないノートオンを探す
+                    if (e.EventID == 0x90 && e.Gate != 0 && e.Value != 0)
+                    {
+                        notes.Add(e);
+                    }
+                }
+                // 次の小節に行ってしまったり、End Of Trackなら終わり
+                else if (e.Measure > _currentMeasure || (e.EventID == 0xFF && e.Number == 0x2F))
+                {
+                    // ノートが見つかっていたら
+                    if (notes.Count > 0)
+                    {
+                        uint outputTick;
+                        // 先のノート、後のノートのTickを取得する
+                        if (ChannelConfigState.LeadNotePriority)
+                        {
+                            outputTick = notes[0].Tick;
+                        }
+                        else
+                        {
+                            outputTick = notes[notes.Count - 1].Tick;
+                        }
+
+                        // エフェクトGのTick数を計算
+                        EffectGTick = (int)Math.Floor((float)(outputTick - _currentTick) / BasicConfigState.MinTick);
+
+                        // 先のノート、後のノートを絞り込む
+                        for(int i = notes.Count - 1; i >= 0; i--)
+                        {
+                            // 対象のTick以外を排除
+                            if (notes[i].Tick != outputTick)
+                            {
+                                // 削除
+                                notes.Remove(notes[i]);
+                            }
+                        }
+
+                        notes.Sort();
+                        if (ChannelConfigState.HighNotePriority)
+                        {
+                            // 一番高いノートを返す
+                            return (notes[notes.Count - 1]);
+                        }
+                        else
+                        {
+                            // 一番低いノートを返す
+                            return (notes[0]);
+                        }
+                    }
+                    break;
+                }
+            }
+            EventData emptyData = new EventData();
+            return emptyData;
+        }
+
+        /// <summary>
+        /// 現在小節、現在Tickからノートを見つける 
         /// </summary>----------------------------------------------------------------------------------------------------
         /// <param name="_currentMeasure">現在の小節番号</param>
         /// <param name="_currentTick">現在のTick数</param>
