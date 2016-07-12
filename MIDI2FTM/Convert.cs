@@ -22,11 +22,7 @@ namespace MIDI2FTM
         int oneMeasureTick;
         /// <summary>フレーム移行フラグ</summary>
         bool nextFrame;
-        /// <summary>ノートの音量</summary>
-        byte noteVolume;
-        /// <summary>コントロールチェンジの音量</summary>
-        byte ccVolume;
-
+        
         /// <summary>
         /// コンストラクタ♪  コンバートするときは必ず引数を渡してください
         /// </summary>----------------------------------------------------------------------------------------------------
@@ -42,8 +38,9 @@ namespace MIDI2FTM
             currentTick = 0;
             oneMeasureTick = getMeasureLength(currentMeasure);
             nextFrame = false;
-            noteVolume = 0xF;
-            ccVolume = 0xF;
+            beforeVolume = 0xF;
+            noteVolume = 127;
+            ccVolume = getStartCCVolume(BasicConfigState.StartMeasure);
         }
         
         /// <summary>
@@ -115,131 +112,48 @@ namespace MIDI2FTM
                 {
                     continue;
                 }
-
-                // 行に書き出し用変数を用意
-                string outputRowText = null;
-
-                // 現在の行の対象のノートオンイベントを取得
-                EventData noteON = getNote(currentMeasure, currentTick);
-                // ノートオン情報
-                if (noteON.EventID == 0x90)
-                {
-                    outputRowText = NoteNumber.NumberToNoteName(noteON.Number) + " ";
-                }
-                else
-                {
-                    outputRowText = "... ";
-                }
-
-                // 音色番号情報
-                if (noteON.EventID == 0x90)
-                {
-                    outputRowText += ChannelConfigState.InstrumentNum.ToString("X2") + " ";
-                }
-                else
-                {
-                    outputRowText += ".. ";
-                }
                 
-                // 有効にする音量情報を取得する
-                EventData CCvoCCex = new EventData();
-                // ノートオン以外のボリュームを有効にするなら CCVolume
-                if (ChannelConfigState.EnableCCVolume && ChannelConfigState.CCVolumeToVolume)
-                {
-                    // コントロールチェンジを取得
-                    CCvoCCex = getControlChange(currentMeasure, currentTick, 7);
-                }
-                // ノートオン以外のボリュームを有効にするなら CCExpression
-                else if (ChannelConfigState.EnableCCVolume && ChannelConfigState.CCExpressionToVolume)
-                {
-                    // コントロールチェンジを取得
-                    CCvoCCex = getControlChange(currentMeasure, currentTick, 11);
-                }
-
-
-                string outputVolume;
-                // ノートオンがある ノートボリューム有効 CCボリューム無効
-                if (noteON.EventID != 0 && ChannelConfigState.EnableNoteVolume && !ChannelConfigState.EnableCCVolume)
-                {
-                    noteVolume = (byte)Math.Round(noteON.Value / (127f / 15f));
-                    outputVolume = noteVolume.ToString("X1");
-                }
-                // ノートボリューム有効 CCボリューム有効
-                else if (ChannelConfigState.EnableNoteVolume && ChannelConfigState.EnableCCVolume)
-                {
-                    // ノートオンがある
-                    if (noteON.EventID == 0x90)
-                    {
-                        noteVolume = (byte)Math.Round(noteON.Value / (127f / 15f));
-                        outputVolume = noteVolume.ToString("X1");
-                    }
-                    // ノートオンがない
-                    else
-                    {
-                        outputVolume = ".";
-                    }
-
-                    // CCVolumeかCCExpressionを取得していれば、直前のノートオンの音量から割り引く
-                    if (CCvoCCex.EventID == 0xB0)
-                    {
-                        ccVolume = (byte)CCvoCCex.Value;
-                        outputVolume = Math.Round(CCvoCCex.Value / (127f / (float)noteVolume)).ToString("X1");
-                    }
-                }
-                // ノートボリューム無効 CCボリューム有効
-                else if (!ChannelConfigState.EnableNoteVolume && ChannelConfigState.EnableCCVolume)
-                {
-                    // CCVolumeかCCExpressionを取得していれば
-                    if (CCvoCCex.EventID == 0xB0)
-                    {
-                        outputVolume = Math.Round(CCvoCCex.Value / (127f / 15f)).ToString("X1");
-                    }
-                    // 取得していなければ
-                    else
-                    {
-                        outputVolume = ".";
-                    }
-                }
-                else
-                {
-                    outputVolume = ".";
-                }
-                
-                // 音量出力
-                outputRowText += outputVolume + " ";
-
-                // エフェクト情報
-                if (false)
-                {
-
-                }
-                else
-                {
-                    outputRowText += "...";
-                }
-
                 // 行に書き出し
-                _trackerList.Items[i].SubItems[outputChannel].Text = outputRowText;
+                _trackerList.Items[i].SubItems[outputChannel].Text = getRowData();
 
                 // 次の音価へ
                 currentTick += (int)BasicConfigState.TicksPerLine;
             }
-
             // 再描画
             _trackerList.EndUpdate();
         }
 
-
-        private string getRowDataNote()
+        /// <summary>
+        /// 行のデータを文字列で取得する
+        /// </summary>----------------------------------------------------------------------------------------------------
+        /// <returns>行のデータ文字列</returns>
+        private string getRowData()
         {
+            // 行に書き出し用変数を用意
+            string outputRowText = null;
+
             // 現在の行の対象のノートオンイベントを取得
-            EventData noteON = getNote(currentMeasure, currentTick);
+            EventData noteOnEvent = getCurrentNote(currentMeasure, currentTick);
+            // 有効にする音量情報を取得する
+            EventData ccVolumeEvent = getCurrentCCVolume(currentMeasure, currentTick);
 
+            // ノートオン、音色番号の文字列を追加
+            outputRowText = getNote(noteOnEvent);
 
+            // ボリュームの文字列を追加
+            outputRowText += getVolume(noteOnEvent, ccVolumeEvent);
+            
+            // エフェクト情報
+            if (false)
+            {
 
-            return "... .. . ...";
+            }
+            else
+            {
+                outputRowText += " ...";
+            }
+
+            return outputRowText;
         }
-        
-        
     }
 }

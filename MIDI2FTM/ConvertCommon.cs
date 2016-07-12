@@ -15,16 +15,94 @@ namespace MIDI2FTM
         protected int inputTrackNum;
         /// <summary>出力先のトラッカーのチャンネル</summary>
         protected int outputChannel;
+        /// <summary>直前に出力したの音量</summary>
+        protected byte beforeVolume;
+        /// <summary>ノートの音量</summary>
+        protected byte noteVolume;
+        /// <summary>コントロールチェンジの音量</summary>
+        protected byte ccVolume;
 
         /// <summary>
-        /// 開始小節までのコントロールチェンジのボリュームを取得する、見つからない場合は127が初期値となる
-        /// </summary>
+        /// ボリュームを取得する。ノートオン、コントロールチェンジの有効無効を判定して文字列を返す
+        /// </summary>----------------------------------------------------------------------------------------------------
+        /// <param name="_noteOnEvent">ノートオンイベント</param>
+        /// <param name="_ccVolumeEvent">CCVolume,CCExpressionイベント</param>
+        /// <returns>16進ボリューム文字列、出力対象外では " ." を返す</returns>
+        protected string getVolume(EventData _noteOnEvent, EventData _ccVolumeEvent)
+        {
+            // ノートボリュームが有効なら
+            if (_noteOnEvent.EventID == 0x90 && ChannelConfigState.EnableNoteVolume)
+            {
+                // ノートボリュームを更新
+                noteVolume = (byte)_noteOnEvent.Value;
+            }
+            // CCボリュームが有効なら
+            if (_ccVolumeEvent.EventID == 0xB0 && ChannelConfigState.EnableCCVolume)
+            {
+                // CCボリュームを更新
+                ccVolume = (byte)_ccVolumeEvent.Value;
+            }
+
+            // 適用するボリュームを計算
+            byte tmpVolume = (byte)Math.Round(noteVolume / (127f / 15f));
+            tmpVolume = (byte)Math.Round(ccVolume / (127f / (float)tmpVolume));
+            
+            // 直前のボリュームと違うなら
+            if (beforeVolume != tmpVolume)
+            {
+                beforeVolume = tmpVolume;
+                return " " + tmpVolume.ToString("X1");
+            }
+            return " .";
+        }
+
+        /// <summary>
+        /// コントロールチェンジの音量情報を取得する
+        /// </summary>----------------------------------------------------------------------------------------------------
+        /// <param name="_currentMeasure">現在の小節</param>
+        /// <param name="_currentTick">現在のTick</param>
+        /// <returns>見つけたコントロールチェンジの音量情報のイベントデータ</returns>
+        protected EventData getCurrentCCVolume(int _currentMeasure, int _currentTick)
+        {
+            // ノートオン以外のボリュームを有効にするなら CCVolume
+            if (ChannelConfigState.EnableCCVolume && ChannelConfigState.CCVolumeToVolume)
+            {
+                // コントロールチェンジを取得
+                return getControlChange(_currentMeasure, _currentTick, 7);
+            }
+            // ノートオン以外のボリュームを有効にするなら CCExpression
+            else if (ChannelConfigState.EnableCCVolume && ChannelConfigState.CCExpressionToVolume)
+            {
+                // コントロールチェンジを取得
+                return getControlChange(_currentMeasure, _currentTick, 11);
+            }
+
+            EventData emptyData = new EventData();
+            return emptyData;
+        }
+
+        /// <summary>
+        /// 開始小節までのコントロールチェンジのボリュームを取得する、見つからない場合やCCを適用しない場合は127が初期値となる
+        /// </summary>----------------------------------------------------------------------------------------------------
         /// <param name="_startMeasure">開始小節番号</param>
-        /// <param name="_number">コントロールナンバー Volumeは7 Expressionは11</param>
-        /// <returns>コントロールチェンジのボリュームを返す見つからない場合は127を返す</returns>
-        protected byte getStartCCVolume(int _startMeasure, byte _number)
+        /// <returns>コントロールチェンジのボリュームを返す見つからない場合やCCを適用しない場合は127を返す</returns>
+        protected byte getStartCCVolume(int _startMeasure)
         {
             byte ccValue = 127;
+
+            byte number;
+            if (ChannelConfigState.EnableCCVolume && ChannelConfigState.CCVolumeToVolume)
+            {
+                number = 7;
+            }
+            else if (ChannelConfigState.EnableCCVolume && ChannelConfigState.CCExpressionToVolume)
+            {
+                number = 11;
+            }
+            else
+            {
+                return ccValue;
+            }
 
             // 現在の小節数から次の小節の拍子の変化を探す
             foreach (EventData e in SMFData.Tracks[inputTrackNum].Event)
@@ -37,7 +115,7 @@ namespace MIDI2FTM
                         return ccValue;
                     }
                     // コントロールチェンジの検索対象のコントロールナンバー
-                    else if (e.EventID == 0xB0 && e.Number != _number)
+                    else if (e.EventID == 0xB0 && e.Number != number)
                     {
                         ccValue = (byte)e.Value;
                     }
@@ -94,12 +172,31 @@ namespace MIDI2FTM
         }
 
         /// <summary>
+        /// ノートオンと音色番号の文字列を取得する。ノートオンが無い場合は "... .." を返す
+        /// </summary>
+        /// <param name="_noteOnEvent">ノートオンイベント</param>
+        /// <returns>ノートオンと音色番号の文字列を返す、ノートオンが無い場合は "... .." を返す</returns>
+        protected string getNote(EventData _noteOnEvent)
+        {
+            // ノートオンがある場合
+            if (_noteOnEvent.EventID == 0x90)
+            {
+                return NoteNumber.NumberToNoteName(_noteOnEvent.Number) + " " + ChannelConfigState.InstrumentNum.ToString("X2");
+            }
+            // ノートオンがない場合
+            else
+            {
+                return "... ..";
+            }
+        }
+
+        /// <summary>
         /// 小節、Tickからノートを見つける 
         /// </summary>----------------------------------------------------------------------------------------------------
         /// <param name="_currentMeasure">現在の小節番号</param>
         /// <param name="_currentTick">現在のTick数</param>
         /// <returns>見つかったノートのイベントデータ</returns>
-        protected EventData getNote(int _currentMeasure, int _currentTick)
+        protected EventData getCurrentNote(int _currentMeasure, int _currentTick)
         {
             List<EventData> notes = new List<EventData>(10);
 
