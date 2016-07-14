@@ -11,6 +11,10 @@ namespace MIDI2FTM
     /// </summary>----------------------------------------------------------------------------------------------------
     public class ConvertCommon
     {
+        /// <summary>現在の小節</summary>
+        protected int currentMeasure;
+        /// <summary>現在のTick</summary>
+        protected int currentTick;
         /// <summary>入力元のSMFデータのトラック番号</summary>
         protected int inputTrackNum;
         /// <summary>出力先のトラッカーのチャンネル</summary>
@@ -21,8 +25,113 @@ namespace MIDI2FTM
         protected byte noteVolume;
         /// <summary>コントロールチェンジの音量</summary>
         protected byte ccVolume;
-        /// <summary>エフェクトGのTick数</summary>
-        protected int EffectGTick;
+        /// <summary>エフェクトGxxのTick数</summary>
+        protected int EffectGxxTick;
+        /// <summary>エフェクト4xxの値</summary>
+        protected int Effect4xxValue;
+        /// <summary>エフェクトPxxの値</summary>
+        protected int EffectPxxValue;
+        /// <summary>エフェクトの数</summary>
+        protected byte EffectCount;
+
+        /// <summary>
+        /// エフェクトG,4,Pを追加する
+        /// </summary>----------------------------------------------------------------------------------------------------
+        /// <returns>追加したエフェクト文字列を返す</returns>
+        protected string addEffects()
+        {
+            // 戻り値の文字列
+            string outputText = "";
+            // 追加するエフェクトの数をカウント
+            byte tmpCount = 0;
+
+            // Gxx 連符
+            if (EffectGxxTick > 0 && ChannelConfigState.EnableEffectGxx)
+            {
+                outputText += " G" + EffectGxxTick.ToString("00");
+                tmpCount++;
+            }
+            // 4xx モジュレーション
+            setEffect4xxValue();
+            if (Effect4xxValue > 0 && ChannelConfigState.EnableEffect4xx)
+            {
+                outputText += " 4" + Effect4xxValue.ToString("00");
+                tmpCount++;
+            }
+            // Pxx ピッチベンド オミットするかも
+            setEffectPxxValue();
+            if (EffectPxxValue > 0 && ChannelConfigState.EnableEffectPxx)
+            {
+                outputText += " P" + EffectPxxValue.ToString("00");
+                tmpCount++;
+            }
+            // エフェクトの数の更新チェック
+            if (EffectCount < tmpCount)
+            {
+                // 使用しているエフェクトの数を更新
+                EffectCount = tmpCount;
+            }
+
+            if (EffectGxxTick == 0)
+            {
+                outputText += " ...";
+            }
+            if (Effect4xxValue == 0)
+            {
+                outputText += " ...";
+            }
+            if (EffectPxxValue == 0)
+            {
+                outputText += " ...";
+            }
+
+            return outputText;
+        }
+
+        /// <summary>
+        /// 現在の小節、現在Tickから次の音価未満のTickのCCモジュレーションを見つけてEffect4xxValueを更新する
+        /// </summary>----------------------------------------------------------------------------------------------------
+        private void setEffect4xxValue()
+        {
+            // 一旦初期化
+            Effect4xxValue = 0;
+
+            EventData modulationData = new EventData();
+            if (ChannelConfigState.EnableEffect4xx)
+            {
+                // CCモジュレーションを取得
+                modulationData = getCurrentRangeControlChange(1);
+            }
+
+            // CCモジュレーションを見つけていたら
+            if (modulationData.EventID == 0xB0 && modulationData.Number == 1)
+            {
+                // 計算して代入する予定
+                Effect4xxValue = 1;
+            }
+        }
+
+        /// <summary>
+        /// 現在の小節、現在Tickから次の音価未満のTickのピッチベンドを見つけてEffectPxxValueを更新する
+        /// </summary>----------------------------------------------------------------------------------------------------
+        private void setEffectPxxValue()
+        {
+            // 一旦初期化
+            EffectPxxValue = 0;
+            EventData pitchBendData = new EventData();
+            // ピッチベンドを取得
+            if (ChannelConfigState.EnableEffectPxx)
+            {
+                pitchBendData = getCurrentRangePitchBend();
+            }
+
+            // ピッチベンドを見つけていたら
+            if (pitchBendData.EventID == 0xE0)
+            {
+                // 計算して代入する予定
+                EffectPxxValue = 2;
+            }
+        }
 
         /// <summary>
         /// ボリュームを取得する。ノートオン、コントロールチェンジの有効無効を判定して文字列を返す
@@ -61,22 +170,20 @@ namespace MIDI2FTM
         /// <summary>
         /// コントロールチェンジの音量情報を取得する
         /// </summary>----------------------------------------------------------------------------------------------------
-        /// <param name="_currentMeasure">現在の小節</param>
-        /// <param name="_currentTick">現在のTick</param>
         /// <returns>見つけたコントロールチェンジの音量情報のイベントデータ</returns>
-        protected EventData getCurrentCCVolume(int _currentMeasure, int _currentTick)
+        protected EventData getCurrentCCVolume()
         {
             // ノートオン以外のボリュームを有効にするなら CCVolume
             if (ChannelConfigState.EnableCCVolume && ChannelConfigState.CCVolumeToVolume)
             {
                 // コントロールチェンジを取得
-                return getCurrentRangeControlChange(_currentMeasure, _currentTick, 7);
+                return getCurrentRangeControlChange(7);
             }
             // ノートオン以外のボリュームを有効にするなら CCExpression
             else if (ChannelConfigState.EnableCCVolume && ChannelConfigState.CCExpressionToVolume)
             {
                 // コントロールチェンジを取得
-                return getCurrentRangeControlChange(_currentMeasure, _currentTick, 11);
+                return getCurrentRangeControlChange(11);
             }
 
             EventData emptyData = new EventData();
@@ -129,11 +236,9 @@ namespace MIDI2FTM
         /// <summary>
         /// 現在の小節、現在Tickから次の音価未満のTickのコントロールチェンジを探す 
         /// </summary>----------------------------------------------------------------------------------------------------
-        /// <param name="_currentMeasure">現在の小節</param>
-        /// <param name="_currentTick">現在のTick</param>
         /// <param name="_number">検索対象のコントロールナンバー</param>
         /// <returns>見つかったコントロールチェンジのイベントデータ</returns>
-        protected EventData getCurrentRangeControlChange(int _currentMeasure, int _currentTick, byte _number)
+        private EventData getCurrentRangeControlChange(byte _number)
         {
             List<EventData> cc = new List<EventData>(10);
 
@@ -141,16 +246,16 @@ namespace MIDI2FTM
             foreach (EventData e in SMFData.Tracks[inputTrackNum].Event)
             {
                 // 目的のタイミングのイベントを探す
-                if (e.Measure == _currentMeasure && e.Tick >= _currentTick && e.Tick < (_currentTick + BasicConfigState.TicksPerLine))
+                if (e.Measure == currentMeasure && e.Tick >= currentTick && e.Tick < (currentTick + BasicConfigState.TicksPerLine))
                 {
                     // コントロールチェンジの検索対象のコントロールナンバー
-                    if (e.EventID == 0xB0 && e.Number != _number)
+                    if (e.EventID == 0xB0 && e.Number == _number)
                     {
                         cc.Add(e);
                     }
                 }
                 // 次の小節に行ってしまったり、End Of Trackなら終わり
-                else if (e.Measure > _currentMeasure || (e.EventID == 0xFF && e.Number == 0x2F))
+                else if (e.Measure > currentMeasure || (e.EventID == 0xFF && e.Number == 0x2F))
                 {
                     // 対象イベントが見つかっていたら
                     if (cc.Count > 0)
@@ -164,6 +269,50 @@ namespace MIDI2FTM
                         else if (ChannelConfigState.BehindNotePriority)
                         {
                             return cc[cc.Count - 1];
+                        }
+                    }
+                    break;
+                }
+            }
+            EventData emptyData = new EventData();
+            return emptyData;
+        }
+
+        /// <summary>
+        /// 現在の小節、現在Tickから次の音価未満のTickのピッチベンドを探す 
+        /// </summary>----------------------------------------------------------------------------------------------------
+        /// <returns>見つかったピッチベンドのイベントデータ</returns>
+        private EventData getCurrentRangePitchBend()
+        {
+            List<EventData> pb = new List<EventData>(10);
+
+            // 現在の小節数から次の小節の拍子の変化を探す
+            foreach (EventData e in SMFData.Tracks[inputTrackNum].Event)
+            {
+                // 目的のタイミングのイベントを探す
+                if (e.Measure == currentMeasure && e.Tick >= currentTick && e.Tick < (currentTick + BasicConfigState.TicksPerLine))
+                {
+                    // コントロールチェンジの検索対象のコントロールナンバー
+                    if (e.EventID == 0xE0)
+                    {
+                        pb.Add(e);
+                    }
+                }
+                // 次の小節に行ってしまったり、End Of Trackなら終わり
+                else if (e.Measure > currentMeasure || (e.EventID == 0xFF && e.Number == 0x2F))
+                {
+                    // 対象イベントが見つかっていたら
+                    if (pb.Count > 0)
+                    {
+                        // 先のイベントを優先
+                        if (ChannelConfigState.LeadNotePriority)
+                        {
+                            return pb[0];
+                        }
+                        // 後ろのイベントを優先
+                        else if (ChannelConfigState.BehindNotePriority)
+                        {
+                            return pb[pb.Count - 1];
                         }
                     }
                     break;
@@ -195,20 +344,18 @@ namespace MIDI2FTM
         /// <summary>
         /// 現在小節、現在Tickから次の音価未満のTickのノートを見つける 
         /// </summary>----------------------------------------------------------------------------------------------------
-        /// <param name="_currentMeasure">現在の小節番号</param>
-        /// <param name="_currentTick">現在のTick数</param>
         /// <returns>見つかったノートのイベントデータ</returns>
-        protected EventData getCurrentRangeNote(int _currentMeasure, int _currentTick)
+        protected EventData getCurrentRangeNote()
         {
             List<EventData> notes = new List<EventData>(10);
 
-            EffectGTick = 0;
+            EffectGxxTick = 0;
 
             // 現在の小節数から次の小節の拍子の変化を探す
             foreach (EventData e in SMFData.Tracks[inputTrackNum].Event)
             {
                 // 目的のタイミングのイベントを探す
-                if (e.Measure == _currentMeasure && e.Tick >= _currentTick && e.Tick < (_currentTick + BasicConfigState.TicksPerLine))
+                if (e.Measure == currentMeasure && e.Tick >= currentTick && e.Tick < (currentTick + BasicConfigState.TicksPerLine))
                 {
                     // ボリューム0じゃないノートオンを探す
                     if (e.EventID == 0x90 && e.Gate != 0 && e.Value != 0)
@@ -217,7 +364,7 @@ namespace MIDI2FTM
                     }
                 }
                 // 次の小節に行ってしまったり、End Of Trackなら終わり
-                else if (e.Measure > _currentMeasure || (e.EventID == 0xFF && e.Number == 0x2F))
+                else if (e.Measure > currentMeasure || (e.EventID == 0xFF && e.Number == 0x2F))
                 {
                     // ノートが見つかっていたら
                     if (notes.Count > 0)
@@ -234,7 +381,7 @@ namespace MIDI2FTM
                         }
 
                         // エフェクトGのTick数を計算
-                        EffectGTick = (int)Math.Floor((float)(outputTick - _currentTick) / BasicConfigState.MinTick);
+                        EffectGxxTick = (int)Math.Floor((float)(outputTick - currentTick) / BasicConfigState.MinTick);
 
                         // 先のノート、後のノートを絞り込む
                         for(int i = notes.Count - 1; i >= 0; i--)
@@ -269,10 +416,8 @@ namespace MIDI2FTM
         /// <summary>
         /// 現在小節、現在Tickからノートを見つける 
         /// </summary>----------------------------------------------------------------------------------------------------
-        /// <param name="_currentMeasure">現在の小節番号</param>
-        /// <param name="_currentTick">現在のTick数</param>
         /// <returns>見つかったノートのイベントデータ</returns>
-        protected EventData getCurrentNote(int _currentMeasure, int _currentTick)
+        protected EventData getCurrentNote()
         {
             List<EventData> notes = new List<EventData>(10);
 
@@ -280,7 +425,7 @@ namespace MIDI2FTM
             foreach (EventData e in SMFData.Tracks[inputTrackNum].Event)
             {
                 // 目的のタイミングのイベントを探す
-                if (e.Measure == _currentMeasure && e.Tick == _currentTick)
+                if (e.Measure == currentMeasure && e.Tick == currentTick)
                 {
                     // ボリューム0じゃないノートオンを探す
                     if (e.EventID == 0x90 && e.Gate != 0 && e.Value != 0)
@@ -289,7 +434,7 @@ namespace MIDI2FTM
                     }
                 }
                 // 次の小節に行ってしまったり、End Of Trackなら終わり
-                else if (e.Measure > _currentMeasure || (e.EventID == 0xFF && e.Number == 0x2F))
+                else if (e.Measure > currentMeasure || (e.EventID == 0xFF && e.Number == 0x2F))
                 {
                     // ノートが見つかっていたら
                     if (notes.Count > 0)

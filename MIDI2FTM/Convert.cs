@@ -14,10 +14,6 @@ namespace MIDI2FTM
     {
         /// <summary>フレーム内の小節数</summary>
         int frameInMeasure;
-        /// <summary>現在の小節</summary>
-        int currentMeasure;
-        /// <summary>現在のTick</summary>
-        int currentTick;
         /// <summary>最初の小節の長さを取得</summary>
         int oneMeasureTick;
         /// <summary>フレーム移行フラグ</summary>
@@ -50,12 +46,13 @@ namespace MIDI2FTM
         /// <param name="_progressBar">ステータスバーのプログレスバー</param>
         public void StartConvert(ref ListView _trackerList, ref ToolStripProgressBar _progressBar)
         {
-            // プログレスバーを初期化
-            _progressBar.Maximum = (int)BasicConfigState.MaxMeasure;
-            _progressBar.Value = 0;
-
             // 処理中は描画しない
             _trackerList.BeginUpdate();
+
+            // プログレスバーを初期化
+            _progressBar.Maximum = _trackerList.Items.Count;
+            _progressBar.Value = 0;
+
             foreach (ListViewItem lvi in _trackerList.Items)
             {
                 // データ行以外はなにもしない
@@ -63,12 +60,11 @@ namespace MIDI2FTM
                 {
                     continue;
                 }
-
-                // 行に書き出し
-                lvi.SubItems[outputChannel].Text = "... .. . ...";
+                // 初期化
+                lvi.SubItems[outputChannel].Text = "... .. . ... ... ...";
             }
-            
-            for (int i = 0; i < _trackerList.Items.Count; i++)
+
+            foreach (ListViewItem lvi in _trackerList.Items)
             {
                 // プログレスバーにインクリメントする
                 _progressBar.PerformStep();
@@ -101,7 +97,7 @@ namespace MIDI2FTM
                 }
 
                 // データ行以外はなにもしない PATTERN名行の次は必ずフレームの最初だからフラグを折る
-                if (_trackerList.Items[i].Text.Contains("PATTERN") || _trackerList.Items[i].Text == "")
+                if (lvi.Text.Contains("PATTERN") || lvi.Text == "")
                 {
                     nextFrame = false;
                     continue;
@@ -112,13 +108,42 @@ namespace MIDI2FTM
                 {
                     continue;
                 }
-                
+
                 // 行に書き出し
-                _trackerList.Items[i].SubItems[outputChannel].Text = getRowData();
+                lvi.SubItems[outputChannel].Text = getRowData();
 
                 // 次の音価へ
                 currentTick += (int)BasicConfigState.TicksPerLine;
             }
+            
+            foreach (ListViewItem lvi in _trackerList.Items)
+            {
+                // データ行以外はなにもしない
+                if (lvi.Text.Contains("PATTERN") || lvi.Text == "")
+                {
+                    continue;
+                }
+
+                // 余計なエフェクト列を削除する
+                switch (EffectCount)
+                {
+                    case 3:
+                        break;
+                    case 2:
+                        lvi.SubItems[outputChannel].Text = lvi.SubItems[outputChannel].Text.Substring(0, 16); 
+                        break;
+                    default:
+                        lvi.SubItems[outputChannel].Text = lvi.SubItems[outputChannel].Text.Substring(0, 12);
+                        break;
+                }
+            }
+
+            // カラムヘッダの自動調整
+            foreach (ColumnHeader ch in _trackerList.Columns)
+            {
+                ch.Width = -2;
+            }
+
             // 再描画
             _trackerList.EndUpdate();
         }
@@ -131,42 +156,31 @@ namespace MIDI2FTM
         {
             // 行に書き出し用変数を用意
             string outputRowText = null;
-
+            
             EventData noteOnEvent = new EventData();
+
             // 現在の行の対象のノートオンイベントを取得
             if (ChannelConfigState.EnableEffectGxx)
             {
-                noteOnEvent = getCurrentRangeNote(currentMeasure, currentTick);
+                noteOnEvent = getCurrentRangeNote();
             }
             else
             {
-                noteOnEvent = getCurrentNote(currentMeasure, currentTick);
+                noteOnEvent = getCurrentNote();
             }
+
             // 有効にする音量情報を取得する
-            EventData ccVolumeEvent = getCurrentCCVolume(currentMeasure, currentTick);
+            EventData ccVolumeEvent = getCurrentCCVolume();
 
             // ノートオン、音色番号の文字列を追加
             outputRowText = getNote(noteOnEvent);
 
             // ボリュームの文字列を追加
             outputRowText += getVolume(noteOnEvent, ccVolumeEvent);
+
+            // エフェクトを追加
+            outputRowText += addEffects();
             
-            // エフェクト情報
-            
-            // Gxx 連符 nTickずらす
-            if (EffectGTick > 0 && ChannelConfigState.EnableEffectGxx)
-            {
-                outputRowText += " G" + EffectGTick.ToString("00");
-            }
-            // 4xx モジュレーション
-
-            // Pxx ピッチベンド オミットするかも
-
-            else
-            {
-                outputRowText += " ...";
-            }
-
             return outputRowText;
         }
     }

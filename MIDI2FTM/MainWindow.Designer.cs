@@ -447,7 +447,7 @@
             // CheckBox_EnableEffect4xx
             // 
             this.CheckBox_EnableEffect4xx.AutoSize = true;
-            this.CheckBox_EnableEffect4xx.Location = new System.Drawing.Point(6, 244);
+            this.CheckBox_EnableEffect4xx.Location = new System.Drawing.Point(6, 218);
             this.CheckBox_EnableEffect4xx.Name = "CheckBox_EnableEffect4xx";
             this.CheckBox_EnableEffect4xx.Size = new System.Drawing.Size(229, 20);
             this.CheckBox_EnableEffect4xx.TabIndex = 9;
@@ -458,7 +458,7 @@
             // CheckBox_EnableEffectPxx
             // 
             this.CheckBox_EnableEffectPxx.AutoSize = true;
-            this.CheckBox_EnableEffectPxx.Location = new System.Drawing.Point(6, 218);
+            this.CheckBox_EnableEffectPxx.Location = new System.Drawing.Point(6, 244);
             this.CheckBox_EnableEffectPxx.Name = "CheckBox_EnableEffectPxx";
             this.CheckBox_EnableEffectPxx.Size = new System.Drawing.Size(206, 20);
             this.CheckBox_EnableEffectPxx.TabIndex = 8;
