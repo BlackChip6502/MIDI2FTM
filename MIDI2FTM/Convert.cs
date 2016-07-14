@@ -134,7 +134,7 @@ namespace MIDI2FTM
 
             EventData noteOnEvent = new EventData();
             // 現在の行の対象のノートオンイベントを取得
-            if (ChannelConfigState.EnableEffectG)
+            if (ChannelConfigState.EnableEffectGxx)
             {
                 noteOnEvent = getCurrentRangeNote(currentMeasure, currentTick);
             }
@@ -152,10 +152,16 @@ namespace MIDI2FTM
             outputRowText += getVolume(noteOnEvent, ccVolumeEvent);
             
             // エフェクト情報
-            if (false)
+            
+            // Gxx 連符 nTickずらす
+            if (EffectGTick > 0 && ChannelConfigState.EnableEffectGxx)
             {
-
+                outputRowText += " G" + EffectGTick.ToString("00");
             }
+            // 4xx モジュレーション
+
+            // Pxx ピッチベンド オミットするかも
+
             else
             {
                 outputRowText += " ...";

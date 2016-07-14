@@ -13,12 +13,12 @@ namespace MIDI2FTM
     {
         /// <summary>ノートオンのボリュームを有効</summary>
         public static bool EnableNoteVolume = false;
-        /// <summary>PitchBendを1xx,2xxxで表現する</summary>
-        public static bool EnableEffect1and2 = false;
-        /// <summary>CCModulationを4xx,7xxで表現する</summary>
-        public static bool EnableEffect4and7 = false;
-        /// <summary>テンポチェンジをFxxで表現する</summary>
-        public static bool EnableEffectF = false;
+        /// <summary>連符をGxxで表現する</summary>
+        public static bool EnableEffectGxx = false;
+        /// <summary>PitchBendをPxxで表現する</summary>
+        public static bool EnableEffectPxx = false;
+        /// <summary>CCModulationを4xxで表現する</summary>
+        public static bool EnableEffect4xx = false;
         /// <summary>ノート以外のボリュームを有効</summary>
         public static bool EnableCCVolume = false;
         /// <summary>ノート以外のボリュームを有効 → CCVolumeを適用</summary>
@@ -29,8 +29,6 @@ namespace MIDI2FTM
         public static bool HighNotePriority = true;
         /// <summary>一番低い音を優先</summary>
         public static bool LowNotePriority = false;
-        /// <summary>連符をGxxで表現する</summary>
-        public static bool EnableEffectG = false;
         /// <summary>同一Rowで先のノートを優先</summary>
         public static bool LeadNotePriority = true;
         /// <summary>同一Rowで後のノートを優先</summary>

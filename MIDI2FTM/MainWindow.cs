@@ -29,9 +29,8 @@ namespace MIDI2FTM
             //RadioButton_NoteOFFtoVolume.Checked = ChannelConfigState.NoteOFFtoVolume;
             //RadioButton_NoteOFFtoNoteCut.Checked = ChannelConfigState.NoteOFFtoNoteCut;
 
-            CheckBox_EnableEffect1and2.Checked = ChannelConfigState.EnableEffect1and2;
-            CheckBox_EnableEffect4and7.Checked = ChannelConfigState.EnableEffect4and7;
-            CheckBox_EnableEffectF.Checked = ChannelConfigState.EnableEffectF;
+            CheckBox_EnableEffectPxx.Checked = ChannelConfigState.EnableEffectPxx;
+            CheckBox_EnableEffect4xx.Checked = ChannelConfigState.EnableEffect4xx;
 
             CheckBox_EnableCCVolume.Checked = ChannelConfigState.EnableCCVolume;
             RadioButton_CCVolumeToVolume.Checked = ChannelConfigState.CCVolumeToVolume;
@@ -127,25 +126,25 @@ namespace MIDI2FTM
             ChannelConfigState.EnableNoteVolume = CheckBox_EnableNoteVolume.Checked;
         }
         /// <summary>
-        /// PitchBendを1xx,2xxxで表現する ラジオボタンに変更があったとき 
+        /// 連符をGxxで表現する チェックボックスに変更があったとき 
         /// </summary>----------------------------------------------------------------------------------------------------
-        private void CheckBox_EnableEffect1and2_CheckedChanged(object sender, EventArgs e)
+        private void CheckBox_EnableEffectGxx_CheckedChanged(object sender, EventArgs e)
         {
-            ChannelConfigState.EnableEffect1and2 = CheckBox_EnableEffect1and2.Checked;
+            ChannelConfigState.EnableEffectGxx = CheckBox_EnableEffectGxx.Checked;
         }
         /// <summary>
-        /// CCModulationを4xx,7xxで表現する チェックボックスに変更があったとき 
+        /// PitchBendをPxxで表現する ラジオボタンに変更があったとき 
         /// </summary>----------------------------------------------------------------------------------------------------
-        private void CheckBox_EnableEffect4and7_CheckedChanged(object sender, EventArgs e)
+        private void CheckBox_EnableEffectPxx_CheckedChanged(object sender, EventArgs e)
         {
-            ChannelConfigState.EnableEffect4and7 = CheckBox_EnableEffect4and7.Checked;
+            ChannelConfigState.EnableEffectPxx = CheckBox_EnableEffectPxx.Checked;
         }
         /// <summary>
-        /// テンポチェンジをFxxで表現する チェックボックスに変更があったとき 
+        /// CCModulationを4xxで表現する チェックボックスに変更があったとき 
         /// </summary>----------------------------------------------------------------------------------------------------
-        private void CheckBox_EnableEffectF_CheckedChanged(object sender, EventArgs e)
+        private void CheckBox_EnableEffect4xx_CheckedChanged(object sender, EventArgs e)
         {
-            ChannelConfigState.EnableEffectF = CheckBox_EnableEffectF.Checked;
+            ChannelConfigState.EnableEffect4xx = CheckBox_EnableEffect4xx.Checked;
         }
         /// <summary>
         /// ノート以外のボリュームを有効 チェックボックスに変更があったとき 
@@ -194,13 +193,7 @@ namespace MIDI2FTM
             ChannelConfigState.LowNotePriority = RadioButton_LowNotePriority.Checked;
         }
 
-        /// <summary>
-        /// 連符をGxxで表現する チェックボックスに変更があったとき 
-        /// </summary>----------------------------------------------------------------------------------------------------
-        private void CheckBox_EnableEffectG_CheckedChanged(object sender, EventArgs e)
-        {
-            ChannelConfigState.EnableEffectG = CheckBox_EnableEffectG.Checked;
-        }
+        
         /// <summary>
         /// 同一Rowで先のノートを優先 ラジオボタンに変更があったとき 
         /// </summary>----------------------------------------------------------------------------------------------------
