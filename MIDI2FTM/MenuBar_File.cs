@@ -42,7 +42,7 @@ namespace MIDI2FTM
             lmf.GetMIDIFile();
 
             // ファイルを開いたか
-            if (lmf.IsOpen)
+            if (lmf.m_IsOpen)
             {
                 // ステータスバーのテキスト更新
                 ToolStripStatusLabel.Text = "MIDIファイルを解析しています。";
@@ -51,7 +51,7 @@ namespace MIDI2FTM
                 SMFAnalyzer sa = new SMFAnalyzer();
 
                 // 解析が成功したら
-                if (sa.AnalyzingSMF(ref lmf.ByteStream))
+                if (sa.AnalyzingSMF(ref lmf.m_ByteStream))
                 {
                     // Measure Tick を解析
                     MeasureAnalyzer ma = new MeasureAnalyzer();
@@ -66,7 +66,7 @@ namespace MIDI2FTM
                     bcw.Dispose();
 
                     // キャンセルボタンを押したなら何もしない
-                    if (bcw.IsCancel)
+                    if (bcw.m_IsCancel)
                     {
                         // ステータスバーのテキスト更新
                         ToolStripStatusLabel.Text = "キャンセルしました。";

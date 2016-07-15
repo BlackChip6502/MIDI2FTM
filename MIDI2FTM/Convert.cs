@@ -13,11 +13,11 @@ namespace MIDI2FTM
     public class Convert : ConvertCommon
     {
         /// <summary>フレーム内の小節数</summary>
-        int frameInMeasure;
+        private int m_frameInMeasure;
         /// <summary>最初の小節の長さを取得</summary>
-        int oneMeasureTick;
+        private int m_oneMeasureTick;
         /// <summary>フレーム移行フラグ</summary>
-        bool nextFrame;
+        private bool m_nextFrame;
         
         /// <summary>
         /// コンストラクタ♪  コンバートするときは必ず引数を渡してください
@@ -25,18 +25,18 @@ namespace MIDI2FTM
         public Convert(int _inputTrackNum, int _outputChannel)
         {
             // ConvertCommonのメンバーに代入
-            inputTrackNum = _inputTrackNum;
-            outputChannel = _outputChannel;
+            m_InputTrackNum = _inputTrackNum;
+            m_OutputChannel = _outputChannel;
 
             // メンバー変数を初期化
-            frameInMeasure = 1;
-            currentMeasure = BasicConfigState.StartMeasure;
-            currentTick = 0;
-            oneMeasureTick = getMeasureLength(currentMeasure);
-            nextFrame = false;
-            beforeVolume = 0xF;
-            noteVolume = 127;
-            ccVolume = getStartCCVolume(BasicConfigState.StartMeasure);
+            m_frameInMeasure = 1;
+            m_CurrentMeasure = BasicConfigState.StartMeasure;
+            m_CurrentTick = 0;
+            m_oneMeasureTick = getMeasureLength(m_CurrentMeasure);
+            m_nextFrame = false;
+            m_BeforeVolume = 0xF;
+            m_NoteVolume = 127;
+            m_CCVolume = getStartCCVolume(BasicConfigState.StartMeasure);
         }
         
         /// <summary>
@@ -61,7 +61,7 @@ namespace MIDI2FTM
                     continue;
                 }
                 // 初期化
-                lvi.SubItems[outputChannel].Text = "... .. . ... ... ...";
+                lvi.SubItems[m_OutputChannel].Text = "... .. . ... ... ...";
             }
 
             foreach (ListViewItem lvi in _trackerList.Items)
@@ -70,50 +70,50 @@ namespace MIDI2FTM
                 _progressBar.PerformStep();
 
                 // 小節を跨いだら
-                if (currentTick >= oneMeasureTick)
+                if (m_CurrentTick >= m_oneMeasureTick)
                 {
                     // 小節をすすめる
-                    currentMeasure++;
+                    m_CurrentMeasure++;
                     // 小節の頭にする
-                    currentTick = 0;
+                    m_CurrentTick = 0;
                     // 次の小節へ
-                    frameInMeasure++;
+                    m_frameInMeasure++;
                     // 次の小節の長さを取得
-                    int tmp = getMeasureLength(currentMeasure);
+                    int tmp = getMeasureLength(m_CurrentMeasure);
                     // 拍子の変化でフレームを移行する場合
-                    if (BasicConfigState.ChangedFrame && oneMeasureTick != tmp)
+                    if (BasicConfigState.ChangedFrame && m_oneMeasureTick != tmp)
                     {
-                        frameInMeasure = 1;
-                        nextFrame = true;
+                        m_frameInMeasure = 1;
+                        m_nextFrame = true;
                     }
-                    oneMeasureTick = tmp;
+                    m_oneMeasureTick = tmp;
                 }
 
                 // フレームを移行する
-                if (frameInMeasure > BasicConfigState.OneFrameMeasureCount)
+                if (m_frameInMeasure > BasicConfigState.OneFrameMeasureCount)
                 {
-                    frameInMeasure = 1;
-                    nextFrame = true;
+                    m_frameInMeasure = 1;
+                    m_nextFrame = true;
                 }
 
                 // データ行以外はなにもしない PATTERN名行の次は必ずフレームの最初だからフラグを折る
                 if (lvi.Text.Contains("PATTERN") || lvi.Text == "")
                 {
-                    nextFrame = false;
+                    m_nextFrame = false;
                     continue;
                 }
                 
                 // フレーム移行中はなにもしない
-                if (nextFrame)
+                if (m_nextFrame)
                 {
                     continue;
                 }
 
                 // 行に書き出し
-                lvi.SubItems[outputChannel].Text = getRowData();
+                lvi.SubItems[m_OutputChannel].Text = getRowData();
 
                 // 次の音価へ
-                currentTick += (int)BasicConfigState.TicksPerLine;
+                m_CurrentTick += (int)BasicConfigState.TicksPerLine;
             }
             
             foreach (ListViewItem lvi in _trackerList.Items)
@@ -125,15 +125,15 @@ namespace MIDI2FTM
                 }
 
                 // 余計なエフェクト列を削除する
-                switch (EffectCount)
+                switch (m_EffectCount)
                 {
                     case 3:
                         break;
                     case 2:
-                        lvi.SubItems[outputChannel].Text = lvi.SubItems[outputChannel].Text.Substring(0, 16); 
+                        lvi.SubItems[m_OutputChannel].Text = lvi.SubItems[m_OutputChannel].Text.Substring(0, 16); 
                         break;
                     default:
-                        lvi.SubItems[outputChannel].Text = lvi.SubItems[outputChannel].Text.Substring(0, 12);
+                        lvi.SubItems[m_OutputChannel].Text = lvi.SubItems[m_OutputChannel].Text.Substring(0, 12);
                         break;
                 }
             }

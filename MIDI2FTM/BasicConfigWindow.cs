@@ -18,7 +18,7 @@ namespace MIDI2FTM
         /// <summary>
         /// キャンセルボタンを押したか
         /// </summary>
-        public bool IsCancel = false;
+        public bool m_IsCancel = false;
 
         /// <summary>
         /// コンストラクタ♪
@@ -217,7 +217,7 @@ namespace MIDI2FTM
         /// </summary>----------------------------------------------------------------------------------------------------
         private void Button_Cancel_Click(object sender, EventArgs e)
         {
-            IsCancel = true;
+            m_IsCancel = true;
             // 閉じる
             Close();
         }
