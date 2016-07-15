@@ -13,9 +13,9 @@ namespace MIDI2FTM
     /// </summary>----------------------------------------------------------------------------------------------------
     public class LoadMIDIFile
     {
-        public string FilePath;        // MIDIファイルのフルパス
-        public byte[] ByteStream;      // 開いたMIDIファイルのバイトストリームデータ
-        public bool IsOpen = false;    // ファイルを開いたか
+        public string m_FilePath;        // MIDIファイルのフルパス
+        public byte[] m_ByteStream;      // 開いたMIDIファイルのバイトストリームデータ
+        public bool m_IsOpen = false;    // ファイルを開いたか
         
         /// <summary>
         /// コンストラクタ♪ 
@@ -37,7 +37,7 @@ namespace MIDI2FTM
             if (ofd.ShowDialog() == DialogResult.OK)
             {
                 // ファイルパスを取得
-                FilePath = ofd.FileName;
+                m_FilePath = ofd.FileName;
                 openFile();
             }
         }
@@ -48,20 +48,20 @@ namespace MIDI2FTM
         private void openFile()
         {
             // ファイルを開く
-            FileStream fs = new FileStream(FilePath, FileMode.Open, FileAccess.Read);
+            FileStream fs = new FileStream(m_FilePath, FileMode.Open, FileAccess.Read);
             try
             {
                 // ファイルを読み込むバイト型配列を作成する
-                ByteStream = new byte[fs.Length];
+                m_ByteStream = new byte[fs.Length];
                 // ファイルの内容をすべて読み込む
-                fs.Read(ByteStream, 0, ByteStream.Length);
+                fs.Read(m_ByteStream, 0, m_ByteStream.Length);
 
-                Console.WriteLine("MIDIファイルを開きました : " + FilePath);
-                IsOpen = true;
+                Console.WriteLine("MIDIファイルを開きました : " + m_FilePath);
+                m_IsOpen = true;
             }
             catch (Exception)
             {
-                Console.WriteLine("MIDIファイルを開けませんでした : " + FilePath);
+                Console.WriteLine("MIDIファイルを開けませんでした : " + m_FilePath);
             }
             finally
             {
