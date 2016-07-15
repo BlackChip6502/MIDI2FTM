@@ -37,6 +37,20 @@ namespace MIDI2FTM
             m_BeforeVolume = 0xF;
             m_NoteVolume = 127;
             m_CCVolume = getStartCCVolume(BasicConfigState.StartMeasure);
+            
+            m_EffectCount = 0;
+            if (!ChannelConfigState.LeftAlignedEffect && ChannelConfigState.EnableEffectGxx)
+            {
+                m_EffectCount++;
+            }
+            if (!ChannelConfigState.LeftAlignedEffect && ChannelConfigState.EnableEffect4xx)
+            {
+                m_EffectCount++;
+            }
+            if (!ChannelConfigState.LeftAlignedEffect && ChannelConfigState.EnableEffectPxx)
+            {
+                m_EffectCount++;
+            }
         }
         
         /// <summary>
@@ -130,7 +144,7 @@ namespace MIDI2FTM
                     case 3:
                         break;
                     case 2:
-                        lvi.SubItems[m_OutputChannel].Text = lvi.SubItems[m_OutputChannel].Text.Substring(0, 16); 
+                        lvi.SubItems[m_OutputChannel].Text = lvi.SubItems[m_OutputChannel].Text.Substring(0, 16);
                         break;
                     default:
                         lvi.SubItems[m_OutputChannel].Text = lvi.SubItems[m_OutputChannel].Text.Substring(0, 12);
@@ -178,8 +192,16 @@ namespace MIDI2FTM
             // ボリュームの文字列を追加
             outputRowText += getVolume(noteOnEvent, ccVolumeEvent);
 
-            // エフェクトを追加
-            outputRowText += addEffects();
+            if (ChannelConfigState.LeftAlignedEffect)
+            {
+                // エフェクトを左詰めで追加
+                outputRowText += addLeftAlignedEffects();
+            }
+            else
+            {
+                // エフェクトを追加
+                outputRowText += addEffects();
+            }
             
             return outputRowText;
         }

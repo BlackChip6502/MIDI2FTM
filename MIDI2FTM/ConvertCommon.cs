@@ -29,8 +29,12 @@ namespace MIDI2FTM
         protected int m_EffectGxxTick;
         /// <summary>エフェクト4xxの値</summary>
         protected int m_Effect4xxValue;
+        /// <summary>直前の4xxの値</summary>
+        protected int m_Before4xxValue;
         /// <summary>エフェクトPxxの値</summary>
         protected int m_EffectPxxValue;
+        /// <summary>直前のPxxの値</summary>
+        protected int m_BeforePxxValue;
         /// <summary>エフェクトの数</summary>
         protected byte m_EffectCount;
 
@@ -42,27 +46,69 @@ namespace MIDI2FTM
         {
             // 戻り値の文字列
             string outputText = "";
+
+            // Gxx 連符
+            if (m_EffectGxxTick > 0 && ChannelConfigState.EnableEffectGxx)
+            {
+                outputText += " G" + m_EffectGxxTick.ToString("X2");
+            }
+            else if (m_EffectGxxTick == 0 && ChannelConfigState.EnableEffectGxx)
+            {
+                outputText += " ...";
+            }
+            // 4xx モジュレーション
+            setEffect4xxValue();
+            if (m_Effect4xxValue > 0 && ChannelConfigState.EnableEffect4xx)
+            {
+                outputText += " 4" + m_Effect4xxValue.ToString("X2");
+            }
+            else if (m_Effect4xxValue == 0 && ChannelConfigState.EnableEffect4xx)
+            {
+                outputText += " ...";
+            }
+            // Pxx ピッチベンド
+            setEffectPxxValue();
+            if (m_EffectPxxValue > 0 && ChannelConfigState.EnableEffectPxx)
+            {
+                outputText += " P" + m_EffectPxxValue.ToString("X2");
+            }
+            else if (m_EffectPxxValue == 0 && ChannelConfigState.EnableEffectPxx)
+            {
+                outputText += " ...";
+            }
+            
+            return outputText;
+        }
+
+        /// <summary>
+        /// エフェクトG,4,Pを左詰めで追加する
+        /// </summary>----------------------------------------------------------------------------------------------------
+        /// <returns>追加したエフェクト文字列を返す</returns>
+        protected string addLeftAlignedEffects()
+        {
+            // 戻り値の文字列
+            string outputText = "";
             // 追加するエフェクトの数をカウント
             byte tmpCount = 0;
 
             // Gxx 連符
             if (m_EffectGxxTick > 0 && ChannelConfigState.EnableEffectGxx)
             {
-                outputText += " G" + m_EffectGxxTick.ToString("00");
+                outputText += " G" + m_EffectGxxTick.ToString("X2");
                 tmpCount++;
             }
             // 4xx モジュレーション
             setEffect4xxValue();
             if (m_Effect4xxValue > 0 && ChannelConfigState.EnableEffect4xx)
             {
-                outputText += " 4" + m_Effect4xxValue.ToString("00");
+                outputText += " 4" + m_Effect4xxValue.ToString("X2");
                 tmpCount++;
             }
-            // Pxx ピッチベンド オミットするかも
+            // Pxx ピッチベンド
             setEffectPxxValue();
             if (m_EffectPxxValue > 0 && ChannelConfigState.EnableEffectPxx)
             {
-                outputText += " P" + m_EffectPxxValue.ToString("00");
+                outputText += " P" + m_EffectPxxValue.ToString("X2");
                 tmpCount++;
             }
             // エフェクトの数の更新チェック
@@ -106,8 +152,34 @@ namespace MIDI2FTM
             // CCモジュレーションを見つけていたら
             if (modulationData.EventID == 0xB0 && modulationData.Number == 1)
             {
-                // 計算して代入する予定
-                m_Effect4xxValue = 1;
+                // 計算できない変換だから適当にビブラートさせる
+                if (modulationData.Value > 96)
+                {
+                    m_Effect4xxValue = 0x64;
+                }
+                else if (modulationData.Value > 64)
+                {
+                    m_Effect4xxValue = 0x63;
+                }
+                else if (modulationData.Value > 32)
+                {
+                    m_Effect4xxValue = 0x62;
+                }
+                else if (modulationData.Value > 0)
+                {
+                    m_Effect4xxValue = 0x61;
+                }
+
+                // 直前の値と同じならエフェクトを適用しない
+                if (m_Before4xxValue == m_Effect4xxValue)
+                {
+                    m_Effect4xxValue = 0;
+                }
+                // 違うなら直前の値として記録する
+                else
+                {
+                    m_Before4xxValue = m_Effect4xxValue;
+                }
             }
         }
 
@@ -118,6 +190,7 @@ namespace MIDI2FTM
         {
             // 一旦初期化
             m_EffectPxxValue = 0;
+
             EventData pitchBendData = new EventData();
             // ピッチベンドを取得
             if (ChannelConfigState.EnableEffectPxx)
@@ -128,8 +201,22 @@ namespace MIDI2FTM
             // ピッチベンドを見つけていたら
             if (pitchBendData.EventID == 0xE0)
             {
-                // 計算して代入する予定
-                m_EffectPxxValue = 2;
+                // ピッチベンドの値を最小値0で整える
+                float pitchBendValue = pitchBendData.Value + 8192;
+
+                // 計算して代入 精度はゴミクソレベル
+                m_EffectPxxValue = (int)Math.Ceiling(pitchBendValue * (255f / 16383f));
+
+                // 直前の値と同じならエフェクトを適用しない
+                if (m_BeforePxxValue == m_EffectPxxValue)
+                {
+                    m_EffectPxxValue = 0;
+                }
+                // 違うなら直前の値として記録する
+                else
+                {
+                    m_BeforePxxValue = m_EffectPxxValue;
+                }
             }
         }
 

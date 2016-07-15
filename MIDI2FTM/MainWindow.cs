@@ -29,8 +29,10 @@ namespace MIDI2FTM
             //RadioButton_NoteOFFtoVolume.Checked = ChannelConfigState.NoteOFFtoVolume;
             //RadioButton_NoteOFFtoNoteCut.Checked = ChannelConfigState.NoteOFFtoNoteCut;
 
+            CheckBox_EnableEffectGxx.Checked = ChannelConfigState.EnableEffectGxx;
             CheckBox_EnableEffectPxx.Checked = ChannelConfigState.EnableEffectPxx;
             CheckBox_EnableEffect4xx.Checked = ChannelConfigState.EnableEffect4xx;
+            CheckBox_LeftAlignedEffect.Checked = ChannelConfigState.LeftAlignedEffect;
 
             CheckBox_EnableCCVolume.Checked = ChannelConfigState.EnableCCVolume;
             RadioButton_CCVolumeToVolume.Checked = ChannelConfigState.CCVolumeToVolume;
@@ -147,6 +149,13 @@ namespace MIDI2FTM
             ChannelConfigState.EnableEffect4xx = CheckBox_EnableEffect4xx.Checked;
         }
         /// <summary>
+        /// エフェクトを左詰めにする チェックボックスに変更があったとき 
+        /// </summary>----------------------------------------------------------------------------------------------------
+        private void CheckBox_LeftAlignedEffect_CheckedChanged(object sender, EventArgs e)
+        {
+            ChannelConfigState.LeftAlignedEffect = CheckBox_LeftAlignedEffect.Checked;
+        }
+        /// <summary>
         /// ノート以外のボリュームを有効 チェックボックスに変更があったとき 
         /// </summary>----------------------------------------------------------------------------------------------------
         private void CheckBox_EnableCCVolume_CheckedChanged(object sender, EventArgs e)
@@ -192,7 +201,6 @@ namespace MIDI2FTM
         {
             ChannelConfigState.LowNotePriority = RadioButton_LowNotePriority.Checked;
         }
-
         
         /// <summary>
         /// 同一Rowで先のノートを優先 ラジオボタンに変更があったとき 

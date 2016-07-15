@@ -14,11 +14,13 @@ namespace MIDI2FTM
         /// <summary>ノートオンのボリュームを有効</summary>
         public static bool EnableNoteVolume = false;
         /// <summary>連符をGxxで表現する</summary>
-        public static bool EnableEffectGxx = false;
+        public static bool EnableEffectGxx = true;
         /// <summary>PitchBendをPxxで表現する</summary>
         public static bool EnableEffectPxx = false;
         /// <summary>CCModulationを4xxで表現する</summary>
         public static bool EnableEffect4xx = false;
+        /// <summary>エフェクトを左詰めにする</summary>
+        public static bool LeftAlignedEffect = false;
         /// <summary>ノート以外のボリュームを有効</summary>
         public static bool EnableCCVolume = false;
         /// <summary>ノート以外のボリュームを有効 → CCVolumeを適用</summary>

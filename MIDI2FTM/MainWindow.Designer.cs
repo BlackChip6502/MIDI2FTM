@@ -82,6 +82,7 @@
             this.Button_Reset = new System.Windows.Forms.Button();
             this.TrackerChannelList = new System.Windows.Forms.ComboBox();
             this.Button_Convert = new System.Windows.Forms.Button();
+            this.CheckBox_LeftAlignedEffect = new System.Windows.Forms.CheckBox();
             this.menuBar.SuspendLayout();
             this.StatusStrip.SuspendLayout();
             this.チャンネル設定.SuspendLayout();
@@ -291,6 +292,7 @@
             // 
             // チャンネル設定
             // 
+            this.チャンネル設定.Controls.Add(this.CheckBox_LeftAlignedEffect);
             this.チャンネル設定.Controls.Add(this.CheckBox_EnableEffectGxx);
             this.チャンネル設定.Controls.Add(this.Label_音色番号);
             this.チャンネル設定.Controls.Add(this.NumericUpDown_InstrumentNum);
@@ -595,6 +597,17 @@
             this.Button_Convert.UseVisualStyleBackColor = true;
             this.Button_Convert.Click += new System.EventHandler(this.Button_Convert_Click);
             // 
+            // CheckBox_LeftAlignedEffect
+            // 
+            this.CheckBox_LeftAlignedEffect.AutoSize = true;
+            this.CheckBox_LeftAlignedEffect.Location = new System.Drawing.Point(6, 270);
+            this.CheckBox_LeftAlignedEffect.Name = "CheckBox_LeftAlignedEffect";
+            this.CheckBox_LeftAlignedEffect.Size = new System.Drawing.Size(181, 20);
+            this.CheckBox_LeftAlignedEffect.TabIndex = 23;
+            this.CheckBox_LeftAlignedEffect.Text = "エフェクトを左詰めにする";
+            this.CheckBox_LeftAlignedEffect.UseVisualStyleBackColor = true;
+            this.CheckBox_LeftAlignedEffect.CheckedChanged += new System.EventHandler(this.CheckBox_LeftAlignedEffect_CheckedChanged);
+            // 
             // MainWindow
             // 
             this.ClientSize = new System.Drawing.Size(1089, 915);
@@ -685,6 +698,7 @@
         private System.Windows.Forms.ToolStripStatusLabel ToolStripStatusLabel;
         private System.Windows.Forms.ToolStripProgressBar ToolStripProgressBar;
         private System.Windows.Forms.CheckBox CheckBox_EnableEffectGxx;
+        private System.Windows.Forms.CheckBox CheckBox_LeftAlignedEffect;
     }
 }
 
