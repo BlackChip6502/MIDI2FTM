@@ -15,10 +15,6 @@ namespace MIDI2FTM
     /// </summary>----------------------------------------------------------------------------------------------------
     public partial class BasicConfigWindow : Form
     {
-        /// <summary>
-        /// キャンセルボタンを押したか
-        /// </summary>
-        public bool m_IsCancel = false;
 
         /// <summary>
         /// コンストラクタ♪
@@ -59,10 +55,8 @@ namespace MIDI2FTM
             }
             Label_MaxTimeSignature.Text = "最大拍子 : " + BasicConfigState.MaxTimeSignatureNumer + "/" + BasicConfigState.MaxTimeSignatureDenom;
 
-            // 最大Rows更新
-            refreshMaxRows();
-            // 最小Tickの更新
-            refreshMinTick();
+            // 設定が正常かどうかチェックする
+            checkConfigNormality();
         }
 
         /// <summary>
@@ -117,10 +111,9 @@ namespace MIDI2FTM
         {
             // 最小音価
             BasicConfigState.MinNoteIndex = ComboBox_MinNote.SelectedIndex;
-            // 最大Rowsの更新
-            refreshMaxRows();
-            // 最小Tickの更新
-            refreshMinTick();   
+
+            // 設定が正常かどうかチェックする
+            checkConfigNormality();
         }
         /// <summary>
         /// 拡張音源 コンボボックスのインデックスが変わった
@@ -159,7 +152,7 @@ namespace MIDI2FTM
             BasicConfigState.Speed = (byte)NumericUpDown_Speed.Value;
         }
         /// <summary>
-        /// 最大Rows ナンバリックアップダウンの値が変わった
+        /// 1Frameの小節数 ナンバリックアップダウンの値が変わった
         /// </summary>----------------------------------------------------------------------------------------------------
         private void NumericUpDown_OneFrameMeasureCount_ValueChanged(object sender, EventArgs e)
         {
@@ -170,8 +163,8 @@ namespace MIDI2FTM
             }
             // 1Frameの小節数を保存
             BasicConfigState.OneFrameMeasureCount = (byte)NumericUpDown_OneFrameMeasureCount.Value;
-            // 最大Rowsの更新
-            refreshMaxRows();
+            // 設定が正常かどうかチェックする
+            checkConfigNormality();
         }
         /// <summary>
         /// 最初の小節番号 ナンバリックアップダウンの値が変わった
@@ -212,20 +205,11 @@ namespace MIDI2FTM
             // 閉じる
             Close();
         }
-        /// <summary>
-        /// キャンセルボタンを押した
-        /// </summary>----------------------------------------------------------------------------------------------------
-        private void Button_Cancel_Click(object sender, EventArgs e)
-        {
-            m_IsCancel = true;
-            // 閉じる
-            Close();
-        }
 
         /// <summary>
         /// 最大Rowsのラベルを更新、基本設定の最大Rowsの更新
         /// </summary>----------------------------------------------------------------------------------------------------
-        private void refreshMaxRows()
+        private bool refreshMaxRowsLabel()
         {
             // 最小音価 / 分母 （このキャストは必要だ）
             float rate = (float)BasicConfigState.MinNote / (float)BasicConfigState.MaxTimeSignatureDenom;
@@ -241,19 +225,19 @@ namespace MIDI2FTM
             {
                 // ラベルで警告する
                 Label_RowsWarning.Text = "最大Rowsが256を超えています";
-                Button_DoneConfig.Enabled = false;
+                return false;
             }
             else
             {
                 Label_RowsWarning.Text = null;
-                Button_DoneConfig.Enabled = true;
+                return true;
             }
         }
         
         /// <summary>
         /// 最小Tickのラベルを更新 
         /// </summary>----------------------------------------------------------------------------------------------------
-        private void refreshMinTick()
+        private bool refreshMinTickLabel()
         {
             Label_MinTick.Text = "最小Tick : " + BasicConfigState.TicksPerLine;
 
@@ -262,11 +246,51 @@ namespace MIDI2FTM
             {
                 // ラベルで警告する
                 Label_TickWarning.Text = "最小Tickに小数点が含まれています";
-                Button_DoneConfig.Enabled = false;
+                return false;
             }
             else
             {
                 Label_TickWarning.Text = null;
+                return true;
+            }
+        }
+
+        /// <summary>
+        /// 最小音価の警告ラベルを更新 
+        /// </summary>----------------------------------------------------------------------------------------------------
+        private bool refreshMinNoteLabel()
+        {
+            // 
+            if (BasicConfigState.MaxTimeSignatureDenom > BasicConfigState.MinNote)
+            {
+                // ラベルで警告する
+                Label_MinNoteWarning.Text = "最小音価が小さすぎます";
+                return false;
+            }
+            else
+            {
+                Label_MinNoteWarning.Text = null;
+                return true;
+            }
+        }
+
+        /// <summary>
+        /// 設定が正常かどうかチェックする
+        /// </summary>----------------------------------------------------------------------------------------------------
+        private void checkConfigNormality()
+        {
+            // 正常かどうか
+            bool b1 = refreshMaxRowsLabel();
+            bool b2 = refreshMinTickLabel();
+            bool b3 = refreshMinNoteLabel();
+
+            // いづれかがfalseなら
+            if (!b1 || !b2 || !b3)
+            {
+                Button_DoneConfig.Enabled = false;
+            }
+            else
+            {
                 Button_DoneConfig.Enabled = true;
             }
         }

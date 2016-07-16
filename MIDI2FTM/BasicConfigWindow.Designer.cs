@@ -43,13 +43,13 @@
             this.Label_RowsWarning = new System.Windows.Forms.Label();
             this.Label_MinTick = new System.Windows.Forms.Label();
             this.Label_TickWarning = new System.Windows.Forms.Label();
-            this.Button_Cancel = new System.Windows.Forms.Button();
             this.NumericUpDown_StartMeasure = new System.Windows.Forms.NumericUpDown();
             this.Label_最初の小節 = new System.Windows.Forms.Label();
             this.GroupBox_拡張音源 = new System.Windows.Forms.GroupBox();
             this.NumericUpDown_ChannelCount = new System.Windows.Forms.NumericUpDown();
             this.Label_チャンネル数 = new System.Windows.Forms.Label();
             this.ComboBox_ExpansionSoundList = new System.Windows.Forms.ComboBox();
+            this.Label_MinNoteWarning = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.NumericUpDown_Speed)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.NumericUpDown_OneFrameMeasureCount)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.NumericUpDown_StartMeasure)).BeginInit();
@@ -184,7 +184,7 @@
             // 
             // Button_DoneConfig
             // 
-            this.Button_DoneConfig.Location = new System.Drawing.Point(180, 485);
+            this.Button_DoneConfig.Location = new System.Drawing.Point(216, 599);
             this.Button_DoneConfig.Name = "Button_DoneConfig";
             this.Button_DoneConfig.Size = new System.Drawing.Size(86, 24);
             this.Button_DoneConfig.TabIndex = 13;
@@ -224,16 +224,6 @@
             this.Label_TickWarning.Size = new System.Drawing.Size(30, 16);
             this.Label_TickWarning.TabIndex = 17;
             this.Label_TickWarning.Text = "null";
-            // 
-            // Button_Cancel
-            // 
-            this.Button_Cancel.Location = new System.Drawing.Point(64, 485);
-            this.Button_Cancel.Name = "Button_Cancel";
-            this.Button_Cancel.Size = new System.Drawing.Size(86, 24);
-            this.Button_Cancel.TabIndex = 18;
-            this.Button_Cancel.Text = "キャンセル";
-            this.Button_Cancel.UseVisualStyleBackColor = true;
-            this.Button_Cancel.Click += new System.EventHandler(this.Button_Cancel_Click);
             // 
             // NumericUpDown_StartMeasure
             // 
@@ -309,16 +299,28 @@
             this.ComboBox_ExpansionSoundList.TabIndex = 22;
             this.ComboBox_ExpansionSoundList.SelectedIndexChanged += new System.EventHandler(this.ComboBox_ExpansionSoundList_SelectedIndexChanged);
             // 
+            // Label_MinNoteWarning
+            // 
+            this.Label_MinNoteWarning.AutoSize = true;
+            this.Label_MinNoteWarning.Font = new System.Drawing.Font("MS UI Gothic", 8.861538F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
+            this.Label_MinNoteWarning.ForeColor = System.Drawing.Color.Red;
+            this.Label_MinNoteWarning.Location = new System.Drawing.Point(22, 487);
+            this.Label_MinNoteWarning.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.Label_MinNoteWarning.Name = "Label_MinNoteWarning";
+            this.Label_MinNoteWarning.Size = new System.Drawing.Size(30, 16);
+            this.Label_MinNoteWarning.TabIndex = 22;
+            this.Label_MinNoteWarning.Text = "null";
+            // 
             // BasicConfigWindow
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(433, 681);
+            this.ClientSize = new System.Drawing.Size(314, 635);
             this.ControlBox = false;
+            this.Controls.Add(this.Label_MinNoteWarning);
             this.Controls.Add(this.GroupBox_拡張音源);
             this.Controls.Add(this.NumericUpDown_StartMeasure);
             this.Controls.Add(this.Label_最初の小節);
-            this.Controls.Add(this.Button_Cancel);
             this.Controls.Add(this.Label_TickWarning);
             this.Controls.Add(this.Label_MinTick);
             this.Controls.Add(this.Label_RowsWarning);
@@ -363,12 +365,12 @@
         private System.Windows.Forms.Label Label_RowsWarning;
         private System.Windows.Forms.Label Label_MinTick;
         private System.Windows.Forms.Label Label_TickWarning;
-        private System.Windows.Forms.Button Button_Cancel;
         private System.Windows.Forms.NumericUpDown NumericUpDown_StartMeasure;
         private System.Windows.Forms.Label Label_最初の小節;
         private System.Windows.Forms.GroupBox GroupBox_拡張音源;
         private System.Windows.Forms.NumericUpDown NumericUpDown_ChannelCount;
         private System.Windows.Forms.Label Label_チャンネル数;
         private System.Windows.Forms.ComboBox ComboBox_ExpansionSoundList;
+        private System.Windows.Forms.Label Label_MinNoteWarning;
     }
 }

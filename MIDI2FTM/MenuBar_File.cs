@@ -15,30 +15,21 @@ namespace MIDI2FTM
     /// </summary>----------------------------------------------------------------------------------------------------
     public partial class MainWindow : Form
     {
-        private void ファイル_新規作成_Click(object sender, EventArgs e)
-        {
-
-        }
-        private void ファイル_開く_Click(object sender, EventArgs e)
-        {
-
-        }
-        private void ファイル_上書き保存_Click(object sender, EventArgs e)
-        {
-
-        }
+        /// <summary>
+        /// メニューバー"ファイル"のドロップダウンメニューの名前を付けて保存をクリックしたとき
+        /// </summary>----------------------------------------------------------------------------------------------------
         private void ファイル_名前を付けて保存_Click(object sender, EventArgs e)
         {
 
         }
 
         /// <summary>
-        /// メニューバー"ファイル"のドロップダウンメニューのMIDIインポートをクリックしたとき
+        /// メニューバー"ファイル"のドロップダウンメニューのMIDIを開くをクリックしたとき
         /// </summary>----------------------------------------------------------------------------------------------------
-        private void ファイル_MIDIインポート_Click(object sender, EventArgs e)
+        private void ファイル_MIDIを開く_Click(object sender, EventArgs e)
         {
-            // ダイアログを開いてファイルをロードする
-            LoadMIDIFile lmf = new LoadMIDIFile();
+        // ダイアログを開いてファイルをロードする
+        LoadMIDIFile lmf = new LoadMIDIFile();
             lmf.GetMIDIFile();
 
             // ファイルを開いたか
@@ -64,15 +55,7 @@ namespace MIDI2FTM
                     BasicConfigWindow bcw = new BasicConfigWindow();
                     bcw.ShowDialog(this);
                     bcw.Dispose();
-
-                    // キャンセルボタンを押したなら何もしない
-                    if (bcw.m_IsCancel)
-                    {
-                        // ステータスバーのテキスト更新
-                        ToolStripStatusLabel.Text = "キャンセルしました。";
-                        return;
-                    }
-
+                    
                     // コンボボックスにトラックを追加
                     TrackList.DataSource = SMFData.Name;
 
@@ -128,12 +111,7 @@ namespace MIDI2FTM
             // ステータスバーの中身を片づける
             cleanUpStatusBar();
         }
-
-        private void ファイル_FTMエクスポート_Click(object sender, EventArgs e)
-        {
-
-        }
-
+        
         /// <summary>
         /// メニューバー"ファイル"のドロップダウンメニューの終了をクリックしたとき
         /// </summary>----------------------------------------------------------------------------------------------------
@@ -141,6 +119,14 @@ namespace MIDI2FTM
         {
             // FormClosingイベントを発生させる
             Application.Exit();
+        }
+
+        /// <summary>
+        /// メニューバー"編集"のドロップダウンメニューの基本設定からやり直すをクリックしたとき
+        /// </summary>----------------------------------------------------------------------------------------------------
+        private void 編集_基本設定からやり直す_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

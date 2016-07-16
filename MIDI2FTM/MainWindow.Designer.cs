@@ -30,17 +30,13 @@
         {
             this.menuBar = new System.Windows.Forms.MenuStrip();
             this.menuBarファイル = new System.Windows.Forms.ToolStripMenuItem();
-            this.ファイル_新規作成 = new System.Windows.Forms.ToolStripMenuItem();
-            this.ファイル_開く = new System.Windows.Forms.ToolStripMenuItem();
-            this.ファイル_上書き保存 = new System.Windows.Forms.ToolStripMenuItem();
             this.ファイル_名前を付けて保存 = new System.Windows.Forms.ToolStripMenuItem();
             this.separatorA = new System.Windows.Forms.ToolStripSeparator();
             this.ファイル_MIDIインポート = new System.Windows.Forms.ToolStripMenuItem();
-            this.ファイル_FTMエクスポート = new System.Windows.Forms.ToolStripMenuItem();
-            this.separatorB = new System.Windows.Forms.ToolStripSeparator();
             this.ファイル_終了 = new System.Windows.Forms.ToolStripMenuItem();
+            this.separatorB = new System.Windows.Forms.ToolStripSeparator();
             this.menuBar編集 = new System.Windows.Forms.ToolStripMenuItem();
-            this.menuBar表示 = new System.Windows.Forms.ToolStripMenuItem();
+            this.編集_基本設定からやり直 = new System.Windows.Forms.ToolStripMenuItem();
             this.menuBarヘルプ = new System.Windows.Forms.ToolStripMenuItem();
             this.StatusStrip = new System.Windows.Forms.StatusStrip();
             this.ToolStripStatusLabel = new System.Windows.Forms.ToolStripStatusLabel();
@@ -100,7 +96,6 @@
             this.menuBar.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.menuBarファイル,
             this.menuBar編集,
-            this.menuBar表示,
             this.menuBarヘルプ});
             this.menuBar.Location = new System.Drawing.Point(0, 0);
             this.menuBar.Name = "menuBar";
@@ -111,39 +106,14 @@
             // menuBarファイル
             // 
             this.menuBarファイル.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.ファイル_新規作成,
-            this.ファイル_開く,
-            this.ファイル_上書き保存,
             this.ファイル_名前を付けて保存,
             this.separatorA,
             this.ファイル_MIDIインポート,
-            this.ファイル_FTMエクスポート,
-            this.separatorB,
-            this.ファイル_終了});
+            this.ファイル_終了,
+            this.separatorB});
             this.menuBarファイル.Name = "menuBarファイル";
-            this.menuBarファイル.Size = new System.Drawing.Size(84, 25);
+            this.menuBarファイル.Size = new System.Drawing.Size(84, 26);
             this.menuBarファイル.Text = "ファイル(&F)";
-            // 
-            // ファイル_新規作成
-            // 
-            this.ファイル_新規作成.Name = "ファイル_新規作成";
-            this.ファイル_新規作成.Size = new System.Drawing.Size(235, 28);
-            this.ファイル_新規作成.Text = "新規作成(&N)";
-            this.ファイル_新規作成.Click += new System.EventHandler(this.ファイル_新規作成_Click);
-            // 
-            // ファイル_開く
-            // 
-            this.ファイル_開く.Name = "ファイル_開く";
-            this.ファイル_開く.Size = new System.Drawing.Size(235, 28);
-            this.ファイル_開く.Text = "開く(&O)...";
-            this.ファイル_開く.Click += new System.EventHandler(this.ファイル_開く_Click);
-            // 
-            // ファイル_上書き保存
-            // 
-            this.ファイル_上書き保存.Name = "ファイル_上書き保存";
-            this.ファイル_上書き保存.Size = new System.Drawing.Size(235, 28);
-            this.ファイル_上書き保存.Text = "上書き保存(&S)";
-            this.ファイル_上書き保存.Click += new System.EventHandler(this.ファイル_上書き保存_Click);
             // 
             // ファイル_名前を付けて保存
             // 
@@ -161,20 +131,8 @@
             // 
             this.ファイル_MIDIインポート.Name = "ファイル_MIDIインポート";
             this.ファイル_MIDIインポート.Size = new System.Drawing.Size(235, 28);
-            this.ファイル_MIDIインポート.Text = "MIDIインポート(&M)...";
-            this.ファイル_MIDIインポート.Click += new System.EventHandler(this.ファイル_MIDIインポート_Click);
-            // 
-            // ファイル_FTMエクスポート
-            // 
-            this.ファイル_FTMエクスポート.Name = "ファイル_FTMエクスポート";
-            this.ファイル_FTMエクスポート.Size = new System.Drawing.Size(235, 28);
-            this.ファイル_FTMエクスポート.Text = "FTMエクスポート(&F)";
-            this.ファイル_FTMエクスポート.Click += new System.EventHandler(this.ファイル_FTMエクスポート_Click);
-            // 
-            // separatorB
-            // 
-            this.separatorB.Name = "separatorB";
-            this.separatorB.Size = new System.Drawing.Size(232, 6);
+            this.ファイル_MIDIインポート.Text = "MIDIを開く(&M)...";
+            this.ファイル_MIDIインポート.Click += new System.EventHandler(this.ファイル_MIDIを開く_Click);
             // 
             // ファイル_終了
             // 
@@ -183,22 +141,30 @@
             this.ファイル_終了.Text = "終了(&X)";
             this.ファイル_終了.Click += new System.EventHandler(this.ファイル_終了_Click);
             // 
+            // separatorB
+            // 
+            this.separatorB.Name = "separatorB";
+            this.separatorB.Size = new System.Drawing.Size(232, 6);
+            // 
             // menuBar編集
             // 
+            this.menuBar編集.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.編集_基本設定からやり直});
             this.menuBar編集.Name = "menuBar編集";
-            this.menuBar編集.Size = new System.Drawing.Size(72, 25);
+            this.menuBar編集.Size = new System.Drawing.Size(72, 26);
             this.menuBar編集.Text = "編集(&E)";
             // 
-            // menuBar表示
+            // 編集_基本設定からやり直
             // 
-            this.menuBar表示.Name = "menuBar表示";
-            this.menuBar表示.Size = new System.Drawing.Size(74, 25);
-            this.menuBar表示.Text = "表示(&V)";
+            this.編集_基本設定からやり直.Name = "編集_基本設定からやり直";
+            this.編集_基本設定からやり直.Size = new System.Drawing.Size(251, 28);
+            this.編集_基本設定からやり直.Text = "基本設定からやり直す(&R)";
+            this.編集_基本設定からやり直.Click += new System.EventHandler(this.編集_基本設定からやり直す_Click);
             // 
             // menuBarヘルプ
             // 
             this.menuBarヘルプ.Name = "menuBarヘルプ";
-            this.menuBarヘルプ.Size = new System.Drawing.Size(81, 25);
+            this.menuBarヘルプ.Size = new System.Drawing.Size(81, 26);
             this.menuBarヘルプ.Text = "ヘルプ(&H)";
             // 
             // StatusStrip
@@ -645,17 +611,11 @@
         private System.Windows.Forms.MenuStrip menuBar;
 
         private System.Windows.Forms.ToolStripMenuItem menuBar編集;
-        private System.Windows.Forms.ToolStripMenuItem ファイル_新規作成;
-        private System.Windows.Forms.ToolStripMenuItem ファイル_開く;
-        private System.Windows.Forms.ToolStripMenuItem ファイル_上書き保存;
         private System.Windows.Forms.ToolStripMenuItem ファイル_名前を付けて保存;
         private System.Windows.Forms.ToolStripSeparator separatorA;
         private System.Windows.Forms.ToolStripMenuItem ファイル_MIDIインポート;
-        private System.Windows.Forms.ToolStripMenuItem ファイル_FTMエクスポート;
         private System.Windows.Forms.ToolStripSeparator separatorB;
         private System.Windows.Forms.ToolStripMenuItem ファイル_終了;
-
-        private System.Windows.Forms.ToolStripMenuItem menuBar表示;
         private System.Windows.Forms.ToolStripMenuItem menuBarヘルプ;
         private System.Windows.Forms.ToolStripMenuItem menuBarファイル;
         private System.Windows.Forms.StatusStrip StatusStrip;
@@ -699,6 +659,7 @@
         private System.Windows.Forms.ToolStripProgressBar ToolStripProgressBar;
         private System.Windows.Forms.CheckBox CheckBox_EnableEffectGxx;
         private System.Windows.Forms.CheckBox CheckBox_LeftAlignedEffect;
+        private System.Windows.Forms.ToolStripMenuItem 編集_基本設定からやり直;
     }
 }
 
