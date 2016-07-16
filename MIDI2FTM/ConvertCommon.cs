@@ -272,9 +272,8 @@ namespace MIDI2FTM
                 // コントロールチェンジを取得
                 return getCurrentRangeControlChange(11);
             }
-
-            EventData emptyData = new EventData();
-            return emptyData;
+            
+            return new EventData();
         }
 
         /// <summary>
@@ -361,8 +360,8 @@ namespace MIDI2FTM
                     break;
                 }
             }
-            EventData emptyData = new EventData();
-            return emptyData;
+            
+            return new EventData();
         }
 
         /// <summary>
@@ -405,8 +404,8 @@ namespace MIDI2FTM
                     break;
                 }
             }
-            EventData emptyData = new EventData();
-            return emptyData;
+            
+            return new EventData();
         }
 
         /// <summary>
@@ -419,7 +418,15 @@ namespace MIDI2FTM
             // ノートオンがある場合
             if (_noteOnEvent.EventID == 0x90)
             {
-                return NoteNumber.NumberToNoteName(_noteOnEvent.Number) + " " + ChannelConfigState.InstrumentNum.ToString("X2");
+                // ノイズチャンネルならば
+                if (m_OutputChannel == 4)
+                {
+                    return NoteNumber.NumberToNoiseName(_noteOnEvent.Number) + " " + ChannelConfigState.InstrumentNum.ToString("X2");
+                }
+                else
+                {
+                    return NoteNumber.NumberToNoteName(_noteOnEvent.Number) + " " + ChannelConfigState.InstrumentNum.ToString("X2");
+                }
             }
             // ノートオンがない場合
             else
@@ -496,8 +503,8 @@ namespace MIDI2FTM
                     break;
                 }
             }
-            EventData emptyData = new EventData();
-            return emptyData;
+
+            return new EventData();
         }
 
         /// <summary>
@@ -541,8 +548,8 @@ namespace MIDI2FTM
                     break;
                 }
             }
-            EventData emptyData = new EventData();
-            return emptyData;
+            
+            return new EventData();
         }
 
         /// <summary>

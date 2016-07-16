@@ -32,6 +32,13 @@ namespace MIDI2FTM
                 // データなしの状態にする
                 lvi.SubItems[_ChannelNum].Text = "... .. . ...";
             }
+
+            // カラムヘッダの自動調整
+            foreach (ColumnHeader ch in _trackerList.Columns)
+            {
+                ch.Width = -2;
+            }
+
             // 再描画
             _trackerList.EndUpdate();
         }
