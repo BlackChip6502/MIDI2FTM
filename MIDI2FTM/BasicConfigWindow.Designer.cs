@@ -186,9 +186,9 @@
             // 
             // Button_DoneConfig
             // 
-            this.Button_DoneConfig.Location = new System.Drawing.Point(216, 599);
+            this.Button_DoneConfig.Location = new System.Drawing.Point(200, 571);
             this.Button_DoneConfig.Name = "Button_DoneConfig";
-            this.Button_DoneConfig.Size = new System.Drawing.Size(86, 24);
+            this.Button_DoneConfig.Size = new System.Drawing.Size(86, 23);
             this.Button_DoneConfig.TabIndex = 13;
             this.Button_DoneConfig.Text = "決定";
             this.Button_DoneConfig.UseVisualStyleBackColor = true;
@@ -199,7 +199,7 @@
             this.Label_RowsWarning.AutoSize = true;
             this.Label_RowsWarning.Font = new System.Drawing.Font("MS UI Gothic", 8.861538F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
             this.Label_RowsWarning.ForeColor = System.Drawing.Color.Red;
-            this.Label_RowsWarning.Location = new System.Drawing.Point(124, 548);
+            this.Label_RowsWarning.Location = new System.Drawing.Point(22, 490);
             this.Label_RowsWarning.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.Label_RowsWarning.Name = "Label_RowsWarning";
             this.Label_RowsWarning.Size = new System.Drawing.Size(30, 16);
@@ -220,7 +220,7 @@
             this.Label_TickWarning.AutoSize = true;
             this.Label_TickWarning.Font = new System.Drawing.Font("MS UI Gothic", 8.861538F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
             this.Label_TickWarning.ForeColor = System.Drawing.Color.Red;
-            this.Label_TickWarning.Location = new System.Drawing.Point(124, 573);
+            this.Label_TickWarning.Location = new System.Drawing.Point(22, 520);
             this.Label_TickWarning.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.Label_TickWarning.Name = "Label_TickWarning";
             this.Label_TickWarning.Size = new System.Drawing.Size(30, 16);
@@ -306,7 +306,7 @@
             this.Label_MinNoteWarning.AutoSize = true;
             this.Label_MinNoteWarning.Font = new System.Drawing.Font("MS UI Gothic", 8.861538F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
             this.Label_MinNoteWarning.ForeColor = System.Drawing.Color.Red;
-            this.Label_MinNoteWarning.Location = new System.Drawing.Point(124, 599);
+            this.Label_MinNoteWarning.Location = new System.Drawing.Point(22, 550);
             this.Label_MinNoteWarning.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.Label_MinNoteWarning.Name = "Label_MinNoteWarning";
             this.Label_MinNoteWarning.Size = new System.Drawing.Size(30, 16);
@@ -316,7 +316,7 @@
             // Label_MinTempo
             // 
             this.Label_MinTempo.AutoSize = true;
-            this.Label_MinTempo.Location = new System.Drawing.Point(22, 429);
+            this.Label_MinTempo.Location = new System.Drawing.Point(22, 430);
             this.Label_MinTempo.Name = "Label_MinTempo";
             this.Label_MinTempo.Size = new System.Drawing.Size(120, 16);
             this.Label_MinTempo.TabIndex = 23;
@@ -325,7 +325,7 @@
             // Label_MaxTempo
             // 
             this.Label_MaxTempo.AutoSize = true;
-            this.Label_MaxTempo.Location = new System.Drawing.Point(22, 455);
+            this.Label_MaxTempo.Location = new System.Drawing.Point(22, 460);
             this.Label_MaxTempo.Name = "Label_MaxTempo";
             this.Label_MaxTempo.Size = new System.Drawing.Size(120, 16);
             this.Label_MaxTempo.TabIndex = 24;
@@ -335,7 +335,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(314, 635);
+            this.ClientSize = new System.Drawing.Size(298, 606);
             this.ControlBox = false;
             this.Controls.Add(this.Label_MaxTempo);
             this.Controls.Add(this.Label_MinTempo);

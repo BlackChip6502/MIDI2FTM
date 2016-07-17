@@ -99,7 +99,7 @@
             this.menuBarヘルプ});
             this.menuBar.Location = new System.Drawing.Point(0, 0);
             this.menuBar.Name = "menuBar";
-            this.menuBar.Size = new System.Drawing.Size(1089, 30);
+            this.menuBar.Size = new System.Drawing.Size(1374, 29);
             this.menuBar.TabIndex = 0;
             this.menuBar.Text = "menuStrip2";
             // 
@@ -176,7 +176,7 @@
             this.ToolStripProgressBar});
             this.StatusStrip.Location = new System.Drawing.Point(0, 892);
             this.StatusStrip.Name = "StatusStrip";
-            this.StatusStrip.Size = new System.Drawing.Size(1089, 23);
+            this.StatusStrip.Size = new System.Drawing.Size(1374, 23);
             this.StatusStrip.TabIndex = 4;
             this.StatusStrip.Text = "statusStrip1";
             // 
@@ -215,7 +215,7 @@
             this.TrackerList.Location = new System.Drawing.Point(303, 3);
             this.TrackerList.MultiSelect = false;
             this.TrackerList.Name = "TrackerList";
-            this.TrackerList.Size = new System.Drawing.Size(452, 856);
+            this.TrackerList.Size = new System.Drawing.Size(683, 857);
             this.TrackerList.TabIndex = 0;
             this.TrackerList.UseCompatibleStateImageBehavior = false;
             this.TrackerList.View = System.Windows.Forms.View.Details;
@@ -253,7 +253,7 @@
             this.TrackList.FormattingEnabled = true;
             this.TrackList.Location = new System.Drawing.Point(3, 3);
             this.TrackList.Name = "TrackList";
-            this.TrackList.Size = new System.Drawing.Size(325, 24);
+            this.TrackList.Size = new System.Drawing.Size(379, 24);
             this.TrackList.TabIndex = 1;
             this.TrackList.SelectedIndexChanged += new System.EventHandler(this.TrackList_SelectedIndexChanged);
             // 
@@ -484,7 +484,7 @@
             this.EventsList.Location = new System.Drawing.Point(3, 30);
             this.EventsList.MultiSelect = false;
             this.EventsList.Name = "EventsList";
-            this.EventsList.Size = new System.Drawing.Size(325, 829);
+            this.EventsList.Size = new System.Drawing.Size(379, 830);
             this.EventsList.TabIndex = 3;
             this.EventsList.UseCompatibleStateImageBehavior = false;
             this.EventsList.View = System.Windows.Forms.View.Details;
@@ -502,7 +502,7 @@
             // Event
             // 
             this.Event.Text = "Event";
-            this.Event.Width = 90;
+            this.Event.Width = 115;
             // 
             // Gate
             // 
@@ -512,22 +512,23 @@
             // Value
             // 
             this.Value.Text = "Value";
+            this.Value.Width = 85;
             // 
             // panel1
             // 
             this.panel1.Controls.Add(this.TrackList);
             this.panel1.Controls.Add(this.EventsList);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Left;
-            this.panel1.Location = new System.Drawing.Point(0, 30);
+            this.panel1.Location = new System.Drawing.Point(0, 29);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(328, 862);
+            this.panel1.Size = new System.Drawing.Size(382, 863);
             this.panel1.TabIndex = 5;
             // 
             // splitter1
             // 
-            this.splitter1.Location = new System.Drawing.Point(328, 30);
+            this.splitter1.Location = new System.Drawing.Point(382, 29);
             this.splitter1.Name = "splitter1";
-            this.splitter1.Size = new System.Drawing.Size(3, 862);
+            this.splitter1.Size = new System.Drawing.Size(3, 863);
             this.splitter1.TabIndex = 6;
             this.splitter1.TabStop = false;
             // 
@@ -539,9 +540,9 @@
             this.panel2.Controls.Add(this.チャンネル設定);
             this.panel2.Controls.Add(this.TrackerList);
             this.panel2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel2.Location = new System.Drawing.Point(331, 30);
+            this.panel2.Location = new System.Drawing.Point(385, 29);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(758, 862);
+            this.panel2.Size = new System.Drawing.Size(989, 863);
             this.panel2.TabIndex = 7;
             // 
             // Button_Reset
@@ -577,7 +578,7 @@
             // 
             // MainWindow
             // 
-            this.ClientSize = new System.Drawing.Size(1089, 915);
+            this.ClientSize = new System.Drawing.Size(1374, 915);
             this.Controls.Add(this.panel2);
             this.Controls.Add(this.splitter1);
             this.Controls.Add(this.panel1);
