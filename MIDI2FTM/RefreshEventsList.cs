@@ -89,7 +89,7 @@ namespace MIDI2FTM
                 {
                     data[2] = "Tempo";
                     data[3] = null;
-                    data[4] = e.Value.ToString();
+                    data[4] = e.Value.ToString("F3");
                 }
                 // 拍子
                 else if (e.EventID == 0xFF && e.Number == 88)

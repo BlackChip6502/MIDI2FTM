@@ -28,8 +28,8 @@ namespace MIDI2FTM
         /// </summary>----------------------------------------------------------------------------------------------------
         private void ファイル_MIDIを開く_Click(object sender, EventArgs e)
         {
-        // ダイアログを開いてファイルをロードする
-        LoadMIDIFile lmf = new LoadMIDIFile();
+            // ダイアログを開いてファイルをロードする
+            LoadMIDIFile lmf = new LoadMIDIFile();
             lmf.GetMIDIFile();
 
             // ファイルを開いたか
@@ -51,65 +51,25 @@ namespace MIDI2FTM
                     // ステータスバーのテキスト更新
                     ToolStripStatusLabel.Text = "MIDIファイルを解析しました。";
 
-                    // 基本設定ウィンドウをモーダルで開く
-                    BasicConfigWindow bcw = new BasicConfigWindow();
-                    bcw.ShowDialog(this);
-                    bcw.Dispose();
-                    
-                    // コンボボックスにトラックを追加
-                    TrackList.DataSource = SMFData.Name;
-
-                    // 最大小節番号を取得
-                    foreach (Tracks t in SMFData.Tracks)
-                    {
-                        // 最大小節番号の更新があれば
-                        if (BasicConfigState.MaxMeasure < t.Event[t.Event.Count - 2].Measure)
-                        {
-                            BasicConfigState.MaxMeasure = t.Event[t.Event.Count - 2].Measure;
-                        }
-                    }
-
-                    RefreshTrackerList rtl = new RefreshTrackerList();
-                    // トラッカーリストを初期化
-                    rtl.InitializeList(ref TrackerList);
-                    // 拡張音源列を追加
-                    rtl.AddExpansionSoundColumns(ref TrackerList);
-
-                    // コンボボックスにトラッカーのチャンネル名の配列を作る
-                    TrackerChannelList.Items.Clear();
-                    for (int i = 1; TrackerList.Columns.Count > i; i++)
-                    {
-                        TrackerChannelList.Items.Add(TrackerList.Columns[i].Text);
-                    }
-                    TrackerChannelList.SelectedIndex = 0;
-
-                    // ステータスバーを初期化
-                    initializeStatusBar("トラッカーを初期化しています。");
-
-                    // トラッカーのリストを初期化
-                    InitializationTrackerList itl = new InitializationTrackerList(ref TrackerList, ref ToolStripProgressBar);
-
-                    // ステータスバーの中身を片づける
-                    cleanUpStatusBar("トラッカーの初期化が完了しました。");
+                    // 基本設定を開始
+                    startBasicConfig();
 
                     // チャンネル設定の有効、無効
                     Button_Convert.Enabled = true;
                     Button_Reset.Enabled = true;
+                    編集_基本設定からやり直す.Enabled = true;
                 }
                 // SMF解析に失敗した
                 else
                 {
-                    ToolStripStatusLabel.Text = "MIDIファイルの解析に失敗しました。";
+                    cleanUpStatusBar("MIDIファイルの解析に失敗しました。");
                 }
             }
             // ファイルを開かなかった
             else
             {
-                ToolStripStatusLabel.Text = "ファイルを開きませんでした。";
+                cleanUpStatusBar("ファイルを開きませんでした。");
             }
-
-            // ステータスバーの中身を片づける
-            cleanUpStatusBar();
         }
         
         /// <summary>
@@ -126,7 +86,54 @@ namespace MIDI2FTM
         /// </summary>----------------------------------------------------------------------------------------------------
         private void 編集_基本設定からやり直す_Click(object sender, EventArgs e)
         {
+            startBasicConfig();
+        }
 
+        /// <summary>
+        /// 基本設定を開始する
+        /// </summary>----------------------------------------------------------------------------------------------------
+        private void startBasicConfig()
+        {
+            // 基本設定ウィンドウをモーダルで開く
+            BasicConfigWindow bcw = new BasicConfigWindow();
+            bcw.ShowDialog(this);
+            bcw.Dispose();
+
+            // コンボボックスにトラックを追加
+            TrackList.DataSource = SMFData.Name;
+
+            // 最大小節番号を取得
+            foreach (Tracks t in SMFData.Tracks)
+            {
+                // 最大小節番号の更新があれば
+                if (BasicConfigState.MaxMeasure < t.Event[t.Event.Count - 2].Measure)
+                {
+                    BasicConfigState.MaxMeasure = t.Event[t.Event.Count - 2].Measure;
+                }
+            }
+
+            RefreshTrackerList rtl = new RefreshTrackerList();
+            // トラッカーリストを初期化
+            rtl.InitializeList(ref TrackerList);
+            // 拡張音源列を追加
+            rtl.AddExpansionSoundColumns(ref TrackerList);
+
+            // コンボボックスにトラッカーのチャンネル名の配列を作る
+            TrackerChannelList.Items.Clear();
+            for (int i = 1; TrackerList.Columns.Count > i; i++)
+            {
+                TrackerChannelList.Items.Add(TrackerList.Columns[i].Text);
+            }
+            TrackerChannelList.SelectedIndex = 0;
+
+            // ステータスバーを初期化
+            initializeStatusBar("トラッカーを初期化しています。");
+
+            // トラッカーのリストを初期化
+            InitializationTrackerList itl = new InitializationTrackerList(ref TrackerList, ref ToolStripProgressBar);
+
+            // ステータスバーの中身を片づける
+            cleanUpStatusBar("トラッカーの初期化が完了しました。");
         }
     }
 }

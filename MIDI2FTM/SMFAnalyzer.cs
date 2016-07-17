@@ -469,7 +469,7 @@ namespace MIDI2FTM
                 case 0x51:
                     // 4byteの値を取り出して1byte捨てる
                     uint tmp = BitConverter.ToUInt32(reverseByteOrder(ref _byteStream, m_byteCounter, 4), 0) >> 8;
-                    float tempo = (60000000f / tmp);
+                    float tempo = (float)Math.Round(60000000f / tmp, 3);
                     
                     m_eventData.Value = tempo;       // テンポ
                     m_consoleWrite += "Tempo = " + tempo;

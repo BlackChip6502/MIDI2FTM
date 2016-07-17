@@ -36,7 +36,7 @@
             this.ファイル_終了 = new System.Windows.Forms.ToolStripMenuItem();
             this.separatorB = new System.Windows.Forms.ToolStripSeparator();
             this.menuBar編集 = new System.Windows.Forms.ToolStripMenuItem();
-            this.編集_基本設定からやり直 = new System.Windows.Forms.ToolStripMenuItem();
+            this.編集_基本設定からやり直す = new System.Windows.Forms.ToolStripMenuItem();
             this.menuBarヘルプ = new System.Windows.Forms.ToolStripMenuItem();
             this.StatusStrip = new System.Windows.Forms.StatusStrip();
             this.ToolStripStatusLabel = new System.Windows.Forms.ToolStripStatusLabel();
@@ -99,7 +99,7 @@
             this.menuBarヘルプ});
             this.menuBar.Location = new System.Drawing.Point(0, 0);
             this.menuBar.Name = "menuBar";
-            this.menuBar.Size = new System.Drawing.Size(1089, 29);
+            this.menuBar.Size = new System.Drawing.Size(1089, 30);
             this.menuBar.TabIndex = 0;
             this.menuBar.Text = "menuStrip2";
             // 
@@ -149,17 +149,18 @@
             // menuBar編集
             // 
             this.menuBar編集.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.編集_基本設定からやり直});
+            this.編集_基本設定からやり直す});
             this.menuBar編集.Name = "menuBar編集";
             this.menuBar編集.Size = new System.Drawing.Size(72, 26);
             this.menuBar編集.Text = "編集(&E)";
             // 
-            // 編集_基本設定からやり直
+            // 編集_基本設定からやり直す
             // 
-            this.編集_基本設定からやり直.Name = "編集_基本設定からやり直";
-            this.編集_基本設定からやり直.Size = new System.Drawing.Size(251, 28);
-            this.編集_基本設定からやり直.Text = "基本設定からやり直す(&R)";
-            this.編集_基本設定からやり直.Click += new System.EventHandler(this.編集_基本設定からやり直す_Click);
+            this.編集_基本設定からやり直す.Enabled = false;
+            this.編集_基本設定からやり直す.Name = "編集_基本設定からやり直す";
+            this.編集_基本設定からやり直す.Size = new System.Drawing.Size(251, 28);
+            this.編集_基本設定からやり直す.Text = "基本設定からやり直す(&R)";
+            this.編集_基本設定からやり直す.Click += new System.EventHandler(this.編集_基本設定からやり直す_Click);
             // 
             // menuBarヘルプ
             // 
@@ -214,7 +215,7 @@
             this.TrackerList.Location = new System.Drawing.Point(303, 3);
             this.TrackerList.MultiSelect = false;
             this.TrackerList.Name = "TrackerList";
-            this.TrackerList.Size = new System.Drawing.Size(452, 857);
+            this.TrackerList.Size = new System.Drawing.Size(452, 856);
             this.TrackerList.TabIndex = 0;
             this.TrackerList.UseCompatibleStateImageBehavior = false;
             this.TrackerList.View = System.Windows.Forms.View.Details;
@@ -483,7 +484,7 @@
             this.EventsList.Location = new System.Drawing.Point(3, 30);
             this.EventsList.MultiSelect = false;
             this.EventsList.Name = "EventsList";
-            this.EventsList.Size = new System.Drawing.Size(325, 830);
+            this.EventsList.Size = new System.Drawing.Size(325, 829);
             this.EventsList.TabIndex = 3;
             this.EventsList.UseCompatibleStateImageBehavior = false;
             this.EventsList.View = System.Windows.Forms.View.Details;
@@ -517,16 +518,16 @@
             this.panel1.Controls.Add(this.TrackList);
             this.panel1.Controls.Add(this.EventsList);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Left;
-            this.panel1.Location = new System.Drawing.Point(0, 29);
+            this.panel1.Location = new System.Drawing.Point(0, 30);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(328, 863);
+            this.panel1.Size = new System.Drawing.Size(328, 862);
             this.panel1.TabIndex = 5;
             // 
             // splitter1
             // 
-            this.splitter1.Location = new System.Drawing.Point(328, 29);
+            this.splitter1.Location = new System.Drawing.Point(328, 30);
             this.splitter1.Name = "splitter1";
-            this.splitter1.Size = new System.Drawing.Size(3, 863);
+            this.splitter1.Size = new System.Drawing.Size(3, 862);
             this.splitter1.TabIndex = 6;
             this.splitter1.TabStop = false;
             // 
@@ -538,9 +539,9 @@
             this.panel2.Controls.Add(this.チャンネル設定);
             this.panel2.Controls.Add(this.TrackerList);
             this.panel2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel2.Location = new System.Drawing.Point(331, 29);
+            this.panel2.Location = new System.Drawing.Point(331, 30);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(758, 863);
+            this.panel2.Size = new System.Drawing.Size(758, 862);
             this.panel2.TabIndex = 7;
             // 
             // Button_Reset
@@ -659,7 +660,7 @@
         private System.Windows.Forms.ToolStripProgressBar ToolStripProgressBar;
         private System.Windows.Forms.CheckBox CheckBox_EnableEffectGxx;
         private System.Windows.Forms.CheckBox CheckBox_LeftAlignedEffect;
-        private System.Windows.Forms.ToolStripMenuItem 編集_基本設定からやり直;
+        private System.Windows.Forms.ToolStripMenuItem 編集_基本設定からやり直す;
     }
 }
 
