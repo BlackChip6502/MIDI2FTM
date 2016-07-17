@@ -50,6 +50,8 @@
             this.Label_チャンネル数 = new System.Windows.Forms.Label();
             this.ComboBox_ExpansionSoundList = new System.Windows.Forms.ComboBox();
             this.Label_MinNoteWarning = new System.Windows.Forms.Label();
+            this.Label_MinTempo = new System.Windows.Forms.Label();
+            this.Label_MaxTempo = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.NumericUpDown_Speed)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.NumericUpDown_OneFrameMeasureCount)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.NumericUpDown_StartMeasure)).BeginInit();
@@ -197,7 +199,7 @@
             this.Label_RowsWarning.AutoSize = true;
             this.Label_RowsWarning.Font = new System.Drawing.Font("MS UI Gothic", 8.861538F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
             this.Label_RowsWarning.ForeColor = System.Drawing.Color.Red;
-            this.Label_RowsWarning.Location = new System.Drawing.Point(22, 436);
+            this.Label_RowsWarning.Location = new System.Drawing.Point(124, 548);
             this.Label_RowsWarning.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.Label_RowsWarning.Name = "Label_RowsWarning";
             this.Label_RowsWarning.Size = new System.Drawing.Size(30, 16);
@@ -218,7 +220,7 @@
             this.Label_TickWarning.AutoSize = true;
             this.Label_TickWarning.Font = new System.Drawing.Font("MS UI Gothic", 8.861538F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
             this.Label_TickWarning.ForeColor = System.Drawing.Color.Red;
-            this.Label_TickWarning.Location = new System.Drawing.Point(22, 461);
+            this.Label_TickWarning.Location = new System.Drawing.Point(124, 573);
             this.Label_TickWarning.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.Label_TickWarning.Name = "Label_TickWarning";
             this.Label_TickWarning.Size = new System.Drawing.Size(30, 16);
@@ -304,12 +306,30 @@
             this.Label_MinNoteWarning.AutoSize = true;
             this.Label_MinNoteWarning.Font = new System.Drawing.Font("MS UI Gothic", 8.861538F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
             this.Label_MinNoteWarning.ForeColor = System.Drawing.Color.Red;
-            this.Label_MinNoteWarning.Location = new System.Drawing.Point(22, 487);
+            this.Label_MinNoteWarning.Location = new System.Drawing.Point(124, 599);
             this.Label_MinNoteWarning.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.Label_MinNoteWarning.Name = "Label_MinNoteWarning";
             this.Label_MinNoteWarning.Size = new System.Drawing.Size(30, 16);
             this.Label_MinNoteWarning.TabIndex = 22;
             this.Label_MinNoteWarning.Text = "null";
+            // 
+            // Label_MinTempo
+            // 
+            this.Label_MinTempo.AutoSize = true;
+            this.Label_MinTempo.Location = new System.Drawing.Point(22, 429);
+            this.Label_MinTempo.Name = "Label_MinTempo";
+            this.Label_MinTempo.Size = new System.Drawing.Size(120, 16);
+            this.Label_MinTempo.TabIndex = 23;
+            this.Label_MinTempo.Text = "最小Tempo : null";
+            // 
+            // Label_MaxTempo
+            // 
+            this.Label_MaxTempo.AutoSize = true;
+            this.Label_MaxTempo.Location = new System.Drawing.Point(22, 455);
+            this.Label_MaxTempo.Name = "Label_MaxTempo";
+            this.Label_MaxTempo.Size = new System.Drawing.Size(120, 16);
+            this.Label_MaxTempo.TabIndex = 24;
+            this.Label_MaxTempo.Text = "最大Tempo : null";
             // 
             // BasicConfigWindow
             // 
@@ -317,6 +337,8 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(314, 635);
             this.ControlBox = false;
+            this.Controls.Add(this.Label_MaxTempo);
+            this.Controls.Add(this.Label_MinTempo);
             this.Controls.Add(this.Label_MinNoteWarning);
             this.Controls.Add(this.GroupBox_拡張音源);
             this.Controls.Add(this.NumericUpDown_StartMeasure);
@@ -372,5 +394,7 @@
         private System.Windows.Forms.Label Label_チャンネル数;
         private System.Windows.Forms.ComboBox ComboBox_ExpansionSoundList;
         private System.Windows.Forms.Label Label_MinNoteWarning;
+        private System.Windows.Forms.Label Label_MinTempo;
+        private System.Windows.Forms.Label Label_MaxTempo;
     }
 }

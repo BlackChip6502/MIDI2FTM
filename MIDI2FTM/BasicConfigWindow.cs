@@ -57,6 +57,9 @@ namespace MIDI2FTM
 
             // 設定が正常かどうかチェックする
             checkConfigNormality();
+
+            // 最小最大テンポのラベルを更新
+            refreshTempoRangeLabel();
         }
 
         /// <summary>
@@ -114,6 +117,9 @@ namespace MIDI2FTM
 
             // 設定が正常かどうかチェックする
             checkConfigNormality();
+
+            // 最小最大テンポのラベルを更新
+            refreshTempoRangeLabel();
         }
         /// <summary>
         /// 拡張音源 コンボボックスのインデックスが変わった
@@ -150,6 +156,9 @@ namespace MIDI2FTM
             }
             // Speedの値を保存
             BasicConfigState.Speed = (byte)NumericUpDown_Speed.Value;
+
+            // 最小最大テンポのラベルを更新
+            refreshTempoRangeLabel();
         }
         /// <summary>
         /// 1Frameの小節数 ナンバリックアップダウンの値が変わった
@@ -163,6 +172,7 @@ namespace MIDI2FTM
             }
             // 1Frameの小節数を保存
             BasicConfigState.OneFrameMeasureCount = (byte)NumericUpDown_OneFrameMeasureCount.Value;
+
             // 設定が正常かどうかチェックする
             checkConfigNormality();
         }
@@ -293,6 +303,15 @@ namespace MIDI2FTM
             {
                 Button_DoneConfig.Enabled = true;
             }
+        }
+
+        /// <summary>
+        /// 最小テンポ、最大テンポのラベルを更新する
+        /// </summary>----------------------------------------------------------------------------------------------------
+        private void refreshTempoRangeLabel()
+        {
+            Label_MinTempo.Text = "最小Tempo : " + Math.Round(((6f / BasicConfigState.Speed) * 32f) * 16f / BasicConfigState.MinNote, 2).ToString("F2");
+            Label_MaxTempo.Text = "最大Tempo : " + Math.Round(((6f / BasicConfigState.Speed) * 255f) * 16f / BasicConfigState.MinNote, 2).ToString("F2");
         }
     }
 }
