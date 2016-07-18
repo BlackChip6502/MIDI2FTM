@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -257,6 +258,63 @@ namespace MIDI2FTM
             ToolStripProgressBar.Visible = false;
             ToolStripProgressBar.Value = 0;
             ToolStripStatusLabel.Text = "";
+        }
+
+        /// <summary>
+        /// 保存ボタンをクリックしたとき
+        /// </summary>----------------------------------------------------------------------------------------------------
+        private void Button_Save_Click(object sender, EventArgs e)
+        {
+            // チャンネル名の配列をコピー
+            string[] channelList = new string[TrackerChannelList.Items.Count];
+            for(int i = 0; i < TrackerChannelList.Items.Count; i++)
+            {
+                channelList[i] = TrackerChannelList.Items[i].ToString();
+            }
+
+            // トラッカーリストの配列をコピー
+            string[,] trackerList = new string[TrackerList.Items.Count - 1, TrackerList.Columns.Count];
+            for (int i = 0; i < TrackerList.Items.Count - 1; i++)
+            {
+                for (int j = 0; j < TrackerList.Columns.Count; j++)
+                {
+                    trackerList[i, j] = TrackerList.Items[i].SubItems[j].Text;
+                }
+            }
+
+            // 各チャンネルの使用エフェクト数を取得
+            byte[] channeEffectCount = new byte[TrackerList.Columns.Count - 1];
+            for (int i = 0; i < TrackerList.Columns.Count - 1; i++)
+            {
+                StringInfo si = new StringInfo(TrackerList.Items[1].SubItems[i + 1].Text);
+                channeEffectCount[i] = (byte)((si.LengthInTextElements - 8) / 4);
+            }
+
+            // EffectDxxを追加する ウィンドウをモーダルで開く
+            AddEffectDxxWindow aedw = new AddEffectDxxWindow(ref channelList, ref channeEffectCount);
+            aedw.ShowDialog(this);
+            aedw.Dispose();
+
+            // Dxxを追加する 255は対象外扱い
+            if (ChannelConfigState.OutPutEffectDxxChannel != 255)
+            {
+                // チャンネルの使用エフェクト数を増やす
+                channeEffectCount[ChannelConfigState.OutPutEffectDxxChannel]++;
+                // Dxx追加処理 todo ConvertCommonを継承したクラスをつくろうか
+            }
+
+            // EffectFxxを追加する ウィンドウをモーダルで開く
+            AddEffectFxxWindow aefw = new AddEffectFxxWindow(ref channelList, ref channeEffectCount);
+            aefw.ShowDialog(this);
+            aefw.Dispose();
+
+            // Fxxを追加する 255は対象外扱い
+            if (ChannelConfigState.OutPutEffectFxxChannel != 255)
+            {
+                // Fxx追加処理 todo
+            }
+
+            // 名前を付けて保存 todo テキストで。
         }
     }
 }

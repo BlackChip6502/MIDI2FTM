@@ -186,7 +186,9 @@
             // 
             // Button_DoneConfig
             // 
-            this.Button_DoneConfig.Location = new System.Drawing.Point(200, 571);
+            this.Button_DoneConfig.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.Button_DoneConfig.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.Button_DoneConfig.Location = new System.Drawing.Point(200, 584);
             this.Button_DoneConfig.Name = "Button_DoneConfig";
             this.Button_DoneConfig.Size = new System.Drawing.Size(86, 23);
             this.Button_DoneConfig.TabIndex = 13;
@@ -335,8 +337,9 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(298, 606);
+            this.ClientSize = new System.Drawing.Size(298, 619);
             this.ControlBox = false;
+            this.Controls.Add(this.Button_DoneConfig);
             this.Controls.Add(this.Label_MaxTempo);
             this.Controls.Add(this.Label_MinTempo);
             this.Controls.Add(this.Label_MinNoteWarning);
@@ -346,7 +349,6 @@
             this.Controls.Add(this.Label_TickWarning);
             this.Controls.Add(this.Label_MinTick);
             this.Controls.Add(this.Label_RowsWarning);
-            this.Controls.Add(this.Button_DoneConfig);
             this.Controls.Add(this.Label_MaxRows);
             this.Controls.Add(this.Label_MaxTimeSignature);
             this.Controls.Add(this.CheckBox_UnusedChannelOrderZeroFill);

@@ -37,5 +37,9 @@ namespace MIDI2FTM
         public static bool BehindNotePriority = false;
         /// <summary>音色番号</summary>
         public static byte InstrumentNum = 0;
+        /// <summary>Dxxを出力するチャンネル</summary>
+        public static byte OutPutEffectDxxChannel = 255;
+        /// <summary>Fxxを出力するチャンネル</summary>
+        public static byte OutPutEffectFxxChannel = 255;
     }
 }

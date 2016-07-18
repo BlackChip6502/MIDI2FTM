@@ -79,6 +79,7 @@
             this.Button_Reset = new System.Windows.Forms.Button();
             this.TrackerChannelList = new System.Windows.Forms.ComboBox();
             this.Button_Convert = new System.Windows.Forms.Button();
+            this.Button_Save = new System.Windows.Forms.Button();
             this.menuBar.SuspendLayout();
             this.StatusStrip.SuspendLayout();
             this.チャンネル設定.SuspendLayout();
@@ -112,7 +113,7 @@
             this.ファイル_終了,
             this.separatorB});
             this.menuBarファイル.Name = "menuBarファイル";
-            this.menuBarファイル.Size = new System.Drawing.Size(84, 26);
+            this.menuBarファイル.Size = new System.Drawing.Size(84, 25);
             this.menuBarファイル.Text = "ファイル(&F)";
             // 
             // ファイル_名前を付けて保存
@@ -151,7 +152,7 @@
             this.menuBar編集.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.編集_基本設定からやり直す});
             this.menuBar編集.Name = "menuBar編集";
-            this.menuBar編集.Size = new System.Drawing.Size(72, 26);
+            this.menuBar編集.Size = new System.Drawing.Size(72, 25);
             this.menuBar編集.Text = "編集(&E)";
             // 
             // 編集_基本設定からやり直す
@@ -165,7 +166,7 @@
             // menuBarヘルプ
             // 
             this.menuBarヘルプ.Name = "menuBarヘルプ";
-            this.menuBarヘルプ.Size = new System.Drawing.Size(81, 26);
+            this.menuBarヘルプ.Size = new System.Drawing.Size(81, 25);
             this.menuBarヘルプ.Text = "ヘルプ(&H)";
             // 
             // StatusStrip
@@ -534,6 +535,7 @@
             // 
             // panel2
             // 
+            this.panel2.Controls.Add(this.Button_Save);
             this.panel2.Controls.Add(this.Button_Reset);
             this.panel2.Controls.Add(this.TrackerChannelList);
             this.panel2.Controls.Add(this.Button_Convert);
@@ -575,6 +577,17 @@
             this.Button_Convert.Text = "コンバート";
             this.Button_Convert.UseVisualStyleBackColor = true;
             this.Button_Convert.Click += new System.EventHandler(this.Button_Convert_Click);
+            // 
+            // Button_Save
+            // 
+            this.Button_Save.Enabled = false;
+            this.Button_Save.Location = new System.Drawing.Point(187, 634);
+            this.Button_Save.Name = "Button_Save";
+            this.Button_Save.Size = new System.Drawing.Size(103, 23);
+            this.Button_Save.TabIndex = 6;
+            this.Button_Save.Text = "保存";
+            this.Button_Save.UseVisualStyleBackColor = true;
+            this.Button_Save.Click += new System.EventHandler(this.Button_Save_Click);
             // 
             // MainWindow
             // 
@@ -662,6 +675,7 @@
         private System.Windows.Forms.CheckBox CheckBox_EnableEffectGxx;
         private System.Windows.Forms.CheckBox CheckBox_LeftAlignedEffect;
         private System.Windows.Forms.ToolStripMenuItem 編集_基本設定からやり直す;
+        private System.Windows.Forms.Button Button_Save;
     }
 }
 

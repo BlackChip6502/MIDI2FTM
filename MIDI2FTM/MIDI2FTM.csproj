@@ -46,6 +46,18 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AddEffectFxxWindow.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AddEffectFxxWindow.Designer.cs">
+      <DependentUpon>AddEffectFxxWindow.cs</DependentUpon>
+    </Compile>
+    <Compile Include="AddEffectDxxWindow.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AddEffectDxxWindow.Designer.cs">
+      <DependentUpon>AddEffectDxxWindow.cs</DependentUpon>
+    </Compile>
     <Compile Include="BasicConfigState.cs" />
     <Compile Include="BasicConfigWindow.cs">
       <SubType>Form</SubType>
@@ -77,6 +89,12 @@
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SMFData.cs" />
+    <EmbeddedResource Include="AddEffectFxxWindow.resx">
+      <DependentUpon>AddEffectFxxWindow.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="AddEffectDxxWindow.resx">
+      <DependentUpon>AddEffectDxxWindow.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="BasicConfigWindow.resx">
       <DependentUpon>BasicConfigWindow.cs</DependentUpon>
     </EmbeddedResource>

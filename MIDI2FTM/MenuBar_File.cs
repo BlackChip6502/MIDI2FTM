@@ -57,6 +57,7 @@ namespace MIDI2FTM
                     // チャンネル設定の有効、無効
                     Button_Convert.Enabled = true;
                     Button_Reset.Enabled = true;
+                    Button_Save.Enabled = true;
                     編集_基本設定からやり直す.Enabled = true;
                 }
                 // SMF解析に失敗した
