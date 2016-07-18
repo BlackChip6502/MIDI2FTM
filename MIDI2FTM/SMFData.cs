@@ -27,10 +27,10 @@ namespace MIDI2FTM
         /// </summary>
         public ushort Division;
     }
-    
+
     /// <summary>
     /// SMFのデータ
-    /// </summary>
+    /// </summary>----------------------------------------------------------------------------------------------------
     public static class SMFData
     {
         /// <summary>

@@ -160,6 +160,9 @@ namespace MIDI2FTM
 
             // 再描画
             _trackerList.EndUpdate();
+
+            // オーダーに連番を入れる
+            PatternOrderArray.serialNumbers(m_OutputChannel - 1);
         }
 
         /// <summary>

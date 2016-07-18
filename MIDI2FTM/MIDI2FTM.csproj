@@ -70,6 +70,7 @@
       <DependentUpon>MainWindow.cs</DependentUpon>
     </Compile>
     <Compile Include="NoteNumber.cs" />
+    <Compile Include="PatternOrderArray.cs" />
     <Compile Include="RefreshEventsList.cs" />
     <Compile Include="RefreshTrackerList.cs" />
     <Compile Include="SMFAnalyzer.cs" />
