@@ -13,33 +13,39 @@ namespace MIDI2FTM
     {
         /// <summary>オーダーの2次元配列</summary>
         public static int[,] Order;
+    }
 
+    /// <summary>
+    /// パターンオーダー配列を書き換える
+    /// </summary>
+    public class PatternOrderRewriting
+    {
         /// <summary>
         /// オーダーを初期化
         /// </summary>----------------------------------------------------------------------------------------------------
         /// <param name="_frameCount">フレーム数</param>
         /// <param name="_trackerChannelCount">チャンネル数</param>
-        public static void Initialize(int _frameCount, int _trackerChannelCount)
+        public void Initialize(int _frameCount, int _trackerChannelCount)
         {
-            Order = new int[_frameCount, _trackerChannelCount];
+            PatternOrderArray.Order = new int[_frameCount, _trackerChannelCount];
         }
 
         /// <summary>
         /// オーダーに引数のチャンネルの連番を入れる
         /// </summary>----------------------------------------------------------------------------------------------------
         /// <param name="_trackerChannelNum">トラッカーのチャンネル</param>
-        public static void serialNumbers(int _trackerChannelNum)
+        public void serialNumbers(int _trackerChannelNum)
         {
-            for (int i = 0; i < Order.GetLength(0); i++)
+            for (int i = 0; i < PatternOrderArray.Order.GetLength(0); i++)
             {
                 // PATTERN 00 を使わない場合
                 if (BasicConfigState.DisablePatternZero)
                 {
-                    Order[i, _trackerChannelNum] = i + 1;
+                    PatternOrderArray.Order[i, _trackerChannelNum] = i + 1;
                 }
                 else
                 {
-                    Order[i, _trackerChannelNum] = i;
+                    PatternOrderArray.Order[i, _trackerChannelNum] = i;
                 }
             }
         }
@@ -48,11 +54,11 @@ namespace MIDI2FTM
         /// チャンネルのオーダーをすべて0で埋める
         /// </summary>----------------------------------------------------------------------------------------------------
         /// <param name="_trackerChannelNum">トラッカーのチャンネル</param>
-        public static void resetChannnelNum(int _trackerChannelNum)
+        public void resetChannnelNum(int _trackerChannelNum)
         {
-            for (int i = 0; i < Order.GetLength(0); i++)
+            for (int i = 0; i < PatternOrderArray.Order.GetLength(0); i++)
             {
-                Order[i, _trackerChannelNum] = 0;
+                PatternOrderArray.Order[i, _trackerChannelNum] = 0;
             }
         }
     }

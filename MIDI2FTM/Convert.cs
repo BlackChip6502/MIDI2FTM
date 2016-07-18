@@ -162,7 +162,8 @@ namespace MIDI2FTM
             _trackerList.EndUpdate();
 
             // オーダーに連番を入れる
-            PatternOrderArray.serialNumbers(m_OutputChannel - 1);
+            PatternOrderRewriting por = new PatternOrderRewriting();
+            por.serialNumbers(m_OutputChannel - 1);
         }
 
         /// <summary>

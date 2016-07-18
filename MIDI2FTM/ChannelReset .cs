@@ -43,7 +43,8 @@ namespace MIDI2FTM
             _trackerList.EndUpdate();
 
             // このチャンネルのオーダーを0で埋める
-            PatternOrderArray.resetChannnelNum(_ChannelNum - 1);
+            PatternOrderRewriting por = new PatternOrderRewriting();
+            por.resetChannnelNum(_ChannelNum - 1);
         }
     }
 }

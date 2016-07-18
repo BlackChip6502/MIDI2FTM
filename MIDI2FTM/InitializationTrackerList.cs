@@ -123,7 +123,8 @@ namespace MIDI2FTM
             _trackerList.EndUpdate();
 
             // オーダー配列を確保
-            PatternOrderArray.Initialize(currentFrameNum - 1, _trackerList.Columns.Count - 1);
+            PatternOrderRewriting por = new PatternOrderRewriting();
+            por.Initialize(currentFrameNum - 1, _trackerList.Columns.Count - 1);
         }
     }
 }
