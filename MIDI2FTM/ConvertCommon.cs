@@ -409,6 +409,51 @@ namespace MIDI2FTM
         }
 
         /// <summary>
+        /// 現在の小節、現在Tickから次の音価未満のTickのメタイベントを探す
+        /// </summary>----------------------------------------------------------------------------------------------------
+        /// /// <param name="_number">メタイベントのイベントタイプ</param>
+        /// <returns>見つかったメタイベントのイベントデータ</returns>
+        protected EventData getCurrentRangeMetaEvents(byte _number)
+        {
+            List<EventData> me = new List<EventData>(10);
+
+            // 現在の小節数から次の小節の拍子の変化を探す
+            foreach (EventData e in SMFData.Tracks[m_InputTrackNum].Event)
+            {
+                // 目的のタイミングのイベントを探す
+                if (e.Measure == m_CurrentMeasure && e.Tick >= m_CurrentTick && e.Tick < (m_CurrentTick + BasicConfigState.TicksPerLine))
+                {
+                    // メタイベントの検索対象のコントロールナンバー
+                    if (e.EventID == 0xFF && e.Number == _number)
+                    {
+                        me.Add(e);
+                    }
+                }
+                // 次の小節に行ってしまったり、End Of Trackなら終わり
+                else if (e.Measure > m_CurrentMeasure || (e.EventID == 0xFF && e.Number == 0x2F))
+                {
+                    // 対象イベントが見つかっていたら
+                    if (me.Count > 0)
+                    {
+                        // 先のイベントを優先
+                        if (ChannelConfigState.LeadNotePriority)
+                        {
+                            return me[0];
+                        }
+                        // 後ろのイベントを優先
+                        else if (ChannelConfigState.BehindNotePriority)
+                        {
+                            return me[me.Count - 1];
+                        }
+                    }
+                    break;
+                }
+            }
+
+            return new EventData();
+        }
+
+        /// <summary>
         /// ノートオンと音色番号の文字列を取得する。ノートオンが無い場合は "... .." を返す
         /// </summary>
         /// <param name="_noteOnEvent">ノートオンイベント</param>

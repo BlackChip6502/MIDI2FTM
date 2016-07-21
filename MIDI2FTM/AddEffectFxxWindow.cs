@@ -66,6 +66,8 @@ namespace MIDI2FTM
         /// </summary>----------------------------------------------------------------------------------------------------
         private void Button_NotApply_Click(object sender, EventArgs e)
         {
+            // Fxxを出力するチャンネルを無効化
+            ChannelConfigState.OutPutEffectFxxChannel = 255;
             // 閉じる
             Close();
         }
