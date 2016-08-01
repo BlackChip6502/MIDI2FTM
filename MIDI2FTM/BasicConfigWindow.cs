@@ -310,8 +310,8 @@ namespace MIDI2FTM
         /// </summary>----------------------------------------------------------------------------------------------------
         private void refreshTempoRangeLabel()
         {
-            Label_MinTempo.Text = "最小Tempo : " + Math.Round(((6f / BasicConfigState.Speed) * 32f) * 16f / BasicConfigState.MinNote, 2).ToString("F2");
-            Label_MaxTempo.Text = "最大Tempo : " + Math.Round(((6f / BasicConfigState.Speed) * 255f) * 16f / BasicConfigState.MinNote, 2).ToString("F2");
+            Label_MinTempo.Text = "最小可能Tempo : " + Math.Round(((6f / BasicConfigState.Speed) * 32f) * 16f / BasicConfigState.MinNote, 2).ToString("F2");
+            Label_MaxTempo.Text = "最大可能Tempo : " + Math.Round(((6f / BasicConfigState.Speed) * 255f) * 16f / BasicConfigState.MinNote, 2).ToString("F2");
         }
     }
 }

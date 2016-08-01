@@ -127,18 +127,24 @@ namespace MIDI2FTM
         /// <returns>行のデータ文字列</returns>
         private string getRowData()
         {
-            // 行に書き出し用変数を用意
-            string outputRowText = null;
-
             // テンポチェンジを取得
             EventData tempoChange = getCurrentRangeMetaEvents(0x51);
 
             // テンポチェンジを取得していたら
             if (tempoChange.Number == 0x51)
             {
-                // 計算する todo
-
-                return " Fxx";
+                // テンポからエフェクトFで使用する値を計算する
+                float effectFxx = (float)Math.Round(tempoChange.Value / (16f / BasicConfigState.MinNote) / (6f / BasicConfigState.Speed));
+                // 0x20 0xFF の間に収まるようにする
+                if (effectFxx > 255)
+                {
+                    effectFxx = 255;
+                }
+                else if (effectFxx < 32)
+                {
+                    effectFxx = 32;
+                }
+                return " F"  + effectFxx.ToString("X2");
             }
 
             return " ...";
