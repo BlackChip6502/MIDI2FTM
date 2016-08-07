@@ -7,7 +7,7 @@ using System.Windows.Forms;
 
 namespace MIDI2FTM
 {
-    public class AddFinalizeDxxEffect : ConvertCommon
+    class AddEffectFxx : ConvertCommon
     {
         /// <summary>フレーム内の小節数</summary>
         private int m_frameInMeasure;
@@ -15,16 +15,16 @@ namespace MIDI2FTM
         private int m_oneMeasureTick;
         /// <summary>フレーム移行フラグ</summary>
         private bool m_nextFrame;
-        /// <summary>Dxxを追加したか</summary>
-        private bool m_addedDxxEffect;
+        /// <summary>Fxxを追加したか</summary>
+        private bool m_addedFxxEffect;
 
         /// <summary>
         /// コンストラクタ♪  コンバートするときは必ず引数を渡してください
         /// </summary>----------------------------------------------------------------------------------------------------
-        public AddFinalizeDxxEffect(ref int _outputChannel)
+        public AddEffectFxx(byte _outputChannel)
         {
             // ConvertCommonのメンバーに代入
-            m_OutputChannel = _outputChannel + 1;
+            m_OutputChannel = _outputChannel;
 
             // メンバー変数を初期化
             m_frameInMeasure = 1;
@@ -32,7 +32,6 @@ namespace MIDI2FTM
             m_CurrentTick = 0;
             m_oneMeasureTick = getMeasureLength(m_CurrentMeasure);
             m_nextFrame = false;
-            m_addedDxxEffect = false;
         }
 
         /// <summary>
@@ -85,15 +84,14 @@ namespace MIDI2FTM
                     continue;
                 }
 
-                // フレーム移行中
+                // フレーム移行中はなにもしない
                 if (m_nextFrame)
                 {
-                    _trackerList[i, m_OutputChannel] += " D00";
-                    m_addedDxxEffect = true;
                     continue;
                 }
 
-                _trackerList[i, m_OutputChannel] += " ...";
+                // 行に書き出し
+                _trackerList[i, m_OutputChannel] += getRowData();
 
                 // 次の音価へ
                 m_CurrentTick += (int)BasicConfigState.TicksPerLine;
@@ -112,7 +110,7 @@ namespace MIDI2FTM
                 }
 
                 // 余計なエフェクト列を削除する
-                if (!m_addedDxxEffect)
+                if (!m_addedFxxEffect)
                 {
                     _trackerList[i, m_OutputChannel] = _trackerList[i, m_OutputChannel].Substring(0, dataStringLength - 4);
                 }
@@ -121,6 +119,35 @@ namespace MIDI2FTM
             // オーダーに連番を入れる
             PatternOrderRewriting por = new PatternOrderRewriting();
             por.serialNumbers(m_OutputChannel - 1);
+        }
+
+        /// <summary>
+        /// 行のデータを文字列で取得する
+        /// </summary>----------------------------------------------------------------------------------------------------
+        /// <returns>行のデータ文字列</returns>
+        private string getRowData()
+        {
+            // テンポチェンジを取得
+            EventData tempoChange = getCurrentRangeMetaEvents(0x51);
+
+            // テンポチェンジを取得していたら
+            if (tempoChange.Number == 0x51)
+            {
+                // テンポからエフェクトFで使用する値を計算する
+                float effectFxx = (float)Math.Round(tempoChange.Value / (16f / BasicConfigState.MinNote) / (6f / BasicConfigState.Speed));
+                // 0x20 0xFF の間に収まるようにする
+                if (effectFxx > 255)
+                {
+                    effectFxx = 255;
+                }
+                else if (effectFxx < 32)
+                {
+                    effectFxx = 32;
+                }
+                return " F"  + effectFxx.ToString("X2");
+            }
+
+            return " ...";
         }
     }
 }

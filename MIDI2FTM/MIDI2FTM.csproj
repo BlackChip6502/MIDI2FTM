@@ -58,8 +58,8 @@
     <Compile Include="AddEffectDxxWindow.Designer.cs">
       <DependentUpon>AddEffectDxxWindow.cs</DependentUpon>
     </Compile>
-    <Compile Include="AddFinalizeDxxEffect.cs" />
-    <Compile Include="AddFinalizeFxxEffect.cs" />
+    <Compile Include="AddEffectDxx.cs" />
+    <Compile Include="AddEffectFxx.cs" />
     <Compile Include="BasicConfigState.cs" />
     <Compile Include="BasicConfigWindow.cs">
       <SubType>Form</SubType>

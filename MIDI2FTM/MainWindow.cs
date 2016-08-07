@@ -300,7 +300,11 @@ namespace MIDI2FTM
             {
                 // チャンネルの使用エフェクト数を増やす
                 channeEffectCount[ChannelConfigState.OutPutEffectDxxChannel]++;
-                // Dxx追加処理 todo ConvertCommonを継承したクラスをつくろうか
+
+                // Dxx追加処理 todo 動作未確認
+                AddEffectDxx aed = new AddEffectDxx(ChannelConfigState.OutPutEffectDxxChannel);
+                aed.StartConvert(ref trackerList, ref ToolStripProgressBar);
+
             }
 
             // EffectFxxを追加する ウィンドウをモーダルで開く
@@ -311,7 +315,9 @@ namespace MIDI2FTM
             // Fxxを追加する 255は対象外扱い
             if (ChannelConfigState.OutPutEffectFxxChannel != 255)
             {
-                // Fxx追加処理 todo
+                // Fxx追加処理 todo 動作未確認
+                AddEffectFxx aef = new AddEffectFxx(ChannelConfigState.OutPutEffectFxxChannel);
+                aef.StartConvert(ref trackerList, ref ToolStripProgressBar);
             }
 
             // ファイナライズ コロンつけたり ヘッダつけたり
